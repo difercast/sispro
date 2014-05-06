@@ -1,0 +1,303 @@
+<?php
+/** 
+*
+* Sistema de gestión de reparaciones de equipos informáticos de la empresa Sisprocompu
+* @version 1.0      @modificado: 15 de abril del 2014
+* @author Diego Castillo.
+*
+*/
+
+class OrdenController extends BaseController
+{
+	//Contructor de la clase
+	public function __construct()
+	{
+		$this -> beforeFilter('auth');
+		$this -> beforeFilter('authAny');
+	}
+
+	 /** 
+	 * Presenta el formulario de ingreso de una orden de trabajo
+	 *  @param 
+	 *  @return Response
+	 **/
+	public function getIndex()
+	{
+		//$tecnicos = User::where('rol','=','tecnico','sucursal_id','=',Auth::user()->sucursal_id)->get();
+		$tecnicos = User::whereNested(function($query)
+		{
+			$query->where('rol','=','tecnico');
+			$query->where('sucursal_id','=',Auth::user()->sucursal_id);
+		})->get();
+		$tecnico = array(0 => 'Seleccione...')+$tecnicos->lists('nombres','id');
+		$cliente = Cliente::all();
+		$select = array(0 => 'Seleccione...')+$cliente->lists('nombres','id');
+		return View::make('orden.ingresarOrden')->with(array('tecnicos'=>$tecnico,'clientes'=>$select));
+	}
+
+	/** 
+	 * Presenta un diálogo donde el usuario buscará una orden
+	 * por sú número de ingreso 
+	 * @param 
+	 * @return Response
+	 **/
+	public function getBuscar()
+	{
+		return View::make('orden.buscarOrden');
+	}
+
+	/** 
+	 * Presenta un diálogo donde el usuario buscará una orden
+	 * por el cliente que ingresó el equipo 
+	 * @param 
+	 * @return Response
+	 **/
+	public function getBuscarporcliente()
+	{				
+		$cliente = Cliente::all();
+		$select = array(0 => 'Seleccione...')+$cliente->lists('nombres','id');
+		return View::make('orden.buscarOrdenPorCliente')->with('cliente',$select);
+	}
+
+
+	/** 
+	 * Presentar datos de la orden de trabajo 
+	 * @param int numOrden
+	 * @return Response
+	 **/
+	public function anyPorcliente()
+	{
+		$cliente = Cliente::findOrFail(Input::get('cliente'));
+		$lista = $cliente->ordenes()->get();				
+		return View::make('orden.ordenesCliente')->with(array('orden'=>$lista,'cliente'=>$cliente));
+	}
+
+	/** 
+	 * Presentar datos de la orden de trabajo 
+	 * @param
+	 * @return Response
+	 **/
+	public function postMostrar()
+	{
+		$numOrden = Input::get('NumOrden');
+		$orden = Orden::findOrFail($numOrden);
+		$cliente = Cliente::find($orden->cliente_id);
+		$equipo = Equipo::find($orden->equipo_id);
+		$user = User::find($orden->user_id);
+		$tecnico = User::find($orden->tecnico);
+		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo));
+	}
+
+	 /** 
+	 * Ingresar una orden de trabajo al sistema
+	 *  @param 
+	 *  @return Response
+	 **/
+	public function postIngresar()
+	{
+		$reglas = array(
+			'tipo'=>'required',
+			'marca'=>'required',
+			'modelo'=>'required',
+			'serie'=>'required',
+			'nombres'=>'required',
+			'problema'=>'required',			
+			'user_id'=>'required',
+			'tecnico'=>'required',
+			'email'=>'email'			
+			);
+		$validador = Validator::make(Input::all(),$reglas);		
+		if($validador->passes() && self::verificarEquipo(Input::get('serie')))
+		{
+			if (self::validarCI(Input::get('cedula')) && self::validarTelefono(Input::get('telefono')) && self::validarCelular(Input::get('celular'))) 
+			{
+				$cliente = self::procesaCliente(Input::get('id_cliente'),Input::get('nombres'),Input::get('cedula'),
+				Input::get('direccion'),Input::get('telefono'),Input::get('celular'),Input::get('email'),Input::get('observaciones'));			
+				$equipo = self::procesaEquipo(Input::get('tipo'),Input::get('marca'),Input::get('modelo'),
+					Input::get('serie'),$cliente->id);
+				$orden = new Orden;							
+				$orden->user_id = Auth::user()->id;
+				$orden->cliente_id = $cliente->id;
+				$orden->equipo_id = $equipo->id;
+				$orden->problema = Input::get('problema');
+				$orden->accesorios = Input::get('accesorios');
+				$orden->tecnico = Input::get('tecnico');
+				//$orden->fechaPrometido = Input::get('fechaPrometido');
+				//$orden->horaPrometido = Input::get('horaPrometido');
+				$orden->sucursal_id = Auth::user()->sucursal_id;
+				$orden->save();
+				return Redirect::to('tecnico')->with('status','okCreado');
+			}
+			else
+			{
+				if(Auth::user()->rol == 'tecnico')
+				{
+					return Redirect::to('tecnico')->with('status','errorDatos');
+				}
+				elseif (Auth::user()->rol=='vendedor') 
+				{
+					return Redirect::to('vendedor')->with('status','errorDatos');	
+				}
+			}
+			
+		}
+		else
+		{
+			if(Auth::user()->rol == 'tecnico')
+			{
+				return Redirect::to('tecnico')->with('status','error');
+			}
+			elseif (Auth::user()->rol=='vendedor') 
+			{
+				return Redirect::to('vendedor')->with('status','error');	
+			}
+		}
+			
+	}
+
+	  /** 
+   * Ingresar un nuevo cliente
+   *  @param 
+   *  @return Response
+   **/
+  public static function procesaCliente($estado,$nombres,$cedula,$direccion,$telefono,$celular,$email,$observaciones)
+  {
+    
+    if($estado == '0')
+    {
+      $cliente = new Cliente;
+      $cliente -> nombres = $nombres;
+      $cliente -> cedula = $cedula;
+      $cliente -> direccion = $direccion;
+      $cliente -> telefono = $telefono;
+      $cliente -> celular = $celular;
+      $cliente -> email = $email;
+      $cliente -> observaciones = $observaciones;
+      $cliente -> save();
+    }
+    else
+    {
+      $cliente = Cliente::find($estado);
+      $cliente -> nombres = $nombres;
+      $cliente -> cedula = $cedula;
+      $cliente -> direccion = $direccion;
+      $cliente -> telefono = $telefono;
+      $cliente -> celular = $celular;
+      $cliente -> email = $email;
+      $cliente -> observaciones = $observaciones;
+      $cliente -> save();
+    }
+    return $cliente;
+
+  }
+
+  /** 
+   * Ingresar equipo al sistema
+   *  @param 
+   *  @return Response
+   **/
+  public static function procesaEquipo($tipo,$marca,$modelo,$serie, $cliente_id)
+  {
+    $equipo = Equipo::where('serie','=',$serie)->get();   
+    if(isset($equipo->id))
+    {
+      $equipo->tipo = $tipo;
+      $equipo->marca = $marca;
+      $equipo->modelo = $modelo;
+      $equipo->serie = $serie;
+      $equipo->cliente_id = $cliente_id;
+      $equipo->save();
+
+    }
+    else
+    { 
+      
+      $equipo = new Equipo;
+      $equipo->tipo = $tipo;
+      $equipo->marca = $marca;
+      $equipo->modelo = $modelo;
+      $equipo->serie = $serie;
+      $equipo->cliente_id = $cliente_id;
+      $equipo->save();
+    }
+
+    return $equipo;
+  }
+
+  /** 
+   * Verificar si un equipo ya está ingresado en la empresa a reparación
+   * y no lo han retirado 
+   * @param int serie
+   *  @return boolean
+   **/
+  public static function verificarEquipo($serie)
+  {
+    $equipos = Equipo::where('serie','=',$serie)->get();
+    $numEquipos = count($equipos);
+    if($numEquipos != 0)
+    {
+      foreach ($equipo as $equipos) {
+        $ordenes = $equipo->ordenes()->where('entregado','=','0')->get();
+        $numOrdenes = count($ordenes);
+        if ($numOrdenes != 0)
+        {
+          return true;
+          break;    
+        }
+        else
+        {
+          return false;
+          break;      
+      
+        } 
+      }
+    }
+    else return true;
+    
+  }
+
+  /** 
+   * Verificar si los datos insgresados del ciente con la orden
+   * de trabajo con correctos
+   * @param int cedula
+   *  @return boolean
+   **/
+  public static function validarCI($cedula)
+  {
+    $cliente = new Cliente;
+    if($cedula != "")
+    {
+      if($cliente->validarCI($cedula))
+      {
+        return true;
+      }else return false;
+    }else return true;
+  }
+
+  public static function validarTelefono($telefono)
+  {
+    $cliente = new Cliente;
+    if($telefono != "")
+    {
+      if($cliente->validarTelefono($telefono))
+      {
+        return true;
+      }else return false;
+    }else return true;
+  }
+
+  public static function validarCelular($celular)
+  {
+    $cliente = new Cliente;
+    if($celular != "")
+    {
+      if($cliente->validarCelular($celular))
+      {
+        return true;        
+      }else return false;
+    }else return true;
+  }
+
+	
+	
+}
