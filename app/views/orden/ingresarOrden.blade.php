@@ -5,8 +5,7 @@
 	if (Auth::user()->rol == "tecnico"):		
 		$accion = "tecnico";
 	else:		
-		$accion = "vendedor";
-		
+		$accion = "vendedor";		
 	endif;	
 ?>
 {{--Sección título--}}
@@ -23,7 +22,11 @@
 {{--Sección primario--}}
 @section('primario')
 	<h3 align="center">Ingresar una nueva orden de trabajo</h3>
-	{{Form::open(array('url'=>'ordenTrabajo/ingresar'))}}		
+	{{Form::open(array('url'=>'ordenTrabajo/ingresar'))}}
+		<div data-role="fieldcontain">
+			{{Form::label('usuario','Integrante que recepta el equipo:')}}
+			{{Form::text('usuario',Auth::user()->nombres,array('data-mini'=>'true','readonly'=>'true'))}}
+		</div>		
 		<div data-role="fieldcontain">
 			@if(isset($clientes))
 			{{Form::label('cliente','Seleccione un cliente:')}}
@@ -34,10 +37,10 @@
 			{{ Form::label('datosCliente','Información del cliente:')}}
 			<div id="datosCliente" data-role="controlgroup" data-type="horizontal" align="center" >
 				{{ Form::text('nombres','',array('placeholder'=>'Nombres','data-mini'=>'true','id'=>'nombres'))}}
-				{{ Form::text('cedula','',array('placeholder'=>'Cédula','data-mini'=>'true','id'=>'cedula'))}}
+				{{ Form::text('cedula','',array('placeholder'=>'Cédula','data-mini'=>'true','id'=>'cedula','maxlength'=>'10'))}}
 				{{ Form::textarea('direccion','',array('placeholder'=>'Dirección','id'=>'direccion'))}}
-				{{ Form::text('telefono','',array('placeholder'=>'Teléfono','data-mini'=>'true','id'=>'telefono'))}}
-				{{ Form::text('celular','',array('placeholder'=>'Celular','data-mini'=>'true','id'=>'celular'))}}
+				{{ Form::text('telefono','',array('placeholder'=>'Teléfono','data-mini'=>'true','id'=>'telefono','maxlength'=>'7'))}}
+				{{ Form::text('celular','',array('placeholder'=>'Celular','data-mini'=>'true','id'=>'celular','maxlength'=>'10'))}}
 				{{ Form::email('email','',array('placeholder'=>'Email','data-mini'=>'true','id'=>'email'))}}
 				{{ Form::textarea('observaciones','',array('placeholder'=>'Observaciones','id'=>'observaciones'))}}
 				{{ Form::hidden('id_cliente','0',array('id'=>'id_cliente'))}}
@@ -65,7 +68,7 @@
 			{{ Form::datetime('fechaPrometido',array('placeholder'=>'Fecha de prmometido','data-mini'=>'true'))}}
 			{{ Form::text('horaPrometido',array('placeholder'=>'Hora de prometido','data-mini'=>'true'))}}
 		</div>--}}
-		<div data-role= "controlgroup" data-type="horizontal" align="center">
+		<div data-role= "controlgroup" data-type="horizontal" align="center" data-mini="true">
 			{{ Form::submit('Ingresar')}}
 			{{ Form::button('Cancelar',array('url'=>'#'))}}
 		</div>		

@@ -69,6 +69,48 @@ div.ui-controlgroup-label {
 	background-color: #eeeeee; /* non-RGBA fallback  */
 	background-color: rgba(0,0,0,.04);
 }
+
+/* Listview
+-----------------------------------------------------------------------------------------------------------*/
+/* Basic settings */
+.ui-li-static.ui-collapsible {
+    padding: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview,
+.ui-li-static.ui-collapsible > .ui-collapsible-heading {
+    margin: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    border-bottom-width: 0;
+}
+/* collapse vertical borders */
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li.ui-last-child,
+.ui-li-static.ui-collapsible.ui-collapsible-collapsed > .ui-collapsible-heading > a.ui-btn {
+    border-bottom-width: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li.ui-first-child,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li.ui-first-child > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-heading > a.ui-btn {
+    border-top-width: 0;
+}
+/* Remove right borders */
+.ui-li-static.ui-collapsible > .ui-collapsible-heading > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > .ui-li-static,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content {
+    border-right-width: 0;
+}
+/* Remove left borders */
+/* Here, we need class ui-listview-outer to identify the outermost listview */
+.ui-listview-outer > .ui-li-static.ui-collapsible .ui-li-static.ui-collapsible.ui-collapsible,
+.ui-listview-outer > .ui-li-static.ui-collapsible > .ui-collapsible-heading > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content {
+    border-left-width: 0;
+}
+
 /* Buttons
 -----------------------------------------------------------------------------------------------------------*/
 .ui-btn,
@@ -268,6 +310,95 @@ html .ui-alt-icon .ui-radio-off:after {
 		width: 20%;
 	}	
 }
+
+.rwd-example .ui-body {
+    text-align: left;
+    border-color: #ddd;
+}
+.rwd-example p {
+    color: #777;
+    line-height: 140%
+}
+/* Stack all blocks to start */
+.rwd-example .ui-block-a,
+.rwd-example .ui-block-b,
+.rwd-example .ui-block-c {
+    width: 100%;
+    float: none;
+}
+/* Collapsing borders */
+.rwd-example > div + div .ui-body {
+    border-top-width: 0;
+}
+/* 1st breakpoint - Float B and C, leave A full width on top */
+@media all and (min-width: 42em) {
+    .rwd-example {
+        overflow: hidden; /* Use this or a "clearfix" to give the container height */
+    }
+    .rwd-example .ui-body {
+       min-height: 14em;
+    }
+    .rwd-example .ui-block-a{
+      float: left;
+      width: 45.95%;
+    }
+    .rwd-example .ui-block-b{
+      float: left;
+      width: 49.95%;
+    }
+    .rwd-example .ui-block-b p,
+    .rwd-example .ui-block-c p {
+      font-size: .8em;
+    }
+    .rwd-example > div + div .ui-body {
+        border-top-width: 1px;
+    }
+    .rwd-example > div:first-child .ui-body {
+        border-bottom-width: 0;
+    }
+    .rwd-example > div:last-child .ui-body {
+        border-left-width: 0;
+    }
+}
+/* 2nd breakpoint - Float all, 50/25/25 */
+@media all and (min-width: 55em) {
+    .rwd-example .ui-body {
+       min-height: 18em;
+    }
+    .rwd-example .ui-block-a{
+      float: left;
+      width: 45.95%;
+    }
+    .rwd-example .ui-block-b{
+      float: right;
+      width: 49.95%;
+    }
+    .rwd-example > div:first-child .ui-body {
+        border-bottom-width: 1px;
+    }
+    .rwd-example > div + div .ui-body {
+        border-left-width: 0;
+    }
+}
+/* 3rd breakpoint - Bump up font size at very wide screens */
+@media all and (min-width: 75em) {
+    .rwd-example .ui-body {
+      font-size: 125%;
+    }
+    .rwd-example .ui-block-a,
+    .rwd-example .ui-block-c {
+      float: left;
+      width: 45.95%;
+
+    }
+    .rwd-example .ui-block-b,
+    .rwd-example .ui-block-c {
+      float: right;
+      width: 49.95%;      
+    }
+}
+
+
 /* Swatches */
 /* A
 -----------------------------------------------------------------------------------------------------------*/

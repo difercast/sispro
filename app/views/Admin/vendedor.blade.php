@@ -13,7 +13,25 @@
 
 {{--Sección primario--}}
 @section('primario')
-	<h3>Bienvenido {{ Auth::user()->nombres }} para empezar por favor elija  una opción</h3>
+	<span>Bienvenido <strong>{{ Auth::user()->nombres }}</strong> para empezar por favor elija  una opción</span>
+	<?php $status=Session::get('status') ?>
+	@if($status == "errorDatos")
+		<div id="errorDatos"  align="center">
+			<p>Error al ingresar la información del cliente, verifica los datos e intenta de nuevo </p>
+		</div>
+	@elseif($status == "errorEquipo")
+		<div id="error"  align="center">
+			<p>¡Error!, el equipo ya se encuenta ingresado a la empresa</p>
+		</div>
+	@elseif($status == "error")
+		<div id="error"  align="center">
+			<p>Error al ingresar la orden de trabajo, por favor verifique los datos ingresados</p>
+		</div>
+	@elseif($status == "okCreado")
+		<div id="mensajeCrear"  align="center">
+			<p>Orden de trabajo ingresada correctamente</p>
+		</div>
+	@endif
 @stop
 
 {{--Sección secundario--}}

@@ -2,7 +2,7 @@
 
 /** 
 * @Sistema de gestión de reparaciones de equipos informáticos de la empresa Sisprocompu
-* @version 1.0      @modificado:07 de abril del 2014
+* @version 1.0    @modificado:07 de abril del 2014
 * @author Diego Castillo.
 *
 */
@@ -10,6 +10,7 @@
 class ClienteController extends BaseController{
 
 	public $restful = true;
+	
 	//Constructor de la clase
 	public function __construct()
 	{
@@ -18,7 +19,7 @@ class ClienteController extends BaseController{
 	}
 
 	/**
-	* Mostrar la vista clientes
+	* Envía datos de todos los clientes a la vista Clientes
 	* 
 	* @param
 	* @return Response
@@ -30,7 +31,7 @@ class ClienteController extends BaseController{
 	}
 
 	/**
-	* Muestra formulario de edición de datos del cliente
+	* Crea la vista Editar y envía datos de un cliente específico
 	* 
 	* @param int id
 	* @return Response
@@ -42,7 +43,7 @@ class ClienteController extends BaseController{
 	}
 
 	/**
-	* Muestra el detalle de los datos del cliente
+	* Crea la vista Ver y envía los datos del cliente
 	* 
 	* @param int id
 	* @return Response
@@ -93,8 +94,8 @@ class ClienteController extends BaseController{
 	}
 
 	/** 
-   * Verificar si los datos ingresados del ciente con la orden
-   * de trabajo con correctos
+   *  Verifica si un número de CI es correcto
+   * o si no se ha ingresado ningún valor
    * @param int cedula
    *  @return boolean
    **/
@@ -111,10 +112,11 @@ class ClienteController extends BaseController{
   }
 
   /** 
-   * Verificar si los datos insgresados del ciente con la orden
-   * de trabajo con correctos
+   * Verifica si un número de teléfono es correcto o si no 
+   * se ha ingresado ningún valor
+   *
    * @param int telefono
-   *  @return boolean
+   * @return boolean
    **/
   public static function validarTelefono($telefono)
   {
@@ -129,10 +131,11 @@ class ClienteController extends BaseController{
   }
 
   /** 
-   * Verificar si los datos ingresados del ciente con la orden
-   * de trabajo con correctos
+   * Verifica si un número de celular es correcto o si
+   * no se ha ingresado ningún valor
+   *
    * @param int celular
-   *  @return boolean
+   * @return boolean
    **/
   public static function validarCelular($celular)
   {

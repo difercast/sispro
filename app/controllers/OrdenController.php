@@ -84,6 +84,7 @@ class OrdenController extends BaseController
 		$cliente = Cliente::find($orden->cliente_id);
 		$equipo = Equipo::find($orden->equipo_id);
 		$user = User::find($orden->user_id);
+		$user = $user->nombres;
 		$tecnico = User::find($orden->tecnico);
 		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo));
 	}
@@ -101,95 +102,102 @@ class OrdenController extends BaseController
 			'modelo'=>'required',
 			'serie'=>'required',
 			'nombres'=>'required',
+			'cedula'=>'required',
 			'problema'=>'required',			
 			'user_id'=>'required',
 			'tecnico'=>'required',
 			'email'=>'email'			
 			);
-		$validador = Validator::make(Input::all(),$reglas);		
-		if($validador->passes() && self::verificarEquipo(Input::get('serie')))
-		{
-			if (self::validarCI(Input::get('cedula')) && self::validarTelefono(Input::get('telefono')) && self::validarCelular(Input::get('celular'))) 
-			{
-				$cliente = self::procesaCliente(Input::get('id_cliente'),Input::get('nombres'),Input::get('cedula'),
-				Input::get('direccion'),Input::get('telefono'),Input::get('celular'),Input::get('email'),Input::get('observaciones'));			
-				$equipo = self::procesaEquipo(Input::get('tipo'),Input::get('marca'),Input::get('modelo'),
-					Input::get('serie'),$cliente->id);
-				$orden = new Orden;							
-				$orden->user_id = Auth::user()->id;
-				$orden->cliente_id = $cliente->id;
-				$orden->equipo_id = $equipo->id;
-				$orden->problema = Input::get('problema');
-				$orden->accesorios = Input::get('accesorios');
-				$orden->tecnico = Input::get('tecnico');
-				//$orden->fechaPrometido = Input::get('fechaPrometido');
-				//$orden->horaPrometido = Input::get('horaPrometido');
-				$orden->sucursal_id = Auth::user()->sucursal_id;
-				$orden->save();
-				return Redirect::to('tecnico')->with('status','okCreado');
-			}
-			else
-			{
-				if(Auth::user()->rol == 'tecnico')
-				{
-					return Redirect::to('tecnico')->with('status','errorDatos');
+		$validador = Validator::make(Input::all(),$reglas);	
+		if($validador->passes()){
+			if(self::verificarEquipo(Input::get('serie'))){
+				if (self::validarCI(Input::get('cedula')) && self::validarTelefono(Input::get('telefono')) && self::validarCelular(Input::get('celular'))) {
+					$cliente = self::procesaCliente(Input::get('id_cliente'),Input::get('nombres'),Input::get('cedula'),
+						Input::get('direccion'),Input::get('telefono'),Input::get('celular'),Input::get('email'),Input::get('observaciones'));			
+					$equipo = self::procesaEquipo(Input::get('tipo'),Input::get('marca'),Input::get('modelo'),
+						Input::get('serie'),$cliente->id);
+					$orden = new Orden;							
+					$orden->user_id = Auth::user()->id;
+					$orden->cliente_id = $cliente->id;
+					$orden->equipo_id = $equipo->id;
+					$orden->problema = Input::get('problema');
+					$orden->accesorios = Input::get('accesorios');
+					$orden->tecnico = Input::get('tecnico');
+					$orden->sucursal_id = Auth::user()->sucursal_id;
+					$orden->save();
+					return Redirect::to('tecnico')->with('status','okCreado');
 				}
-				elseif (Auth::user()->rol=='vendedor') 
-				{
-					return Redirect::to('vendedor')->with('status','errorDatos');	
+				else{
+					if(Auth::user()->rol == 'tecnico'){
+						return Redirect::to('tecnico')->with('status','errorDatos');
+					}
+					elseif (Auth::user()->rol=='vendedor'){
+						return Redirect::to('vendedor')->with('status','errorDatos');	
+					}
 				}
 			}
-			
+			else{
+				if(Auth::user()->rol == 'tecnico'){
+					return Redirect::to('tecnico')->with('status','errorEquipo');
+				}
+				elseif (Auth::user()->rol=='vendedor') {
+					return Redirect::to('vendedor')->with('status','errorEquipo');	
+				}
+			}						
 		}
-		else
-		{
-			if(Auth::user()->rol == 'tecnico')
-			{
+		else{
+			if(Auth::user()->rol == 'tecnico'){
 				return Redirect::to('tecnico')->with('status','error');
 			}
-			elseif (Auth::user()->rol=='vendedor') 
-			{
+			elseif(Auth::user()->rol=='vendedor') {
 				return Redirect::to('vendedor')->with('status','error');	
 			}
-		}
-			
+		}		
 	}
 
-	  /** 
-   * Ingresar un nuevo cliente
-   *  @param 
-   *  @return Response
-   **/
-  public static function procesaCliente($estado,$nombres,$cedula,$direccion,$telefono,$celular,$email,$observaciones)
-  {
-    
-    if($estado == '0')
-    {
-      $cliente = new Cliente;
-      $cliente -> nombres = $nombres;
-      $cliente -> cedula = $cedula;
-      $cliente -> direccion = $direccion;
-      $cliente -> telefono = $telefono;
-      $cliente -> celular = $celular;
-      $cliente -> email = $email;
-      $cliente -> observaciones = $observaciones;
-      $cliente -> save();
-    }
-    else
-    {
-      $cliente = Cliente::find($estado);
-      $cliente -> nombres = $nombres;
-      $cliente -> cedula = $cedula;
-      $cliente -> direccion = $direccion;
-      $cliente -> telefono = $telefono;
-      $cliente -> celular = $celular;
-      $cliente -> email = $email;
-      $cliente -> observaciones = $observaciones;
-      $cliente -> save();
-    }
-    return $cliente;
+	/** 
+    * 
+    *  @param 
+    *  @return Response
+    **/
+	public function getGestion($id)	
+	{
+		$orden = Orden::findOrFail($id);
+		return View::make('orden.gestionarOrden')->with('orden',$orden);
+	}
 
-  }
+	/** 
+    * Ingresar un nuevo cliente
+    *  @param 
+    *  @return Object Cliente
+    **/
+    public static function procesaCliente($estado,$nombres,$cedula,$direccion,$telefono,$celular,$email,$observaciones)
+    {
+    
+	    if($estado == '0'){
+	      $cliente = new Cliente;
+	      $cliente -> nombres = $nombres;
+	      $cliente -> cedula = $cedula;
+	      $cliente -> direccion = $direccion;
+	      $cliente -> telefono = $telefono;
+	      $cliente -> celular = $celular;
+	      $cliente -> email = $email;
+	      $cliente -> observaciones = $observaciones;
+	      $cliente -> save();
+	    }
+	    else{
+	      $cliente = Cliente::findOrFail($estado);
+	      $cliente -> nombres = $nombres;
+	      $cliente -> cedula = $cedula;
+	      $cliente -> direccion = $direccion;
+	      $cliente -> telefono = $telefono;
+	      $cliente -> celular = $celular;
+	      $cliente -> email = $email;
+	      $cliente -> observaciones = $observaciones;
+	      $cliente -> save();
+	    }
+	    return $cliente;
+    }
 
   /** 
    * Ingresar equipo al sistema
@@ -234,70 +242,69 @@ class OrdenController extends BaseController
   {
     $equipos = Equipo::where('serie','=',$serie)->get();
     $numEquipos = count($equipos);
-    if($numEquipos != 0)
-    {
+    if($numEquipos != 0){
       foreach ($equipo as $equipos) {
         $ordenes = $equipo->ordenes()->where('entregado','=','0')->get();
         $numOrdenes = count($ordenes);
-        if ($numOrdenes != 0)
-        {
+        if ($numOrdenes != 0){
           return true;
           break;    
         }
-        else
-        {
+        else{
           return false;
-          break;      
-      
+          break;            
         } 
       }
     }
-    else return true;
-    
+    else return true; 
   }
 
   /** 
-   * Verificar si los datos insgresados del ciente con la orden
-   * de trabajo con correctos
+   * Verificar si un número teléfono ingresado es correcto
+   * o no tiene ningún valor
    * @param int cedula
-   *  @return boolean
+   * @return boolean
    **/
-  public static function validarCI($cedula)
-  {
-    $cliente = new Cliente;
-    if($cedula != "")
-    {
-      if($cliente->validarCI($cedula))
-      {
-        return true;
-      }else return false;
-    }else return true;
-  }
-
   public static function validarTelefono($telefono)
   {
     $cliente = new Cliente;
-    if($telefono != "")
-    {
-      if($cliente->validarTelefono($telefono))
-      {
+    if($telefono != ""){
+      if($cliente->validarTelefono($telefono)){
         return true;
       }else return false;
     }else return true;
   }
 
-  public static function validarCelular($celular)
-  {
-    $cliente = new Cliente;
-    if($celular != "")
-    {
-      if($cliente->validarCelular($celular))
-      {
-        return true;        
-      }else return false;
-    }else return true;
-  }
+	/** 
+   	* Verificar si un número celular ingresado es correcto
+   	* o no tiene ningún valor
+   	* @param int celular
+   	* @return boolean
+   	**/
+  	public static function validarCelular($celular)
+  	{
+    	$cliente = new Cliente;
+    	if($celular != ""){
+      		if($cliente->validarCelular($celular)){
+        		return true;        
+      		}else return false;
+    	}else return true;
+  	}
 
-	
-	
+    /** 
+   	* Validar si un número de cédula ingresado es correcto
+   	* @param int cedula
+   	* @return boolean
+   	**/
+    public static function validarCI($cedula)
+  	{
+    	$cliente = new Cliente;
+    	if($cedula != ""){
+      		if($cliente->validarCI($cedula)){
+        		return true;
+      		}else return false;
+    	}else return true;
+  	}
+
+
 }

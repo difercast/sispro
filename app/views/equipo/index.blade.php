@@ -9,6 +9,13 @@
 {{--Sección header--}}
 @section('header')
 	<h1>Equipos</h1>
+	@if(Auth::user()->rol == 'administrador')
+		{{ HTML::link('admin','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+	@elseif(Auth::user()->rol == 'tecnico')
+		{{ HTML::link('tecnico','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+	@elseif(Auth::user()->rol == 'vendedor')
+		{{ HTML::link('vendedor','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+	@endif
 @stop
 
 {{--Sección primario--}}

@@ -10,65 +10,115 @@
 {{--Sección header--}}
 @section('header')
 	<h1>Orden de trabajo N° {{ $orden->id}}</h1>
-	{{ HTML::link('tecnico','',array('class'=>'ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all')); }}
+	{{ HTML::link('tecnico','',array('class'=>'ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all')) }}
 @stop
 
 {{--Sección primario--}}
 @section('primario')
-	<div class="ui-grid-a">
-	    <div class="ui-block-a"><div style="height:60px">
-		   <strong>Fecha y hora de ingreso:</strong> {{ date("d M Y",strtotime($orden->created_at)) }} a las {{ date("g:ha",strtotime($orden->created_at)) }} 
-	    </div></div>
-	    <div class="ui-block-b"><div {{--class="ui-bar ui-bar-a"--}} style="height:60px">
-	    	<strong>Ingresado por: </strong>{{ $user->nombres}}
-	    </div></div>
-	</div>		
-	<p><strong>Detalles del cliente:</strong><br/>
-		<strong>Nombres: </strong>{{ $cliente->nombres}}&nbsp;&nbsp; <strong>Cédula: </strong>{{ $cliente->cedula}}<br/>
-		<strong>Dirección: </strong>{{ $cliente->direccion}}<br/>
-		<strong>Teléfono: </strong>{{ $cliente->telefono}}&nbsp;&nbsp; <strong> Celular:</strong>{{$cliente->celular}}&nbsp;&nbsp; <strong> Email:</strong>{{ $cliente->email}}<br/><br/>			
-	</p>
-	<p><strong>Detalles del equipo:</strong><br/>
-		<strong>Tipo: </strong>{{ $equipo->tipo }}<br/>
-		<strong>Marca: </strong>{{ $equipo->marca }}<br/>
-		<strong>Modelo: </strong>{{ $equipo->modelo}}<br/>
-		<strong>Número de serie: </strong>{{ $equipo->serie}}<br/><br/>
-	</p>
-	<div class="ui-grid-a">
-	    <div class="ui-block-a"><div style="height:60px">
-		    <strong>Problema:</strong><br/>
-			{{ $orden->problema}}<br/><br/>			
-	    </div></div>
-	    <div class="ui-block-b"><div {{--class="ui-bar ui-bar-a"--}} style="height:60px">
-	    	<strong>Accesorios:</strong><br/>
-			{{ $orden->accesorios}}<br/><br/>			
-	    </div></div>
-	</div>
-	<div class="ui-grid-a">
-		<div class="ui-block-a"><div style="height:60px">
-			<strong>Detalle de actividades:</strong>
-			{{ $orden->detalle }}
-	</div></div>
-		<div class="ui-block-b"><div {{--class="ui-bar ui-bar-a"--}} style="height:60px">
-	    	<strong>Informe al cliente:</strong><br/>
-			{{ $orden->informe}}<br/><br/>			
-	    </div></div>
-	</div>
-	<div class="ui-grid-a">
-		<div class="ui-block-a"><div style="height:60px">
-			<strong>Estado de reparación del equipo:</strong>
-			@if($orden->estado == '0')				
-				Sin revisar
+	{{Form::open()}}
+		<div class="rwd-example">
+			<div class="ui-block-a">
+				<div data-role="fieldcontain">
+					{{Form::label('fechaIngreso','Fecha de ingreso:')}}
+					{{Form::text('fechaIngreso',date("d M Y",strtotime($orden->created_at)),array('data-mini'=>'true','readonly'=>'true'))}}
+				</div>
+			</div>
+			<div class="ui-block-b">
+				<div data-role="fieldcontain" >
+					{{Form::label('integrante','Integrante:')}}
+					{{Form::text('user',$user,array('data-mini'=>'true','readonly'=>'true'))}}
+				</div>
+			</div>
+		</div>	
+		<span><strong>Datos del cliente:</strong></span><br/>
+		<div data-role="controlgroup">
+			<div data-role="fieldcontain">
+				{{Form::label('nombres','Nombres:')}}
+				{{Form::text('nombres',$cliente->nombres,array('data-mini'=>'true','readonly'=>'true'))}}
+			</div>
+			<div data-role="fieldcontain">
+				{{Form::label('cedula','Cédula:')}}
+				{{Form::text('cedula',$cliente->cedula,array('data-mini'=>'true','readonly'=>'true'))}}
+			</div>
+			<div data-role="fieldcontain">
+				{{Form::label('direccion','Dirección:')}}
+				{{Form::textarea('direccion',$cliente->direccion,array('data-mini'=>'true','readonly'=>'true'))}}
+			</div>
+			<div data-role="fieldcontain">
+				{{Form::label('telefono','Teléfono:')}}
+				{{Form::text('telefono',$cliente->telefono,array('data-mini'=>'true','readonly'=>'true'))}}
+			</div>
+		</div>
+		<span><strong>Datos del equipo:</strong></span><br/>
+		<div data-role="fieldcontain">
+			{{Form::label('tipo','Tipo:')}}
+			{{Form::text('tipo',$equipo->tipo,array('data-mini'=>'true','readonly'=>'true'))}}
+		</div>
+		<div data-role="fieldcontain">
+			{{Form::label('marca','Marca:')}}
+			{{Form::text('marca',$equipo->marca,array('data-mini'=>'true','readonly'=>'true'))}}
+		</div>
+		<div data-role="fieldcontain">
+			{{Form::label('modelo','Modelo:')}}
+			{{Form::text('modelo',$equipo->modelo,array('data-mini'=>'true','readonly'=>'true'))}}
+		</div>
+		<div data-role="fieldcontain">
+			{{Form::label('serie','Número de serie:')}}
+			{{Form::text('serie',$equipo->serie,array('data-mini'=>'true','readonly'=>'true'))}}
+		</div><br/>
+		<div class="rwd-example">
+			<div class="ui-block-a">
+					{{Form::label('problema','Problema:')}}
+					{{Form::textarea('problema',$orden->problema,array('data-mini'=>'true','readonly'=>'true'))}}
+			</div>
+			<div class="ui-block-b">
+					{{Form::label('accesorios','Accesorios:')}}
+					{{Form::textarea('accesorios',$orden->accesorios,array('data-mini'=>'true','readonly'=>'true'))}}
+			</div>
+		</div><br/>
+		<div class="rwd-example">
+			<div class="ui-block-a">
+					{{Form::label('detalle','Detalle de la reparación:')}}
+					{{Form::textarea('detalle',$orden->detalle,array('data-mini'=>'true','readonly'=>'true'))}}
+			</div>
+			<div class="ui-block-b">
+					{{Form::label('informe','Informe al cliente:')}}
+					{{Form::textarea('informe',$orden->informe,array('data-mini'=>'true','readonly'=>'true'))}}
+			</div>
+		</div><br/>
+		<div data-role="fieldcontain">
+			{{Form::label('estado','Estado de reparación:')}}
+			@if($orden->estado == '0')
+				{{Form::text('serie','Sin revisar',array('data-mini'=>'true','readonly'=>'true'))}}
 			@elseif($orden->estado == '1')
-				En revisión
-			@elseif($orden->estado == '2')
-				Reparación terminada
+				{{Form::text('serie','En reparción',array('data-mini'=>'true','readonly'=>'true'))}}
+			@else
+				{{Form::text('serie','Reparción terminada',array('data-mini'=>'true','readonly'=>'true'))}}
 			@endif
-	</div></div>
-		<div class="ui-block-b"><div {{--class="ui-bar ui-bar-a"--}} style="height:60px">
-	    	<strong>Informe al cliente:</strong><br/>
-			{{ $orden->informe}}<br/><br/>			
-	    </div></div>
-	</div>		
+		</div>			
+		<div data-role="fieldcontain">
+			{{Form::label('terminado','Equipo entregado:')}}
+			@if($orden->entregado == '1')
+				{{Form::text('serie','Entregado',array('data-mini'=>'true','readonly'=>'true'))}}
+			@else
+				{{Form::text('serie',' No entregado',array('data-mini'=>'true','readonly'=>'true'))}}
+			@endif
+		</div>
+	{{Form::close()}}	
+@stop
+
+{{--Sección secundario--}}
+@section('secundario')
+	<ul data-role="listview" class="ui-listview-outer" data-inset="true">
+		<li data-role="listdivider">Acciones</li>
+		@if(Auth::user()->rol == 'tecnico')
+			<li data-icon="false">{{ HTML::link( 'ordenTrabajo/gestion/'.$orden->id,'Gestionar orden') }}</li>
+			<li data-icon="false">{{ HTML::link('#', 'Generar documento'); }}</li>			
+		@endif
+		@if($orden->entregado == '0' && Auth::user()->rol == 'vendedor')
+			<li data-icon="false">{{ HTML::link('#', 'Entregar'); }}</li>	
+			<li data-icon="false">{{ HTML::link('#', 'Generar documento'); }}</li>
+		@endif
+	</ul>
 @stop
 @endif
