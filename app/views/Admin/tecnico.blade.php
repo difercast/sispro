@@ -41,7 +41,7 @@
 	@section('secundario')
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
 			<li data-icon="false">{{ HTML::link('ordenTrabajo', 'Ingresar orden de trabajo'); }}</li>
-			<li data-icon="false">{{ HTML::link('#', 'Lista Órdenes de trabajo'); }}</li>		
+			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado', 'Lista órdenes de trabajo'); }}</li>		
 			<li data-role="collapsible" data-iconpos="right" data-corners="false">
 	    		<h2>Buscar orden</h2>
 	    		<ul data-role="listview" data-inset="false" data-shadow="false" data-corners="false" >
@@ -53,7 +53,6 @@
 			<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>		
 			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
 		</ul>
-
 	@stop
 	{{ HTML::script('js/mensajes.js'); }}
 	<script type="text/javascript">

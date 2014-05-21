@@ -52,10 +52,10 @@
 				<th>N°</th>
 				<th>Nombres</th>
 				<th>Apellidos</th>
-				<th>cedula</th>
 				<th>Teléfono</th>
 				<th>Rol</th>
-				<th>Estado</th>					
+				<th>Estado</th>
+				<th>Sucursal</th>					
 				<th>Acciones</th>					
 			</tr>
 		</thead>
@@ -65,7 +65,6 @@
 				<td>{{ $user -> id}}</td>
 				<td>{{ $user -> nombres}}</td>
 				<td>{{ $user -> apellidos}}</td>
-				<td>{{ $user -> cedula}}</td>
 				<td>{{ $user -> telefono}}</td>
 				@if($user -> rol == 'tecnico')				
 					<td>Técnico</td>
@@ -78,7 +77,11 @@
 					<td>Activo</td>
 					@else
 					<td>Inactivo</td>
-				@endif									
+				@endif
+				<td>
+					<?php $suc = Sucursal::findOrFail($user->sucursal_id); ?>
+					{{ $suc->nombre}}
+				</td>									
 				<td> 
 					{{ HTML::link( 'user/detalle/'.$user->id,'Ver', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
 					{{ HTML::link( 'user/modificar/'.$user->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}

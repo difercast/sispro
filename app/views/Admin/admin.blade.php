@@ -9,6 +9,8 @@
 
 {{--Sección primario--}}
 @section('primario')
+	<h2 align="center">Sisprocompu</h2>
+	<h3 align="center">Sistema de gestión de reparaciones de equipos informáticos</h3>
 	<p>Bienvenido <strong>{{ Auth::user()->nombres }}</strong> para empezar por favor elija  una opción</p>
 @stop
 

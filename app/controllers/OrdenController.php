@@ -18,12 +18,12 @@ class OrdenController extends BaseController
 
 	 /** 
 	 * Presenta el formulario de ingreso de una orden de trabajo
+	 * con los datos de usuario, técnicos y clientes
 	 *  @param 
 	 *  @return Response
 	 **/
 	public function getIndex()
-	{
-		//$tecnicos = User::where('rol','=','tecnico','sucursal_id','=',Auth::user()->sucursal_id)->get();
+	{		
 		$tecnicos = User::whereNested(function($query)
 		{
 			$query->where('rol','=','tecnico');
@@ -61,8 +61,9 @@ class OrdenController extends BaseController
 
 
 	/** 
-	 * Presentar datos de la orden de trabajo 
-	 * @param int numOrden
+	 * Presentarun lista de órdenes de trabajo deacuerdo
+	 *  al cliente seleccionado
+	 * @param 
 	 * @return Response
 	 **/
 	public function anyPorcliente()
@@ -73,7 +74,7 @@ class OrdenController extends BaseController
 	}
 
 	/** 
-	 * Presentar datos de la orden de trabajo 
+	 * Presentar datos de la orden de trabajo en una vista
 	 * @param
 	 * @return Response
 	 **/
@@ -156,8 +157,9 @@ class OrdenController extends BaseController
 	}
 
 	/** 
-    * 
-    *  @param 
+    *  Presenta la vista de gestión de una orden de trabajo
+    * con la información de la orden seleccionada
+    *  @param int id
     *  @return Response
     **/
 	public function getGestion($id)	
@@ -166,6 +168,26 @@ class OrdenController extends BaseController
 		return View::make('orden.gestionarOrden')->with('orden',$orden);
 	}
 
+	/**
+	* 	Presenta la vista con listado de órdenes de trabajo
+	*	@param 
+	*	@return Response
+	**/
+	public function getListado()
+	{
+		$ordenes = orden::all();
+		return View::make('orden.listaOrdenes')->with('ordenes',$ordenes);
+	}
+
+	/**
+	* 	Realiza cambios en los detalles de la orden de trabajo
+	*	@param 
+	*	@return Response
+	**/
+	public function postAdministrar()
+	{
+		
+	}
 	/** 
     * Ingresar un nuevo cliente
     *  @param 
@@ -200,7 +222,7 @@ class OrdenController extends BaseController
     }
 
   /** 
-   * Ingresar equipo al sistema
+   * Ingresar o modificar equipoingresado con una orden de trabajo
    *  @param 
    *  @return Response
    **/
@@ -228,7 +250,6 @@ class OrdenController extends BaseController
       $equipo->cliente_id = $cliente_id;
       $equipo->save();
     }
-
     return $equipo;
   }
 
@@ -243,18 +264,18 @@ class OrdenController extends BaseController
     $equipos = Equipo::where('serie','=',$serie)->get();
     $numEquipos = count($equipos);
     if($numEquipos != 0){
-      foreach ($equipo as $equipos) {
-        $ordenes = $equipo->ordenes()->where('entregado','=','0')->get();
-        $numOrdenes = count($ordenes);
-        if ($numOrdenes != 0){
-          return true;
-          break;    
-        }
-        else{
-          return false;
-          break;            
-        } 
-      }
+        foreach ($equipo as $equipos) {
+        	$ordenes = $equipo->ordenes()->where('entregado','=','0')->get();
+        	$numOrdenes = count($ordenes);
+        	if ($numOrdenes != 0){
+          		return true;
+          		break;    
+        	}
+        	else{
+          	return false;
+          	break;            
+        	} 
+      	}
     }
     else return true; 
   }

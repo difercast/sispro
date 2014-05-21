@@ -402,6 +402,27 @@ html .ui-alt-icon .ui-radio-off:after {
 /* Swatches */
 /* A
 -----------------------------------------------------------------------------------------------------------*/
+.logo{	
+	border-right: 1px solid #ffffff;
+	display: inline-block;
+	float: left;
+	width: 225px;
+
+}
+.titular{
+	margin: 0 80px 0 250px;
+}
+.titulo{
+		font-size: 20px;
+		font-weight: normal;
+		margin: ;
+		padding: 0;
+		text-align: center;
+
+	
+
+}
+
 /* Bar: Toolbars, dividers, slider track */
 .ui-bar-a,
 .ui-page-theme-a .ui-bar-inherit,

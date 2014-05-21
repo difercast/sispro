@@ -73,11 +73,18 @@
 		</ul>
 	@elseif(Auth::user()->rol == 'tecnico')
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
-			<li data-icon="false"><a href="#">Ingresar orden</a></li>
-			<li data-icon="false"><a href="#">Clientes</a></li>
-			<li data-icon="false">Equipos</li>
-			<li data-icon="false"><a href="#">Cambiar contrase&ntildea </a></li>
-			<li data-icon="false"><a href="logout">Salir</a></li>
+			<li data-icon="false">{{ HTML::link('ordenTrabajo', 'Ingresar orden de trabajo'); }}</li>
+			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado', 'Lista órdenes de trabajo'); }}</li>		
+			<li data-role="collapsible" data-iconpos="right" data-corners="false">
+	    		<h2>Buscar orden</h2>
+	    		<ul data-role="listview" data-inset="false" data-shadow="false" data-corners="false" >
+					<li data-icon="false">{{ HTML::link('ordenTrabajo/buscarporcliente', 'Por cliente',array('data-rel'=>'dialog')); }}</li>
+					<li data-icon="false">{{ HTML::link('ordenTrabajo/buscar', 'Por número de orden',array('data-rel'=>'dialog')); }}</li>
+				</ul>
+			</li> 		
+			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
+			<li data-icon="false">Equipos</li>		
+			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
 		</ul>
 	@elseif(Auth::user()->rol == 'vendedor')
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
