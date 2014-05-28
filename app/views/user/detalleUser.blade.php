@@ -1,20 +1,19 @@
 @extends('layout.base')
-@include('includes.styles')
-
+{{--Sección título--}}
 @section('titulo')
 	<title> Detalles de usuario</title>
 @stop
-
-{{--Sección header--}}
-@section('header')
-	<h1>Detalles de usuario</h1>
-	{{ HTML::link('user','',array('class'=>'ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all')); }}
+{{--Sección head--}}
+@section('head')
 @stop
-
+{{--Sección header--}}
+@section('header')	
+	{{ HTML::link('user','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
+@stop
 {{--Sección principal--}}
 @section('primario')
 	@if($user)
-	<h3 align="center">Información del usuario</h3>
+	<h3>Información del usuario</h3>
 	{{ Form::open()}}
 		<div data-role="fieldcontain">
 			{{Form::label('apellidos','Apellidos:')}}		

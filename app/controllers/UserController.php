@@ -6,7 +6,6 @@
 * @author: Diego Castillo.
 *
 */
-
 class UserController extends BaseController
 {
 	//Constructor de la clase
@@ -15,9 +14,7 @@ class UserController extends BaseController
 		$this -> beforeFilter('auth');
 		$this -> beforeFilter('autenticacion');
 	}
-
 	public $restful = true;
-
 	/**
 	* Función para mostrar el detalle de la empresa ingresada
 	* 
@@ -32,7 +29,6 @@ class UserController extends BaseController
 		return View::make('user.index')->with(array('user'=>$user,'sucursal'=>$sucursal));
 		
 	}
-
 	/**
 	* Función para mostrar formulario de ingreso de usuarios
 	* 

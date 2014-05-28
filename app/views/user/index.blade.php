@@ -1,20 +1,19 @@
 @extends('layout.base')
-@include('includes.styles')
-
 {{--Sección título--}}
 @section('titulo')
 	<title>Usuarios</title>
 @stop
-
+{{--Sección head--}}
+@section('head')
+	{{ HTML::style('css/mensajes.css'); }}
+@stop
 {{--Sección header--}}
 @section('header')
-	<h1>Usuarios</h1>
-	{{ HTML::link('admin','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+	{{ HTML::link('admin','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 @stop
-
 {{--Sección primario--}}
 @section('primario')
-	<h3 align="center">Lista de usuarios</h3>
+	<h2>Usuarios</h2>
 	<?php $status=Session::get('status') ?>
 	@if($status == 'error')
 		<div id="error"  align="center">
@@ -41,11 +40,9 @@
 			<p>Ingrese o active una sucursal antes de ingresar un usuario</p>
 		</div>
 	@endif
-
 	<div data-role="controlgroup" data-type="horizontal">
 		{{ HTML::link('user/nuevo', 'Nuevo',array('data-role'=>'button')); }}	
 	</div>
-
 	<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center" >
 		<thead>
 			<tr>
@@ -98,10 +95,10 @@
 			@endforeach
 		</tbody>
 	</table>
-
 @stop
 {{--Sección secundario--}}
 @section('secundario')
+	<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 	<ul data-role="listview" class="ui-listview-outer" data-inset="true">
 		<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
 		<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>		
@@ -113,6 +110,5 @@
 		<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
 	</ul>
 @stop
-
 {{ HTML::script('js/mensajes.js'); }}
-{{ HTML::style('css/mensajes.css'); }}
+

@@ -1,18 +1,15 @@
 @extends('layout.base')
-@include('includes.styles')
-
 {{--Sección título--}}
 @section('titulo')
 	<title>Sucursales</title>
 @stop
 {{--Sección header--}}
-@section('header')
-	<h1>Sucursales</h1>
-	{{ HTML::link('admin','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+@section('header')	
+	{{ HTML::link('admin','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 @stop
 {{--Sección primario--}}
 @section('primario')
-	<h3 align="center">Lista de Sucursales</h3>
+	<h2>Sucursales</h2>
 	<?php $status=Session::get('status') ?>
 	@if($status == 'error')
 		<div id="error" align="center">
@@ -43,7 +40,7 @@
 	<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center" >
 		<thead>
 				<tr>
-					<th>N°</th>
+					<th>Nombre</th>
 					<th>Provincia</th>
 					<th>Ciudad</th>
 					<th>Dirección</th>
@@ -81,11 +78,11 @@
 				</tr>
 				@endforeach
 			</tbody>	
-	</table>
-	
+	</table>	
 @stop
 {{--Sección secundario--}}
 @section('secundario')
+	<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 	<ul data-role="listview" class="ui-listview-outer" data-inset="true">
 		<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
 		<li data-icon="false">Sucursales</li>		

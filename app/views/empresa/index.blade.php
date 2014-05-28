@@ -1,20 +1,19 @@
 @extends('layout.base')
-@include('includes.styles')
-
-{{ HTML::style('css/mensajes.css'); }}
-{{--Sección header--}}
+{{--Sección título--}}
 @section('titulo')
 	<title>Empresa</title>
 	@show
 @stop
-@section('header')
-	<h1>Empresa</h1>
-	{{ HTML::link('admin','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+{{--Sección head--}}
+@section('head')
+	{{ HTML::style('css/mensajes.css'); }}
 @stop
-
+@section('header')
+	{{ HTML::link('admin','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
+@stop
 {{--Sección primario--}}
 @section('primario')
-	<h2 align="center">Empresa</h2>
+	<h2>Empresa</h2>	
 	<?php $status=Session::get('status') ?>
 	@if($status == 'error')
 		<div id="error" align="center">			
@@ -54,8 +53,9 @@
 
 {{--Sección secundario--}}
 @section('secundario')
+	<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 	<ul data-role="listview" class="ui-listview-outer" data-inset="true">
-		<li data-icon="false">Empresa</li>
+		<li class="fondo" data-icon="false">Empresa</li>
 		<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>		
 		<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>
 		<li data-icon="false"><a href="#">Informes</a></li>
@@ -66,4 +66,4 @@
 	</ul>
 @stop
 {{ HTML::script('js/mensajes.js'); }}
-{{ HTML::style('css/mensajes.css'); }}
+

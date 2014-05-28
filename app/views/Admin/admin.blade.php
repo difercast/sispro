@@ -3,19 +3,18 @@
 
 @if(Auth::user()->rol == 'administrador')
 {{--Header--}}
-@section('header')
-	<h1>Administrador</h1>
+@section('header')	
 @stop
 
 {{--Sección primario--}}
 @section('primario')
-	<h2 align="center">Sisprocompu</h2>
-	<h3 align="center">Sistema de gestión de reparaciones de equipos informáticos</h3>
-	<p>Bienvenido <strong>{{ Auth::user()->nombres }}</strong> para empezar por favor elija  una opción</p>
+	<h2>Sisprocompu</h2>
+	<span>Bienvenido al sistema de gestión de reparaciones de equipos informáticos, para emprezar por favor eliga una opción</span>
 @stop
 
 {{--Sección secundario--}}
 @section('secundario')
+	<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 	<ul data-role="listview" class="ui-listview-outer" data-inset="true">
 		<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
 		<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>

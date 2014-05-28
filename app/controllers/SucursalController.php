@@ -53,7 +53,6 @@ class SucursalController extends BaseController
 		$suc = Sucursal::all();
 		$numero = count($suc);
 		return $numero;
-
 	}
 
 	/**

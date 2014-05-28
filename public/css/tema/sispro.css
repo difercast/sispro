@@ -254,6 +254,26 @@ html .ui-alt-icon .ui-radio-off:after {
 	background-size: 2.875em 2.875em;
 }
 /*Estilos para realizar páginas con responsibe web desing*/
+
+@media all and (max-width: 480px){
+	.logo{
+		position: absolute;
+	}
+	.primario{
+		margin-top: 50px;
+
+		padding: 1em;
+	}
+	.secundario{
+		
+	}
+	.titular{
+		display: none;
+	}
+	.titulo{
+		display: none;
+	}
+}
 @media all and (min-width: 650px){
 	.secundario{
 		text-align: left;
@@ -277,8 +297,11 @@ html .ui-alt-icon .ui-radio-off:after {
 		margin-right: 1%;
 		padding-right: 1%;
 	}
+
+
 }
 @media all and (min-width: 750px){
+
 	.secundario{
 		width: 30%;
 	}
@@ -288,6 +311,7 @@ html .ui-alt-icon .ui-radio-off:after {
 	}
 }
 @media all and (min-width: 1200px){
+
 	.primario{
 		float: right;
 		width: 70%;
@@ -331,7 +355,8 @@ html .ui-alt-icon .ui-radio-off:after {
     border-top-width: 0;
 }
 /* 1st breakpoint - Float B and C, leave A full width on top */
-@media all and (min-width: 42em) {
+@media all and (min-width: 42em) {    
+
     .rwd-example {
         overflow: hidden; /* Use this or a "clearfix" to give the container height */
     }
@@ -402,25 +427,53 @@ html .ui-alt-icon .ui-radio-off:after {
 /* Swatches */
 /* A
 -----------------------------------------------------------------------------------------------------------*/
+
+
+.fondo{
+	background-color: ##8c8c8c;
+	color: #ffffff;
+}
 .logo{	
-	border-right: 1px solid #ffffff;
 	display: inline-block;
 	float: left;
-	width: 225px;
-
+	width: 200px;
+}
+label.error { 
+	float: left; 
+	color: red; 
+	padding-top: .5em; 
+	vertical-align: top; 
+	font-weight:bold
+}
+/*Estilos en las tablas */
+.movie-list thead th,
+.movie-list tbody tr:last-child {
+    border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.movie-list tbody th,
+.movie-list tbody td {
+    border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
+    border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.movie-list tbody tr:last-child th,
+.movie-list tbody tr:last-child td {
+    border-bottom: 0;
+}
+.movie-list tbody tr:nth-child(odd) td,
+.movie-list tbody tr:nth-child(odd) th {
+    background-color: #eeeeee; /* non-RGBA fallback  */
+    background-color: rgba(0,0,0,.04);
 }
 .titular{
-	margin: 0 80px 0 250px;
+	margin-left:230px;
 }
 .titulo{
-		font-size: 20px;
+		font-size: 18px;
 		font-weight: normal;
 		margin: ;
 		padding: 0;
 		text-align: center;
-
-	
-
 }
 
 /* Bar: Toolbars, dividers, slider track */

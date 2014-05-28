@@ -1,25 +1,26 @@
 @extends('layout.base')
-@include('includes.styles')
-
 <?php
 	if (isset($user)):		
 		$accion = "Editar";
-		$form = array('url'=>'user/editar');
+		$form = array('url'=>'user/editar','id'=>'formUser');
 	else:		
 		$accion = "Ingresar";
-		$form = array('url'=>'user/ingresar');
+		$form = array('url'=>'user/ingresar','id'=>'formUser');
 	endif;		
 ?>
-
-{{--Título de la página--}}
+{{--Sección t´titulo--}}
 @section('titulo')
 	<title> {{ $accion }} usuario</title>
 @stop
-
+{{--Sección head--}}
+@section('head')
+	<!-- scripts -->
+	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
+	{{HTML::script('js/validadores/camposUser.js');}}
+@stop
 {{--Sección header--}}
 @section('header')
-	<h1> {{ $accion }} usuario</h1>
-	{{ HTML::link('user','',array('class'=>'ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all')); }}
+	{{ HTML::link('user','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
 {{--Sección primario--}}
 @section('primario')
@@ -28,33 +29,33 @@
 		<div data-role="fieldcontain">
 			{{Form::label('apellidos','Apellidos:')}}
 			@if(isset($user))		
-			{{ Form::text('apellidos', $user->apellidos)}}
+			{{ Form::text('apellidos', $user->apellidos,array('id'=>'apellidos','class'=>'required'))}}
 			@else
-			{{ Form::text('apellidos') }}
+			{{ Form::text('apellidos','',array('id'=>'apellidos','class'=>'required')) }}
 			@endif
 		</div>
 		<div data-role="fieldcontain">
 			{{Form::label('nombres','Nombres:')}}
 			@if(isset($user))		
-			{{ Form::text('nombres', $user->nombres)}}
+			{{ Form::text('nombres', $user->nombres,array('id'=>'nombres','class'=>'required'))}}
 			@else
-			{{ Form::text('nombres') }}
+			{{ Form::text('nombres','',array('id'=>'nombres','class'=>'required')) }}
 			@endif
 		</div>
 		<div data-role="fieldcontain">
 			{{Form::label('cedula','N° de Cédula:')}}
 			@if(isset($user))		
-			{{ Form::text('cedula', $user->cedula)}}
+			{{ Form::text('cedula', $user->cedula,array('id'=>'cedula','class'=>'required'))}}
 			@else
-			{{ Form::text('cedula') }}
+			{{ Form::text('cedula','',array('id'=>'cedula','class'=>'required')) }}
 			@endif
 		</div>
 		<div data-role="fieldcontain">
 			{{Form::label('direccion','Dirección:')}}
 			@if(isset($user))		
-			{{ Form::textarea('direccion', $user->direccion)}}
+			{{ Form::textarea('direccion', $user->direccion,array('id'=>'direccion','class'=>'required'))}}
 			@else
-			{{ Form::textarea('direccion') }}
+			{{ Form::textarea('direccion','',array('id'=>'direccion','class'=>'required')) }}
 			@endif
 		</div>
 		<div data-role="fieldcontain">
@@ -65,6 +66,7 @@
 			{{ Form::text('telefono') }}
 			@endif
 		</div>
+		{{--celular--}}
 		<div data-role="fieldcontain">
 			{{Form::label('celular','Teléfono celular:')}}
 			@if(isset($user))		
@@ -73,12 +75,13 @@
 			{{ Form::text('celular') }}
 			@endif
 		</div>
+		{{--email--}}
 		<div data-role="fieldcontain">
 			{{Form::label('email','Email:')}}
 			@if(isset($user))		
-			{{ Form::email('email', $user->email)}}
+			{{ Form::email('email', $user->email,array('id'=>'email','class'=>'required'))}}
 			@else
-			{{ Form::email('email') }}
+			{{ Form::email('email','',array('id'=>'email','class'=>'required')) }}
 			@endif
 		</div>
 		{{--sucursal--}}
@@ -86,11 +89,11 @@
 			@if(isset($user))
 				{{Form::label('sucursal','Sucursal')}}
 				@if(isset($sucursal))
-					{{ Form::select('sucursal',$sucursal)}}			
+					{{ Form::select('sucursal',$sucursal,array('id'=>'sucursal','class'=>'required'))}}			
 				@endif
 			@else
 				{{Form::label('sucursal','Sucursal')}}
-				{{ Form::select('sucursal',$sucursal)}}
+				{{ Form::select('sucursal',$sucursal,array('id'=>'sucursal','class'=>'required'))}}
 			@endif
 					
 		</div>
@@ -98,9 +101,9 @@
 		<div data-role="fieldcontain">
 			{{Form::label('username','Nombre de usuario:')}}
 			@if(isset($user))		
-			{{ Form::text('username', $user->username)}}
+			{{ Form::text('username', $user->username,array('id'=>'username','class'=>'required'))}}
 			@else
-			{{ Form::text('username') }}
+			{{ Form::text('username','',array('id'=>'username','class'=>'required')) }}
 			@endif	
 		</div>
 		{{--Rol--}}
@@ -123,20 +126,20 @@
 				))}}
 			@endif			
 		</div>
-		
+		{{--contraseña--}}
 		@if(isset($user))
 		@else
 			<div data-role="fieldcontain">
 			{{Form::label('password','Contraseña:')}}
-			{{ Form::password('password') }}
+			{{ Form::password('password','',array('id'=>'pass','class'=>'required')) }}
 			</div>
 		@endif
-
+		{{--Confirmar contraseña--}}
 		@if(isset($user))
 		@else
 			<div data-role="fieldcontain">
 			{{Form::label('password2','Repita la contraseña:')}}
-			{{ Form::password('password2') }}
+			{{ Form::password('password2','',array('id'=>'pass2','class'=>'required')) }}
 			</div>
 		@endif
 
