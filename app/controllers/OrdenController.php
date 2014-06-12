@@ -80,21 +80,54 @@ class OrdenController extends BaseController
 	 **/
 	public function postMostrar()
 	{
-		$numOrden = Input::get('NumOrden');
-		$orden = Orden::findOrFail($numOrden);
-		$cliente = Cliente::find($orden->cliente_id);
-		$equipo = Equipo::find($orden->equipo_id);
-		$user = User::find($orden->user_id);
-		$user = $user->nombres;
-		$tecnico = User::find($orden->tecnico);
-		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo));
+		if(Input::get('tipo') == 'gestion')
+		{
+			$numOrden = Input::get('orden');
+			$orden = Orden::find($numOrden);
+			$orden->detalle = Input::get('detalle');
+			$orden->informe = Input::get('informe');
+			$orden->estado = Input::get('estado');
+			if(Input::get('estado') == '2'){
+				$orden->fecha_terminado = date('Y-m-d H:i:s', time());
+			}
+			$orden->save();
+			$cliente = Cliente::find($orden->cliente_id);
+			$equipo = Equipo::find($orden->equipo_id);
+			$user = User::find($orden->user_id);
+			$user = $user->nombres;
+			$tecnico = User::find($orden->tecnico);
+			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo));
+		}else{
+			$numOrden = Input::get('NumOrden');
+			$orden = Orden::findOrFail($numOrden);
+			$cliente = Cliente::find($orden->cliente_id);
+			$equipo = Equipo::find($orden->equipo_id);
+			$user = User::find($orden->user_id);
+			$user = $user->nombres;
+			$tecnico = User::find($orden->tecnico);
+			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo));
+		}
+	}
+	/** 
+	* Gestión de la orden de trabajo
+	*  @param 
+	*  @return Response
+	**/
+	public function postGestionar()
+	{
+		$numOrden = Input::get('orden');
+		$orden = Orden::find($numOrden);
+		$orden->detalle = Input::get('detalle');
+		$orden->informe = Input::get('informe');
+		$orden->estado = Input::get('estado');
+		$orden->save();
 	}
 
-	 /** 
-	 * Ingresar una orden de trabajo al sistema
-	 *  @param 
-	 *  @return Response
-	 **/
+	/** 
+	* Ingresar una orden de trabajo al sistema
+	*  @param 
+	*  @return Response
+	**/
 	public function postIngresar()
 	{
 		$reglas = array(

@@ -89,25 +89,6 @@ Route::post('ajax',function()
 		$tecnico = User::find($orden->tecnico);
 		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo));
 	}
-	/*$numOrden = Input::get('orden');
-	$orden = Orden::find($numOrden);
-	$orden->detalle = Input::get('detalle');
-	$orden->informe = Input::get('informe');
-	$orden->estado = Input::get('estado');
-	$orden->save();
-	//////////////////////////////////////
-	if(Request::ajax()){
-		$numOrden = Input::get('orden');
-		$orden = Orden::find($numOrden);
-		$orden->detalle = Input::get('detalle');
-		$orden->informe = Input::get('informe');
-		$orden->estado = Input::get('estado');
-		$orden->save();
-		return Response::json(array(
-            'detalle'         =>     $orden->detalle,           
-		));*/
-	
-
 });
 //Route::post('empresa/editar', array('as' => 'empresa.editar', 'uses' => 'EmprController@editar'));
 

@@ -7,31 +7,6 @@
 	{{--Sección head--}}
 	@section('head')
 	<!-- scripts -->
-	{{HTML::script('js/jquery.js')}}
-	<script type="text/javascript">
-		$(document).ready(function() {
-	    //petición al enviar el formulario de registro
-    	var form = $('.register_ajax');
-        form.bind('submit',function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: form.attr('method'),
-            url: 'ajax',
-            data: form.serialize(),    
-            complete: function(data){
-                    
-            },
-            success: function (data) {                
-                if(data.success == false){                    
-                }else{                    
-                    $('#detalleRep').val(data.det);
-                }
-            },
-            });
-       return false;
-    });
-	</script>
-
 	@stop
 	{{--Sección header--}}
 	@section('header')		
@@ -39,15 +14,12 @@
 	@stop
 	{{--Sección primario--}}
 	@section('primario')
-		<div data-role="panel" id="panelAdmin" data-position="right">
-			<h3>Administrar orden de trabajo</h3>	
-		</div>
 		<h3 align="center">Orden de trabajo N° {{$orden->id}}</h3>		
 		{{--Opción de la orden de trabajo--}}
 		@if(Auth::user()->rol == 'tecnico' && $orden->entregado != '1')
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 			    {{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
-				{{ HTML::link("#panelAdmin", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
+				{{ HTML::link("#detallePresupuesto", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
 				{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}	
 			</div>
 		@elseif($orden->entregado == '0' && Auth::user()->rol == 'vendedor')
@@ -84,7 +56,8 @@
 					</div>
 
 				</div>
-			</div><br/>									
+			</div><br/>
+			{{--Datos del equipo--}}									
 			<span><strong>Equipo:</strong></span><br/>
 			<div data-role="fieldcontain">
 				{{Form::label('tipo','Tipo:')}}
@@ -112,6 +85,7 @@
 						{{Form::textarea('accesorios',$orden->accesorios,array('data-mini'=>'true','readonly'=>'true'))}}
 				</div>
 			</div><br/>
+			{{--Detalle de la reparación--}}
 			<h4>Detalles de la reparación</h4>
 			<div class="rwd-example">
 				<div class="ui-block-a">
@@ -123,6 +97,7 @@
 						{{Form::textarea('informe',$orden->informe,array('data-mini'=>'true','readonly'=>'true','id'=>'informeRep'))}}
 				</div>
 			</div><br/>
+			{{--Estado de la reparación--}}
 			<div data-role="fieldcontain">
 				{{Form::label('estado','Estado de reparación:')}}
 				@if($orden->estado == '0')
@@ -130,9 +105,10 @@
 				@elseif($orden->estado == '1')
 					{{Form::text('serie','En reparación',array('data-mini'=>'true','readonly'=>'true'))}}
 				@else
-					{{Form::text('serie','Reparción terminada',array('data-mini'=>'true','readonly'=>'true'))}}
+					{{Form::text('serie','Reparación terminada',array('data-mini'=>'true','readonly'=>'true'))}}
 				@endif
 			</div>			
+			{{--Equipo entregado--}}
 			<div data-role="fieldcontain">
 				{{Form::label('terminado','Equipo entregado:')}}
 				@if($orden->entregado == '1')
@@ -141,6 +117,7 @@
 					{{Form::text('serie',' No entregado',array('data-mini'=>'true','readonly'=>'true'))}}
 				@endif
 			</div>
+			
 		{{Form::close()}}	
 	@stop
 	{{--Sección secundario--}}
@@ -148,6 +125,7 @@
 	@stop
 	{{--Sección paneles--}}
 	@section('paneles')
+	{{--Panel que contiene la información del cliente--}}
 		<div data-role="panel" id="panelCliente" data-display="overlay">
 			<h3 align="center">Detalles de cliente</h3>
 			{{Form::open()}}				
@@ -166,16 +144,17 @@
 				<a href="#" data-role="button" data-rel="close" data-theme="b">Aceptar</a>
 			{{Form::close()}}
 		</div>
+		{{--Panel de administración de la orden de trabajo--}}
 		<div data-role="panel" id="AdminOrden" data-display="overlay">
 			<h3 align="center">Administrar orden de trabajo</h3>			
-			{{ Form::open(array('url' => 'ajax', 'class' => 'register_ajax')) }}
-				{{Form::label('detalle','Detalle de la reparación')}}
-				{{Form::textarea('detalle',$orden->detalle,array('id'=>'detalle'))}}
-				{{Form::label('informe','Informe al cliente')}}
-				{{Form::textarea('informe',$orden->informe,array('id'=>'informe'))}}
-				{{Form::label('estado','Estado de la reparación')}}
+			{{ Form::open(array('url' => 'ordenTrabajo/mostrar')) }}				
 				{{--Errores al presentar radio buttons con sintaxis de laravel, por eso escribimos con sitaxis html--}}
 				@if($orden->estado == '0')
+					{{Form::label('detalle','Detalle de la reparación')}}
+					{{Form::textarea('detalle',$orden->detalle,array('id'=>'detalle'))}}
+					{{Form::label('informe','Informe al cliente')}}
+					{{Form::textarea('informe',$orden->informe,array('id'=>'informe'))}}
+					{{Form::label('estado','Estado de la reparación')}}
 					<fieldset data-role="controlgroup">					    
 					    <input type="radio" name="estado" id="0" value="0" checked="checked">
 					    <label for="0">No revisado</label>
@@ -185,6 +164,11 @@
 					    <label for="2">Reparación terminada</label>
 					</fieldset>
 					@elseif($orden->estado == '1')
+						{{Form::label('detalle','Detalle de la reparación')}}
+						{{Form::textarea('detalle',$orden->detalle,array('id'=>'detalle'))}}
+						{{Form::label('informe','Informe al cliente')}}
+						{{Form::textarea('informe',$orden->informe,array('id'=>'informe'))}}
+						{{Form::label('estado','Estado de la reparación')}}
 						<fieldset data-role="controlgroup">						    
 						        <input type="radio"  id="0" value="0" disabled="disable">
 						        <label for="0">No revisado</label>
@@ -194,18 +178,28 @@
 						        <label for="2">Reparación terminada</label>
 						</fieldset>
 					@elseif($orden->estado == '2')
+						{{Form::label('detalle','Detalle de la reparación')}}
+						{{Form::textarea('detalle',$orden->detalle,array('id'=>'detalle','readonly'=>'true'))}}
+						{{Form::label('informe','Informe al cliente')}}
+						{{Form::textarea('informe',$orden->informe,array('id'=>'informe','readonly'=>'true'))}}
+						{{Form::label('estado','Estado de la reparación')}}
 						<fieldset data-role="controlgroup">
-						        <input type="radio" id="0" value="0" >
+						        <input type="radio" id="0" value="0" disabled="disable">
 						        <label for="0">No revisado</label>
-						        <input type="radio" id="1" value="1" >
+						        <input type="radio" id="1" value="1" disabled="disable">
 						        <label for="1">En reparación</label>
 						        <input type="radio" name="estado" id="2" value="2" checked="checked">
 						        <label for="2">Reparación terminada</label>
 						</fieldset>					
 				@endif
 				{{Form::hidden('orden',$orden->id,array('id'=>'orden'))}}
+				{{FOrm::hidden('tipo','gestion')}}
 				{{Form::submit('Guardar')}}
 			{{Form::close()}}
+		</div>
+		{{--Panel presupuesto--}}
+		<div data-role="panel" id="detallePresupuesto" data-display="overlay">
+			<h3>Detalle del presupesto</h3>
 		</div>
 	@stop		
 @endif
