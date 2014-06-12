@@ -1,14 +1,12 @@
 @extends('layout.base')
-@include('includes.styles')
-
 <?php
 	if ($estado == 'editar'):		
-		$accion = "Editar";
-		$form = array('url'=>'cliente/editar');
+		$accion = "Editar cliente";
+		$form = array('url'=>'cliente/editar','id'=>'formCliente');
 		$detalle = "Por favor, ingrese los nuevos datos del cliente";
 	else:		
-		$accion = "Detalle de";
-		$detalle = "información detallada del usuario";		
+		$accion = "Información del usuario";
+		$detalle = "";		
 		$form = array();
 	endif;		
 ?>
@@ -16,43 +14,55 @@
 @section('titulo')
 	<title> {{ $accion }} cliente</title>
 @stop
+{{--Sección head--}}
+@section('head')
+	<!-- scripts -->
+	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
+	{{HTML::script('js/validadores/camposClienteMod.js');}}	
+@stop
 {{--Sección header--}}
-@section('header')
-	<h1> {{ $accion}} cliente</h1>
-	{{ HTML::link('cliente','',array('class'=>'ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all')); }}
+@section('header')	
+	{{ HTML::link('cliente','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
 {{--Sección primario--}}
 @section('primario')
+	<h2 align="center">{{$accion}}</h2>	
 	<h3>{{ $detalle}}</h3>
+	@if($estado == 'editar')
+		<span style="color: red;">* Elementos requeridos</span>
+	@endif
 	{{Form::open($form)}}
-		<div data-role="fieldcontain">
-			{{Form::label('nombres','Nombres:')}}
+		<div data-role="fieldcontain">			
 			@if($estado == "editar")
-				{{Form::text('nombres',$cliente->nombres,array('data-mini'=>'true'))}}
+				{{Form::label('nombres','Nombres: *')}}
+				{{Form::text('nombres',$cliente->nombres,array('data-mini'=>'true','id'=>'nombres'))}}
 			@else
+				{{Form::label('nombres','Nombres:')}}
 				{{Form::text('nombres',$cliente->nombres,array('data-mini'=>'true','readonly'=>'true'))}}
 			@endif
 		</div>
-		<div data-role="fieldcontain">
-			{{Form::label('cedula','Cédula:')}}
+		<div data-role="fieldcontain">			
 			@if($estado == "editar")
-				{{Form::text('cedula',$cliente->cedula,array('data-mini'=>'true'))}}
+				{{Form::label('cedula','Cédula: *')}}
+				{{Form::text('cedula',$cliente->cedula,array('data-mini'=>'true','id'=>'cedula'))}}
 			@else
+				{{Form::label('cedula','Cédula:')}}
 				{{Form::text('cedula',$cliente->cedula,array('data-mini'=>'true','readonly'=>'true'))}}
 			@endif
 		</div>
-		<div data-role="fieldcontain">
-			{{Form::label('direccion','Dirección:')}}
+		<div data-role="fieldcontain">			
 			@if($estado == "editar")
-				{{Form::textarea('direccion',$cliente->direccion)}}
+				{{Form::label('direccion','Dirección: *')}}
+				{{Form::textarea('direccion',$cliente->direccion,array('id'=>'direccion'))}}
 			@else
+				{{Form::label('direccion','Dirección:')}}
 				{{Form::textarea('direccion',$cliente->direccion,array('readonly'=>'true'))}}
 			@endif
 		</div>
 		<div data-role="fieldcontain">
 			{{Form::label('telefono','Teléfono:')}}
 			@if($estado == "editar")
-				{{Form::text('telefono',$cliente->telefono,array('data-mini'=>'true'))}}
+				{{Form::text('telefono',$cliente->telefono,array('data-mini'=>'true','id'=>'telefono'))}}
 			@else
 				{{Form::text('telefono',$cliente->telefono,array('data-mini'=>'true','readonly'=>'true'))}}
 			@endif
@@ -60,7 +70,7 @@
 		<div data-role="fieldcontain">
 			{{Form::label('celular','Celular:')}}
 			@if($estado == "editar")
-				{{Form::text('celular',$cliente->celular,array('data-mini'=>'true'))}}
+				{{Form::text('celular',$cliente->celular,array('data-mini'=>'true','id'=>'celular'))}}
 			@else
 				{{Form::text('celular',$cliente->celular,array('data-mini'=>'true','readonly'=>'true'))}}
 			@endif
@@ -68,7 +78,7 @@
 		<div data-role="fieldcontain">
 			{{Form::label('email','Email:')}}
 			@if($estado == "editar")
-				{{Form::email('email',$cliente->email,array('data-mini'=>'true'))}}
+				{{Form::email('email',$cliente->email,array('data-mini'=>'true','id'=>'email'))}}
 			@else
 				{{Form::email('email',$cliente->email,array('data-mini'=>'true','readonly'=>'true'))}}
 			@endif
@@ -76,7 +86,7 @@
 		<div data-role="fieldcontain">
 			{{Form::label('observaciones','Observaciones:')}}
 			@if($estado == "editar")
-				{{Form::textarea('observaciones',$cliente->observaciones)}}
+				{{Form::textarea('observaciones',$cliente->observaciones,array('id'=>'observaciones'))}}
 			@else
 				{{Form::textarea('observaciones',$cliente->observaciones,array('readonly'=>'true'))}}
 			@endif

@@ -1,6 +1,4 @@
 @extends('layout.base')
-@include('includes.styles')
-
 <?php
 	if (Auth::user()->rol == "tecnico"):		
 		$accion = "tecnico";
@@ -12,76 +10,13 @@
 @section('titulo')	
 	<title>Ingresar orden de trabajo</title>
 @stop
-
-{{--Sección header--}}
-@section('header')
-	<h1>Ingresar una orden de trabajo</h1>
-	{{ HTML::link($accion,'',array('class'=>'ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all')); }}
-@stop
-
-{{--Sección primario--}}
-@section('primario')
-	<h3 align="center">Ingresar una nueva orden de trabajo</h3>
-	{{Form::open(array('url'=>'ordenTrabajo/ingresar'))}}
-		<div data-role="fieldcontain">
-			{{Form::label('usuario','Integrante que recepta el equipo:')}}
-			{{Form::text('usuario',Auth::user()->nombres,array('data-mini'=>'true','readonly'=>'true'))}}
-		</div>		
-		<div data-role="fieldcontain">
-			@if(isset($clientes))
-			{{Form::label('cliente','Seleccione un cliente:')}}
-			{{Form::select('cliente',$clientes,array('data-mini'=>'true','id'=>'cliente'))}}
-			@endif
-		</div>
-		<div data-role="fieldcontain">
-			{{ Form::label('datosCliente','Información del cliente:')}}
-			<div id="datosCliente" data-role="controlgroup" data-type="horizontal" align="center" >
-				{{ Form::text('nombres','',array('placeholder'=>'Nombres','data-mini'=>'true','id'=>'nombres'))}}
-				{{ Form::text('cedula','',array('placeholder'=>'Cédula','data-mini'=>'true','id'=>'cedula','maxlength'=>'10'))}}
-				{{ Form::textarea('direccion','',array('placeholder'=>'Dirección','id'=>'direccion'))}}
-				{{ Form::text('telefono','',array('placeholder'=>'Teléfono','data-mini'=>'true','id'=>'telefono','maxlength'=>'7'))}}
-				{{ Form::text('celular','',array('placeholder'=>'Celular','data-mini'=>'true','id'=>'celular','maxlength'=>'10'))}}
-				{{ Form::email('email','',array('placeholder'=>'Email','data-mini'=>'true','id'=>'email'))}}
-				{{ Form::textarea('observaciones','',array('placeholder'=>'Observaciones','id'=>'observaciones'))}}
-				{{ Form::hidden('id_cliente','0',array('id'=>'id_cliente'))}}
-			</div> 			
-		</div>
-		<div data-role="fieldcontain">
-			{{ Form::label('equipo','Información del equipo:')}}
-			<div data-role="controlgroup" data-type="horizontal" align="center">
-				{{ Form::text('tipo','',array('placeholder'=>'Tipo de equipo','data-mini'=>'true'))}}
-				{{ Form::text('marca','',array('placeholder'=>'Marca','data-mini'=>'true'))}}
-				{{ Form::text('modelo','',array('placeholder'=>'Modelo','data-mini'=>'true'))}}
-				{{ Form::text('serie','',array('placeholder'=>'Número de serie','data-mini'=>true))}}
-				{{ Form::textarea('problema','',array('placeholder'=>'Problema del equipo'))}}
-				{{ Form::textarea('accesorios','',array('placeholder'=>'Accesorios del equipo'))}}
-			</div>
-		</div>
-		<div data-role="fieldcontain">
-			@if(isset($tecnicos))
-			{{ Form::label('tecnico','Técnico asignado:')}}
-			{{ Form::select('tecnico',$tecnicos,array('data-mini'=>'true'))}}
-			@endif
-		</div>
-		{{--<div data-role="fieldcontain">
-			{{ Form::label('fechaPrometido','Fecha y hora de prometido')}}			
-			{{ Form::datetime('fechaPrometido',array('placeholder'=>'Fecha de prmometido','data-mini'=>'true'))}}
-			{{ Form::text('horaPrometido',array('placeholder'=>'Hora de prometido','data-mini'=>'true'))}}
-		</div>--}}
-		<div data-role= "controlgroup" data-type="horizontal" align="center" data-mini="true">
-			{{ Form::submit('Ingresar')}}
-			{{ Form::button('Cancelar',array('url'=>'#'))}}
-		</div>		
-		{{ Form::hidden('user_id',Auth::user()->id)}}
-		
-	{{Form::close()}}
-@stop
-
-{{--Sección secundario--}}
-@section('secundario')
-@stop
-
-<script type="text/javascript">
+{{--Sección head--}}
+@section('head')
+	<!-- scripts -->
+	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
+	{{HTML::script('js/validadores/camposIngresoOrden.js');}}
+	<script type="text/javascript">
+	//Carga los datos del cliente cuando el usuario seleccione uno
     $(document).ready(function(){
         $('#cliente').change(function(){
             $.ajax({
@@ -103,4 +38,114 @@
 
         });    
     });
-</script>
+	</script>
+@stop
+{{--Sección header--}}
+@section('header')	
+	{{ HTML::link($accion,'',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
+@stop
+{{--Sección primario--}}
+@section('primario')
+	<h3 align="center">Ingresar una nueva orden de trabajo</h3>	
+	{{--Formulario de ingreso de orden de trabajo--}}
+	{{Form::open(array('url'=>'ordenTrabajo/ingresar','id'=>'formIngresarOrden'))}}
+		<div data-role="fieldcontain">
+			{{Form::label('fechaIngreso','Fecha de ingreso:')}}
+			{{Form::text('fechaIngreso',date("d/m/Y"),array('readonly'=>'true','id'=>'fechaIngreso'))}}
+		</div>
+		{{--Usuario que recepta el equipo--}}		
+		<div data-role="fieldcontain">
+			{{Form::label('usuario','Integrante que recepta el equipo:')}}
+			{{Form::text('usuario',Auth::user()->nombres,array('data-mini'=>'true','readonly'=>'true'))}}
+		</div>
+		{{--Selección del cliente--}}		
+		<h4>Información del cliente</h4>
+		<div data-role="fieldcontain">
+			@if(isset($clientes))
+			{{Form::label('cliente','Seleccione un cliente:')}}
+			{{Form::select('cliente',$clientes,array('data-mini'=>'true','id'=>'cliente'))}}
+			@endif
+		</div>
+		{{--Datos del cliente--}}		
+		<div id="datosCliente">
+			<div data-role="fieldcontain">
+				{{ Form::label('nombres','Nombres: *')}}	
+				{{ Form::text('nombres','',array('data-mini'=>'true','id'=>'nombres'))}}
+			</div>
+			<div data-role="fieldcontain">
+				{{ Form::label('cedula','Cédula: *')}}	
+				{{ Form::text('cedula','',array('data-mini'=>'true','id'=>'cedula','maxlength'=>'10'))}}
+			</div>
+			<div data-role="fieldcontain">
+				{{ Form::label('direccion','Dirección: *')}}	
+				{{ Form::textarea('direccion','',array('id'=>'direccion'))}}
+			</div>
+			<div data-role="fieldcontain">
+				{{ Form::label('telefono','Teléfono:')}}	
+				{{ Form::text('telefono','',array('data-mini'=>'true','id'=>'telefono','maxlength'=>'7'))}}
+			</div>
+			<div data-role="fieldcontain">
+				{{ Form::label('celular','Celular:')}}	
+				{{ Form::text('celular','',array('data-mini'=>'true','id'=>'celular','maxlength'=>'10'))}}
+			</div>
+			<div data-role="fieldcontain">
+				{{ Form::label('email','Email:')}}	
+				{{ Form::textarea('direccion','',array('id'=>'direccion'))}}
+			</div>
+			<div data-role="fieldcontain">
+				{{ Form::label('observaciones','Observaciones:')}}	
+				{{ Form::textarea('observaciones','',array('id'=>'observaciones'))}}
+			</div>
+			{{ Form::hidden('id_cliente','0',array('id'=>'id_cliente'))}}
+		</div>
+		{{--Datos del equipo--}}
+		<h4>Información del equipo</h4>
+		<div data-role="fieldcontain">
+			{{ Form::label('tipo','Tipo de equipo: *')}}	
+			{{ Form::text('tipo','',array('data-mini'=>'true','id'=>'tipo'))}}
+		</div>
+		<div data-role="fieldcontain">
+			{{ Form::label('marca','Marca: *')}}	
+			{{ Form::text('marca','',array('data-mini'=>'true','id'=>'marca'))}}
+		</div>
+		<div data-role="fieldcontain">
+			{{ Form::label('modelo','Modelo: *')}}	
+			{{ Form::text('modelo','',array('data-mini'=>'true','id'=>'modelo'))}}
+		</div>
+		<div data-role="fieldcontain">
+			{{ Form::label('serie','Número de serie: *')}}	
+			{{ Form::text('serie','',array('data-mini'=>'true','id'=>'serie'))}}
+		</div>
+		<h4>Detalles de la orden de trabajo</h4>
+		<div data-role="fieldcontain">
+			{{ Form::label('problema','Problema del equipo: *')}}	
+			{{ Form::textarea('problema','',array('id'=>'problema'))}}<br/>
+		</div>
+		<div data-role="fieldcontain">
+			{{ Form::label('accesorios','Accesorios:')}}	
+			{{ Form::textarea('accesorios','',array('id'=>'accesorios'))}}<br/>
+		</div>		
+		{{--Técnico asignado a la reparación--}}
+		<div data-role="fieldcontain">
+			@if(isset($tecnicos))
+			{{ Form::label('tecnico','Técnico asignado:')}}
+			{{ Form::select('tecnico',$tecnicos,array('data-mini'=>'true','id'=>'tecnico'))}}
+			@endif
+		</div>
+		{{--Fecha de prometido--}}
+		<div data-role="fieldcontain">
+			{{Form::label('fechaPrometido', 'Fecha de prometido: *')}}
+			<input type="date" id="fechaPrometido" name="fechaPrometido"/>
+		</div>
+		{{--Botones de ingreso--}}
+		<div data-role= "controlgroup" data-type="horizontal" align="center" data-mini="true">
+			{{ Form::submit('Ingresar')}}
+			{{ Form::button('Cancelar',array('url'=>'#'))}}
+		</div>		
+		{{ Form::hidden('user_id',Auth::user()->id)}}
+	{{Form::close()}}
+@stop
+{{--Sección secundario--}}
+@section('secundario')	
+@stop
+

@@ -1,23 +1,18 @@
 <?php
-
 /** 
 * @Sistema de gestión de reparaciones de equipos informáticos de la empresa Sisprocompu
 * @version 1.0    @modificado:07 de abril del 2014
 * @author Diego Castillo.
 *
 */
-
 class ClienteController extends BaseController{
-
 	public $restful = true;
-	
 	//Constructor de la clase
 	public function __construct()
 	{
 		$this -> beforeFilter('auth');
 		$this -> beforeFilter('authAny');
 	}
-
 	/**
 	* Envía datos de todos los clientes a la vista Clientes
 	* 
@@ -29,7 +24,6 @@ class ClienteController extends BaseController{
 		$cliente = DB::table('clientes')->paginate(15);
 		return View::make('cliente.index')->with('cliente',$cliente);
 	}
-
 	/**
 	* Crea la vista Editar y envía datos de un cliente específico
 	* 
@@ -41,7 +35,6 @@ class ClienteController extends BaseController{
 		$cliente = Cliente::findOrFail($id);
 		return View::make('cliente.form')->with(array('cliente'=>$cliente,'estado'=>'editar'));
 	}
-
 	/**
 	* Crea la vista Ver y envía los datos del cliente
 	* 
@@ -64,6 +57,7 @@ class ClienteController extends BaseController{
 	{
 		$reglas = array(
 			'nombres'=>'required',
+			'cedula'=>'required',
 			'email'=>'email'
 			);
 		$validador = Validator::make(Input::all(),$reglas);
@@ -84,12 +78,12 @@ class ClienteController extends BaseController{
 			}
 			else
 			{
-				return Redirect::to('cliente')->with('status','errorDatos');				
+				return Redirect::to('cliente')->with('status','error');				
 			}			
 		}
 		else
 		{
-			return Redirect::to('cliente')->with('status','errorDatos');	
+			return Redirect::to('cliente')->with('status','error');	
 		}
 	}
 

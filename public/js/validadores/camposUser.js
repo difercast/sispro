@@ -1,11 +1,21 @@
 $(document).ready(function(){
+	//Validar que el campo ingresado solo contenga letras
+	$.validator.addMethod('letters', function(val, element, param){
+		return val.match(new RegExp("." + param + "$"));
+	});
+	//Método para validar que los datos sean alfanuméricos
+	$.validator.addMethod('alphaNumeric', function(val, element) {
+		return this.optional(element) || /^[a-z0-9\-\s]+$/i.test(val);
+	}, 'El campo debe contener valores alfanuméricos');
 	$('#formUser').validate({
 		rules:{
 			apellidos: {
-				required: true
+				required: true,
+				letters: '[a-zA-Z]+'
 			},
 			nombres:{
-				required: true
+				required: true,
+				letters: '[a-zA-Z]+'
 			},
 			cedula:{
 				required: true,
@@ -31,22 +41,27 @@ $(document).ready(function(){
 				email: true
 			},
 			username:{
-				required: true
-			},
-			pass:{
-				required: true
-			},
-			pass2:{
 				required: true,
-				equalTo: "#pass"
+				alphaNumeric: true
+			},
+			password:{
+				required: true,
+				alphaNumeric: true
+			},
+			password2:{
+				required: true,
+				alphaNumeric: true,
+				equalTo: "#password"
 			}
 		},
 		messages:{
 			apellidos: {
-				required: 'Campo requerido'
+				required: 'Campo requerido',
+				letters: 'El campo debe conterner solo letras'
 			},
 			nombres:{
-				required: 'Campo requerido'
+				required: 'Campo requerido',
+				letters: 'El campo debe conterner solo letras'
 			},
 			cedula:{
 				required: 'Campo requerido',
@@ -72,13 +87,16 @@ $(document).ready(function(){
 				email: 'Debe ingresar un email correcto'
 			},
 			username:{
-				required: 'Campo requerido'
-			},
-			pass:{
 				required: 'Campo requerido',
+				alphaNumeric: 'El campo debe conterner valores alfanuméricos'
 			},
-			pass2:{
+			password:{
 				required: 'Campo requerido',
+				alphaNumeric: 'El campo debe conterner valores alfanuméricos'	
+			},
+			password2:{
+				required: 'Campo requerido',
+				alphaNumeric: 'El campo debe conterner valores alfanuméricos',
 				equalTo: 'Las contraseñas no coinciden'
 			}
 		}

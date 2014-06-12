@@ -6,14 +6,14 @@
 	<title>Ordenes de trabajo</title>
 	@show
 @stop
-
-@section('header')
-	<h1>Ordenes de trabajo por clientes</h1>
-	{{ HTML::link('tecnico','',array('class'=>'ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all')); }}
+{{--Sección header--}}
+@section('header')	
+	{{ HTML::link('tecnico','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
-
+{{--Sección primario--}}
 @section('primario')
 	@if($cliente)
+	<h3>Órdenes de trabajo por cliente</h3>
 	<p><strong>Cliente: </strong> {{ $cliente -> nombres}}</p>
 	<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center" >
 		<thead>

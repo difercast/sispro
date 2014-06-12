@@ -125,6 +125,7 @@ class OrdenController extends BaseController
 					$orden->accesorios = Input::get('accesorios');
 					$orden->tecnico = Input::get('tecnico');
 					$orden->sucursal_id = Auth::user()->sucursal_id;
+					$orden->fechaPrometido = Input::get('fechaPrometido');					
 					$orden->save();
 					return Redirect::to('tecnico')->with('status','okCreado');
 				}

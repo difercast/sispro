@@ -1,23 +1,22 @@
 @extends('layout.base')
-@include('includes.styles')
-
 {{--Sección título--}}
 @section('titulo')
 	<title>Equipos</title>
 @stop
-
+{{--Sección head--}}
+@section('head')
+	{{ HTML::style('css/mensajes.css'); }}
+@stop
 {{--Sección header--}}
 @section('header')
-	<h1>Equipos</h1>
 	@if(Auth::user()->rol == 'administrador')
-		{{ HTML::link('admin','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+		{{ HTML::link('admin','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@elseif(Auth::user()->rol == 'tecnico')
-		{{ HTML::link('tecnico','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+		{{ HTML::link('tecnico','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@elseif(Auth::user()->rol == 'vendedor')
-		{{ HTML::link('vendedor','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+		{{ HTML::link('vendedor','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@endif
 @stop
-
 {{--Sección primario--}}
 @section('primario')
 	<?php $status=Session::get('status') ?>
@@ -30,7 +29,7 @@
 			<p>La información del equipo se editó con éxito</p>			
 		</div>
 	@endif
-	<h3 align="center">Lista de equipos</h3>
+	<h2>Equipos</h2>
 	{{Form::open()}}
 		<input id="filterTable-input" data-type="search">
 	{{Form::close()}}
@@ -57,7 +56,6 @@
 		</tbody>		
 	</table>	
 @stop
-
 {{--Sección secundario--}}
 @section('secundario')
 	@if(Auth::user()->rol == 'administrador')
@@ -96,3 +94,4 @@
 		</ul>
 	@endif
 @stop
+{{ HTML::script('js/mensajes.js'); }}

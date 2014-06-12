@@ -8,9 +8,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	{{HTML::style('css/tema/sispro.css');}}
 	{{HTML::style('css/tema/jquery.mobile.icons.min.css');}}
-	{{HTML::style('http://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css');}}	
+	{{HTML::style('http://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css');}}
 	{{HTML::script('http://code.jquery.com/jquery-1.9.1.min.js');}}
-	{{HTML::script('http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js');}}  	
+	{{HTML::script('http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js');}} 	 	
 	@yield('head')
 </head>
 <body>
@@ -31,13 +31,11 @@
 			<div class="secundario">
 				@yield('secundario')
 			</div>
-		</div>
-		<div data-role="footer">
-			<h2>Sisprocompu 2014, Todos los derechos reservados</h2>
 		</div>		
+		@yield('paneles')	
 	</div>
 </body>
-</html>
+</html>	
 
 
 

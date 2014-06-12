@@ -1,11 +1,16 @@
 $(document).ready(function(){
+	//Validar que el campo ingresado solo contenga letras
+	$.validator.addMethod('letters', function(val, element, param){
+		return val.match(new RegExp("." + param + "$"));
+	});
 	$('#formSucursal').validate({
 		rules: {
 			provincia: {
 				required: true
 			},
 			ciudad: {
-				required: true
+				required: true,
+				letters: '[a-zA-Z]+'
 			},
 			direccion: {
 				required: true
@@ -32,7 +37,8 @@ $(document).ready(function(){
 				required: 'Campo requerido'
 			},
 			ciudad: {
-				required: 'Campo requerido'
+				required: 'Campo requerido',
+				letters: 'El campo debe contener solo letras'
 			},
 			direccion:{
 				required: 'Campo requerido'

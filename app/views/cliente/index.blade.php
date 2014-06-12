@@ -1,30 +1,39 @@
 @extends('layout.base')
-@include('includes.styles')
-
-{{--Sección clientes--}}
+{{--Sección título--}}
 @section('titulo')
-<title>Clientes</title>
+	<title>Clientes</title>
 @stop
-
+{{--Sección head--}}
+@section('head')
+	{{ HTML::style('css/mensajes.css'); }}
+@stop
 {{--Sección header--}}
 @section('header')
-	<h1>Clientes</h1>
 	@if(Auth::user()->rol == 'administrador')
-		{{ HTML::link('admin','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+		{{ HTML::link('admin','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@elseif(Auth::user()->rol == 'tecnico')
-		{{ HTML::link('tecnico','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+		{{ HTML::link('tecnico','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@elseif(Auth::user()->rol == 'vendedor')
-		{{ HTML::link('vendedor','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+		{{ HTML::link('vendedor','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@endif
 @stop
-
 {{--Sección primario--}}
 @section('primario')
-	<h3 align="center">Clientes de la empresa</h3>
+	<?php $status=Session::get('status') ?>
+	@if($status == 'error')
+		<div id="error" align="center">
+			<p>¡Error!, por favor verifica la información ingresada</p>
+		</div>
+	@elseif($status == 'okEditado')
+		<div id="mensajeEditar" align="center">
+			<p>La información del equipo se editó con éxito</p>			
+		</div>
+	@endif
+	<h2>Clientes</h2>
 	{{Form::open()}}
 		<input id="filterTable-input" data-type="search">
 	{{Form::close()}}
-	<table data-role="table" data-mode="reflow" data-filter="true" data-input="#filterTable-input" class="movie-list ui-responsive" align="center" >
+	<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" data-filter="true" data-input="#filterTable-input">
 		<thead>
 			<tr>
 				<th>Nombres</th>
@@ -45,14 +54,13 @@
 				</td>
 			</tr>
 			@endforeach
-			<br />
-			{{--{{ $cliente->links() }}--}}
+			
 		</tbody>
 	</table>
 @stop
-
 {{--Sección secundario--}}
 @section('secundario')
+	<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 	@if(Auth::user()->rol == 'administrador')
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">
 			<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
@@ -89,3 +97,4 @@
 		</ul>
 	@endif
 @stop
+{{ HTML::script('js/mensajes.js'); }}

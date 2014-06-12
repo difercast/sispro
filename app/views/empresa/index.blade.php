@@ -50,7 +50,6 @@
 	@endif
 		
 @stop
-
 {{--Sección secundario--}}
 @section('secundario')
 	<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>

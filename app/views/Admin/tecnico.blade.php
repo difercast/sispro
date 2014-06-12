@@ -1,22 +1,21 @@
 @extends('layout.base')
-@include('includes.styles')
-
-@if(Auth::user()->rol == 'tecnico')
-
-	{{ HTML::style('css/mensajes.css'); }}
+@if(Auth::user()->rol == 'tecnico')	
 	{{--Título--}}
 	@section('titulo')
-	<title>Técnico</title>
+		<title>Técnico</title>
+	@stop
+	{{--Head--}}
+	@section('head')
+		{{ HTML::style('css/mensajes.css'); }}
 	@stop
 	{{--Header--}}
-	@section('header')
-		<h1>Técnico</h1>
+	@section('header')		
 	@stop
-
 	{{--Sección primario--}}
-	@section('primario')
+	@section('primario')		
+		<h2>Sisprocompu</h2>
+		<span>Bienvenido al sistema de gestión de reparaciones de equipos informáticos, para emprezar por favor elija una opción</span>
 		{{--Mensajes de errores--}}
-		<p align="center">Bienvenido<strong> {{ Auth::user()->nombres }} </strong>para empezar por favor elija  una opción</p>
 		<?php $status=Session::get('status') ?>
 		@if($status == "errorDatos")
 			<div id="errorDatos"  align="center">
@@ -34,37 +33,62 @@
 			<div id="mensajeCrear"  align="center">
 				<p>Orden de trabajo ingresada correctamente</p>
 			</div>
-		@endif
+		@endif		
 	@stop
-
-	{{--Sección secundario--}}
+	{{--Sección secundario--}}	
 	@section('secundario')
+		<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
 			<li data-icon="false">{{ HTML::link('ordenTrabajo', 'Ingresar orden de trabajo'); }}</li>
 			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado', 'Lista órdenes de trabajo'); }}</li>		
-			<li data-role="collapsible" data-iconpos="right" data-corners="false">
+			<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-inset="false">
 	    		<h2>Buscar orden</h2>
-	    		<ul data-role="listview" data-inset="false" data-shadow="false" data-corners="false" >
-					<li data-icon="false">{{ HTML::link('ordenTrabajo/buscarporcliente', 'Por cliente',array('data-rel'=>'dialog')); }}</li>
-					<li data-icon="false">{{ HTML::link('ordenTrabajo/buscar', 'Por número de orden',array('data-rel'=>'dialog')); }}</li>
+	    		<ul data-role="listview" data-corners="false" >				
+					<li data-icon="false">{{ HTML::link('#popupNumOrden', 'Por número de orden',array('data-rel'=>'popup')); }}</li>
+					<li data-icon="false">{{ HTML::link('#popupCliente', 'Por cliente',array('data-rel'=>'popup')); }}</li>
 				</ul>
 			</li> 		
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>		
 			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
 		</ul>
-	@stop
+		{{--Popups para la búsqueda de órdenes de trabajo--}}
+		<div data-role="popup" id="popupCliente" align="center">
+			<div style="padding:10px 20px;">
+				<p>por favor, seleccione el cliente</p>
+				{{Form::open(array('url'=>'ordenTrabajo/porcliente'))}}
+					{{Form::select('cliente',$cliente)}}
+					{{Form::submit('Buscar')}}			
+				{{Form::close()}}
+			</div>		
+		</div>
+		<div data-role="popup" id="popupNumOrden">
+			<div style="padding:10px 20px;">
+				<p>por favor, ingrese el número de orden de trabajo</p>
+				{{Form::open(array('url'=>'ordenTrabajo/mostrar'))}}
+					{{Form::text('NumOrden')}}
+					{{Form::submit('Buscar')}}			
+				{{Form::close()}}
+			</div>		
+		</div>
+	@stop	
 	{{ HTML::script('js/mensajes.js'); }}
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$('#errorDatos').click(function(){
+				$('#errorDatos').hide();
+			});
+			$('#error').click(function(){
+				$('#error').hide();
+			});
 			$('#mensajeCrear').click(function(){
 				$('#mensajeCrear').hide();
 			});
 		});
 	</script>
-
 @else
 	{{Redirect::to('/')}}
 @endif
+
 
 

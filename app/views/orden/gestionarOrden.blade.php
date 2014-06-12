@@ -1,26 +1,25 @@
 @extends('layout.base')
-@include('includes.styles')
 {{--Sección título--}}
 @if($orden)
 	@section('titulo')
 		<title>Gestión orden de trabajo </title>
 	@stop
+	{{--Sección head--}}
+	@section('head')
+	@stop
 	{{--Sección header--}}
-	@section('header')
-		<h1>Orden de trabajo N° {{ $orden->id}}</h1>
-		{{ HTML::link('tecnico','',array('class'=>'ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all')) }}
+	@section('header')		
+		{{ HTML::link('tecnico','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 	@stop
 	{{--Sección primario--}}
 	@section('primario')
-		<h4>Gestión de orden de trabajo</h4>
+		<h4>Gestión de la orden de trabajo N° {{$orden->id}}</h4>
 		{{Form::open(array('url'=>'ordenTrabajo/administrar'))}}
-
 			{{Form::label('detalle','Detalle del trabajo realizado')}}
 			{{Form::textarea('detalle',$orden->detalle, array('data-mini'=>'true'))}}
 
 			{{Form::label('informe','Informe de reparación')}}
-			{{Form::textarea('detalle',$orden->detalle, array('data-mini'=>'true'))}}
-					
+			{{Form::textarea('detalle',$orden->detalle, array('data-mini'=>'true'))}}		
 			{{--Errores al presentar radio buttons con sintaxis de laravel, por eso escribimos con sitaxis html--}}
 			@if($orden->estado == '0')
 				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
@@ -53,10 +52,10 @@
 				        <label for="2">Reparación terminada</label>
 				</fieldset>
 			@endif
-			
 		<div data-role="controlgroup" align="center" data-type="horizontal">
 				{{Form::submit('Guardar')}}
 			</div>
 		{{Form::close()}}
 	@stop
+	{{--Sección secundario--}}
 @endif

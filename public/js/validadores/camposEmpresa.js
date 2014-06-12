@@ -1,4 +1,8 @@
 $(document).ready(function(){
+	//Validar que el campo ingresado solo contenga letras
+	$.validator.addMethod('letters', function(val, element, param){
+		return val.match(new RegExp("." + param + "$"));
+	});
 	$("#formEditar").validate({
 		rules: {
 			ruc: {
@@ -8,10 +12,12 @@ $(document).ready(function(){
 				minlength: 13,
 			},
 			razon_social:{
-				required: true
+				required: true,
+				letters: '[a-zA-Z]+'
 			},
 			razon_comercial:{
-				required: true
+				required: true,
+				letters: '[a-zA-Z]+'
 			},
 			actividad:{
 				required: true,
@@ -28,10 +34,12 @@ $(document).ready(function(){
 				minlength: 'El RUC debe contener 13 dígitos',												
 			},
 			razon_social: {
-				required: "Campo requerido"
+				required: "Campo requerido",
+				letters: 'El campo debe contener solo letras'
 			},
 			razon_comercial: {
-				required: "Campo requerido"
+				required: "Campo requerido",
+				letters: 'El campo debe contener solo letras'
 			},
 			actividad: {
 				required: "Campo requerido",

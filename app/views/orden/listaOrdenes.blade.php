@@ -1,26 +1,24 @@
 @extends('layout.base')
-@include('includes.styles')
-
+{{--Sección título--}}
 @section('titulo')
 	<title>Lista de órdenes de trabajo</title>
 @show
-
-@section('header')
-	<h1>Listado de órdenes de trabajo</h1>	
+{{--Sección header--}}
+@section('header')		
 	@if(Auth::user()->rol == 'tecnico')
-		{{ HTML::link('tecnico','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+		{{ HTML::link('tecnico','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@elseif(Auth::user()->rol == 'vendedor')
-		{{ HTML::link('vendedor','',array('class'=>'ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all')); }}
+		{{ HTML::link('vendedor','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@endif
 @stop
-
 @if($ordenes)
+	{{--Sección primario--}}
 	@section('primario')
-		<h3 align="center">Listado de órdenes de trabajo</h3>
+		<h3>Órdenes de trabajo</h3>
 		{{Form::open()}}
 			<input id="filterTable-input" data-type="search"/>
 		{{Form::close()}}
-		<table data-role="table" data-mode="reflow" data-filter="true" data-input="#filterTable-input" class="movie-list ui-responsive" align="center" >
+		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" data-filter="true" data-input="#filterTable-input">
 			<thead>
 				<tr>
 					<th>Número</th>
@@ -72,7 +70,7 @@
 			</tbody>
 		</table>
 	@stop
-
+	{{--Sección secundario--}}
 	@section('secundario')
 	@stop
 @else
