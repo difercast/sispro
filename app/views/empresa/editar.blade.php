@@ -22,7 +22,7 @@
 	{{ Form::open(array('url'=>'empresa/editar','id'=>'formEditar')) }}
 		<div class="ui-field-contain">
 			{{Form::label('ruc','* RUC:')}}
-			{{ Form::text('ruc',$empresa->ruc,array('id'=>'ruc')) }}
+			{{ Form::text('ruc',$empresa->ruc,array('id'=>'ruc','maxlength'=>'13')) }}
 		</div>
 		<div data-role="fieldcontain">
 			{{ Form::label('razonSocial','* Razón Social:') }}
@@ -34,7 +34,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			{{ Form::label('actividad','* Actividad:')}}
-			{{ Form::text('actividad',$empresa->actividad,array('id'=>'actividad','class'=>'required'))}}
+			{{ Form::text('actividad',$empresa->actividad,array('id'=>'actividad','maxlength'=>'3'))}}
 		</div>		
 		{{ Form::hidden('id',$empresa->id)}}
 		<div data-role="controlgroup" data-type="horizontal" align="center">

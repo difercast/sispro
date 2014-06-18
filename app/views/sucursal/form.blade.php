@@ -1,5 +1,4 @@
 @extends('layout.base')
-@include('includes.styles')
 <?php
 	if (isset($sucursal)):		
 		$accion = "Editar";

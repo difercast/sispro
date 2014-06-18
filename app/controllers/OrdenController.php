@@ -1,4 +1,5 @@
 <?php
+
 /** 
 *
 * Sistema de gestión de reparaciones de equipos informáticos de la empresa Sisprocompu
@@ -107,20 +108,6 @@ class OrdenController extends BaseController
 			$tecnico = User::find($orden->tecnico);
 			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo));
 		}
-	}
-	/** 
-	* Gestión de la orden de trabajo
-	*  @param 
-	*  @return Response
-	**/
-	public function postGestionar()
-	{
-		$numOrden = Input::get('orden');
-		$orden = Orden::find($numOrden);
-		$orden->detalle = Input::get('detalle');
-		$orden->informe = Input::get('informe');
-		$orden->estado = Input::get('estado');
-		$orden->save();
 	}
 
 	/** 

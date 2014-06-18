@@ -40,13 +40,14 @@ Route::get('vendedor', array('before' => 'auth','as'=>'vendedor', function()
 {
 	return View::make('Admin.vendedor');
 }));
-
+//Routes con controladores REstfull
 Route::controller('empresa','EmpresaController');
 Route::controller('sucursal','SucursalController');
 Route::controller('user','UserController');
 Route::controller('cliente','ClienteController');
 Route::controller('equipo','EquipoController');
 Route::controller('ordenTrabajo','OrdenController');
+Route::controller('presupuesto','PresupuestoController');
 
 /**
 * Carga los datos del cliente en el formulario de ingreso de una
@@ -70,27 +71,7 @@ Route::post('procesaCliente',function()
 
 	return $clientes;
 });
-/**
-* Formulario de administración de órdenes de trabajo
-**/
-Route::post('ajax',function()
-{
-	if(Request::ajax()){		
-		$numOrden = Input::get('orden');
-		$orden = Orden::find($numOrden);
-		$orden->detalle = Input::get('detalle');
-		$orden->informe = Input::get('informe');
-		$orden->estado = Input::get('estado');
-		$orden->save();
-		$cliente = Cliente::find($orden->cliente_id);
-		$equipo = Equipo::find($orden->equipo_id);
-		$user = User::find($orden->user_id);
-		$user = $user->nombres;
-		$tecnico = User::find($orden->tecnico);
-		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo));
-	}
-});
-//Route::post('empresa/editar', array('as' => 'empresa.editar', 'uses' => 'EmprController@editar'));
+
 
 
 

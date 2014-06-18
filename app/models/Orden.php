@@ -9,8 +9,19 @@
 
 class Orden extends Eloquent
 {
-	protected $table = 'ordenes';
+  protected $table = 'ordenes';
+
 	
+  /**
+   * Relaciones entre órdenes y presupuestos
+   * @param 
+   * @return Response
+   */
+  public function presupuestos()
+  {
+    return $this->belongsToMany('Presupuesto');
+  }
+
 	/**
 	 * Validar el número de cédula al ingresar un usuario.
 	 * @param string ci

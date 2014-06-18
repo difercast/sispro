@@ -20,7 +20,7 @@
 			<li data-icon="false"><a href="#">Informes</a></li>
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>
-			<li data-icon="false"><a href="#">Presupuestos</a></li>		
+			<li data-icon="false">{{ HTML::link('presupuesto', 'Presupuesto'); }}</li>		
 			<li data-icon="false"><a href="#">Cambiar contrase&ntildea</a></li>
 			<li data-icon="false"><a href="logout">Salir</a></li>
 		</ul>

@@ -5,6 +5,7 @@
 @stop
 {{--Sección head--}}
 @section('head')
+	{{ HTML::script('js/mensajes.js'); }}
 	{{ HTML::style('css/mensajes.css'); }}
 @stop
 {{--Sección header--}}
@@ -67,7 +68,7 @@
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false">Equipos</li>
 			<li data-icon="false"><a href="#">Cambiar contrase&ntildea </a></li>
-			<li data-icon="false"><a href="logout">Salir</a></li>
+			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
 		</ul>
 	@elseif(Auth::user()->rol == 'tecnico')
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
@@ -94,4 +95,3 @@
 		</ul>
 	@endif
 @stop
-{{ HTML::script('js/mensajes.js'); }}

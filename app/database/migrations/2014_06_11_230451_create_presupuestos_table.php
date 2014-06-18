@@ -12,12 +12,15 @@ class CreatePresupuestosTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('presupuestos', function($tabla)
+		Schema::create('presupuestos',function($tabla)
 		{
-			$tabla->increments('id');			
+			$tabla->increments('id');
 			$tabla->string('detalle');
-			$tabla->
+			$tabla->double('valor');
+			$tabla->double('valorIVA');
+			$tabla->timestamps();
 		});
+
 	}
 
 	/**
@@ -27,7 +30,7 @@ class CreatePresupuestosTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('presupuestos');
 	}
 
 }

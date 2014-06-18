@@ -97,6 +97,9 @@
 						{{Form::textarea('informe',$orden->informe,array('data-mini'=>'true','readonly'=>'true','id'=>'informeRep'))}}
 				</div>
 			</div><br/>
+			{{--Dertalles del presupuesto--}}
+			<h4>Detalles del presupuesto</h4>
+			
 			{{--Estado de la reparación--}}
 			<div data-role="fieldcontain">
 				{{Form::label('estado','Estado de reparación:')}}
@@ -117,7 +120,6 @@
 					{{Form::text('serie',' No entregado',array('data-mini'=>'true','readonly'=>'true'))}}
 				@endif
 			</div>
-			
 		{{Form::close()}}	
 	@stop
 	{{--Sección secundario--}}

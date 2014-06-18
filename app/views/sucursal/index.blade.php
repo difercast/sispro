@@ -36,7 +36,6 @@
 	<div data-role="controlgroup" data-type="horizontal">
 		{{ HTML::link('sucursal/nuevo', 'Nuevo',array('data-role'=>'button')); }}	
 	</div>
-
 	<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center" >
 		<thead>
 				<tr>
