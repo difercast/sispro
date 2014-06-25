@@ -10,7 +10,8 @@
 class Orden extends Eloquent
 {
   protected $table = 'ordenes';
-
+  const IVA = 12;
+  
 	
   /**
    * Relaciones entre órdenes y presupuestos
@@ -18,9 +19,11 @@ class Orden extends Eloquent
    * @return Response
    */
   public function presupuestos()
-  {
-    return $this->belongsToMany('Presupuesto');
-  }
+ {
+
+ return $this->belongsToMany('Presupuesto')->withPivot('valor_actual');
+
+ }
 
 	/**
 	 * Validar el número de cédula al ingresar un usuario.

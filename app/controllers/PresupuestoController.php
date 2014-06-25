@@ -52,11 +52,11 @@ class PresupuestoController extends BaseController
 		$data = Input::all();
 		$reglas = array(
 			'detalle' => 'required',
-			'valor' => 'required');
+			'valor' => 'required|numeric');
 		$validador = Validator::make($data, $reglas);
 		if($validador->passes()){
 			$presupuesto->detalle = Input::get('detalle');
-			$presupuesto->valor = Input::get('valor');
+			$presupuesto->valor = Input::get('valor');			
 			$presupuesto->save();
 			return Redirect::to('presupuesto')->with('status','okCreado');
 		}else{
@@ -78,7 +78,7 @@ class PresupuestoController extends BaseController
 	}
 
 	/**
-	* Presenta le formulario de modicación de datos
+	* Modifica los datos de un presupuesto específico
 	* 
 	* @param int id
 	* @return Response

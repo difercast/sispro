@@ -3,7 +3,7 @@ $(document).ready(function() {
        $("#mensajeEditar").hide();
     });
     $('#error').click(function() {
-       $("#error").hide();
+       $(this).hide();
     });
     $('#mensajeCrear').click(function() {
        $("#mensajeCrear").hide();

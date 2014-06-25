@@ -17,7 +17,7 @@
 	<?php $status=Session::get('status') ?>
 	@if($status == 'error')
 		<div id="error" align="center">			
-				<p>¡Error!, por favor verifique los datos ingresados</p>
+				<p>¡Error!, por favor verifique los datos ingresados </p>
 		</div>
 	@elseif($status == 'okEditado')
 		<div id='mensajeEditar' align="center">
@@ -64,5 +64,7 @@
 		<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
 	</ul>
 @stop
-{{ HTML::script('js/mensajes.js'); }}
+
+
+
 

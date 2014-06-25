@@ -5,12 +5,11 @@
 	@section('titulo')
 		<title>Sistema de reparación de equipos informáticos de Sisprocompu</title>
 	@show
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />	
 	{{HTML::style('css/tema/sispro.css');}}
 	{{HTML::style('css/tema/jquery.mobile.icons.min.css');}}
 	{{HTML::style('http://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css');}}
-	{{HTML::script('http://code.jquery.com/jquery-1.9.1.min.js');}}
-	{{HTML::script('http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js');}} 	 	
+		 	
 	@yield('head')
 </head>
 <body>
@@ -35,7 +34,11 @@
 		@yield('paneles')	
 	</div>
 </body>
-</html>	
+</html>
+	{{HTML::script('http://code.jquery.com/jquery-1.9.1.min.js');}}
+	{{HTML::script('http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js');}} 
+@yield('scripts')
+
 
 
 

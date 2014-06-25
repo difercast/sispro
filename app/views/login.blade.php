@@ -18,13 +18,20 @@
                 @else 
                 <p align="center">Por favor ingrese sus credenciales de acceso para ingresar al sistema</p>
             @endif
-            <div data-role="fiedcontain" align="center"> 
-                {{ Form::text('username',Input::old('username'), array('placeholder' => 'Usuario')) }}                      
-                {{ Form::password('password',  array('placeholder' => 'Contraseña')) }}
-            </div>
-            <div data-role="controlgroup" data-type="horizontal" align="center">            
-                {{ Form::submit('Ingresar')}}
-            </div>
+            <div id="contenedor">
+                <div data-role="fieldcontain">
+                    {{Form::label('user','Nombre de usuario:')}}
+                    {{ Form::text('username',Input::old('username'),array('data-mini'=>'true')) }}                      
+                </div>
+                <div data-role="fieldcontain">
+                    {{Form::label('pass','Contraseña:')}}
+                    {{ Form::password('password',array('data-mini'=>'true')) }}
+                </div>
+                <div data-role="controlgroup" data-type="horizontal" align="center">            
+                    {{ Form::submit('Ingresar')}}
+                </div>
+                </div>
+            
         {{Form::close()}}
     </div>   	
 @stop

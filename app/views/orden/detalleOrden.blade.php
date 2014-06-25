@@ -17,16 +17,24 @@
 		<h3 align="center">Orden de trabajo N° {{$orden->id}}</h3>		
 		{{--Opción de la orden de trabajo--}}
 		@if(Auth::user()->rol == 'tecnico' && $orden->entregado != '1')
-			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-			    {{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
-				{{ HTML::link("#detallePresupuesto", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
-				{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}	
-			</div>
+			@if($orden->estado != '2')
+				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+				    {{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
+					{{ HTML::link("#", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
+					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}	
+				</div>
+			@else
+				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+				    {{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
+					{{ HTML::link("#detallePresupuesto", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
+					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}	
+				</div>
+			@endif			
 		@elseif($orden->entregado == '0' && Auth::user()->rol == 'vendedor')
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 			    {{ HTML::link('#', 'Entregar',array('class'=>'ui-btn')); }}	
 				{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}
-			</div>
+			</div>		
 		@endif		
 		{{Form::open(array('id'=>'ordenForm'))}}
 			{{--Fecha de ingreso y usuario que ingresó el equipo--}}
@@ -99,8 +107,29 @@
 			</div><br/>
 			{{--Dertalles del presupuesto--}}
 			<h4>Detalles del presupuesto</h4>
-			
+			@if($orden->presupuestado != '1')
+				<span>No presupuestado</span>
+			@else
+				<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center" >
+					<thead>
+						<tr>
+							<th>Detalle</th>
+							<th>Valor</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($orden->presupuestos as $valores)
+						<tr>							
+							<td>{{$valores->detalle}}</td>
+							<td>USD {{number_format($valores->pivot->valor_actual,2) }}</td>							
+						</tr>
+						@endforeach
+						<td>Total</td>							
+					</tbody>
+				</table>
+			@endif
 			{{--Estado de la reparación--}}
+			<h4>Estado de la reparación</h4>
 			<div data-role="fieldcontain">
 				{{Form::label('estado','Estado de reparación:')}}
 				@if($orden->estado == '0')
@@ -110,7 +139,10 @@
 				@else
 					{{Form::text('serie','Reparación terminada',array('data-mini'=>'true','readonly'=>'true'))}}
 				@endif
-			</div>			
+			</div>
+			@if($orden->estado == '2')
+				<span>Reparación terminada al {{ date("d M Y",strtotime($orden->fecha_terminado)) }}</span>	
+			@endif		
 			{{--Equipo entregado--}}
 			<div data-role="fieldcontain">
 				{{Form::label('terminado','Equipo entregado:')}}
@@ -202,6 +234,27 @@
 		{{--Panel presupuesto--}}
 		<div data-role="panel" id="detallePresupuesto" data-display="overlay">
 			<h3>Detalle del presupesto</h3>
+			{{Form::open(array('url' => 'ordenTrabajo/presupuesto'))}}
+				<input id="filterTable-input" data-type="search">
+				<table data-role="table" data-mode="reflow" data-filter="true" data-input="#filterTable-input" class="movie-list ui-responsive" align="center">
+					<thead>
+						<tr>
+							<th>Opción</th>
+							<th>Detalle</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($presupuesto as $presupuesto)
+						<tr>						
+							<td>{{ Form::checkbox('presupuesto[]', $presupuesto->id, false) }}</td>
+							<td>{{$presupuesto->detalle}}</td>													
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
+				{{Form::hidden('orden',$orden->id,array('id'=>'orden'))}}							
+				{{Form::submit('Guardar')}}
+			{{Form::close()}}
 		</div>
 	@stop		
 @endif

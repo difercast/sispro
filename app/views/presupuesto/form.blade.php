@@ -15,26 +15,7 @@
 @stop
 {{--Sección head--}}
 @section('head')
-	<!-- scripts -->
-	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
-	<!-- Validación js de datos -->
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$('#formPresupuesto').validate({
-			rules: {
-				detalle:{required: true},
-				valor:{required: true, number: true}
-			},
-			messages: {
-				detalle:{required: "Campos requeridos"},
-				valor: {
-					number: "El campo debe contener valores numéricos",
-					required: "Campos requeridos"
-				}
-			}
-		});
-	});
-	</script>
+	
 @stop
 {{--Sección Header--}}
 @section('header')
@@ -44,8 +25,10 @@
 @section('primario')
 	@if($accion == 'Editar')
 		<h3>Por favor, ingrese los nuevos datos del presupuesto</h3>
+		<span style="color:red">* Campos obligatorios</span>
 	@else
 		<h3>Por favor, ingrese los datos del nuevo presupuesto</h3>
+		<span style="color:red">* Campos obligatorios</span>
 	@endif
 	<br/>
 	{{--Formulario--}}
@@ -61,7 +44,7 @@
 	<div data-role="fieldcontain">
 		{{Form::label('valor','* Valor:')}}
 		@if(isset($presupuesto))
-			{{Form::text('valor',$presupuesto->valor,array('id'=>'valor','class'=>'required'))}}
+			{{Form::text('valor',number_format($presupuesto->valor,2),array('id'=>'valor','class'=>'required'))}}
 			{{Form::hidden('id',$presupuesto->id)}}
 		@else
 			{{Form::text('valor','',array('id'=>'valor','class'=>'required'))}}
@@ -71,4 +54,9 @@
 		{{Form::submit('Guardar')}}
 		{{HTML::link('presupuesto','Cancelar',array('data-role'=>'button'))}}
 	</div>
+@stop
+@section('scripts')
+	<!-- scripts -->
+	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.min.js');}}
+	{{HTML::script('js/validadores/camposPresupuesto.js')}}
 @stop

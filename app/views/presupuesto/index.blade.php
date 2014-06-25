@@ -5,8 +5,7 @@
 @stop
 {{--Sección head--}}
 @section('head')
-	{{ HTML::style('css/mensajes.css'); }}
-	{{ HTML::script('js/mensajes.js'); }}
+	{{ HTML::style('css/mensajes.css'); }}	
 @stop
 {{--Sección header--}}
 @section('header')
@@ -57,15 +56,21 @@
 				<tr>
 					<td>{{$presup->id}}</td>
 					<td>{{$presup->detalle}}</td>
-					<td>{{$presup->valor}}</td>
+					<td>USD {{number_format($presup->valor,2)}}</td>
 					<td>
 						{{ HTML::link( 'presupuesto/modificar/'.$presup->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
 					</td>
 				</tr>
 			@endforeach
 		</tbody>
-	</table>
+	</table><br/>	
+	<p>NOTA: La moneda por defectos es el dólar de Estados Unidos y el valor del IVA está fijado en 12%.<br/>
+		Los valores no incluyes el valor del IVA</p>
 @stop
 {{--Sección secundario--}}
 @section('secundario')
+@stop
+{{--Sección scripts--}}
+@section('scripts')
+	{{ HTML::script('js/mensajes.js'); }}
 @stop

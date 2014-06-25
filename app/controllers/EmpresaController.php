@@ -9,6 +9,7 @@
 
 class EmpresaController extends BaseController
 {
+	//Constructor
 	public function __construct()
 	{
 		$this -> beforeFilter('auth');
@@ -32,10 +33,8 @@ class EmpresaController extends BaseController
 		
 	}
 	
-	
-	
 	/**
-	*FMuestra el formulario para editar datos de la empresa
+	*Muestra el formulario para editar datos de la empresa
 	* 
 	* @param int id
 	* @return Response
@@ -85,8 +84,9 @@ class EmpresaController extends BaseController
 			return Redirect::to('empresa')->with('status','okEditado');
 		}
 		else
-		{
-			return  Redirect::to('empresa')->with('status','error');
+		{			
+			//return  Redirect::route('empresa')->with('status','error');
+			return Redirect::guest('empresa')->with('status', 'error');
 		}
 					
 	}

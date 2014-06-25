@@ -1,3 +1,4 @@
+//Validación de campos para ingresar o modificar un presupuesto
 $(document).ready(function(){
 	$('#formPresupuesto').validate({
 		rules: {

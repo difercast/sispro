@@ -83,6 +83,7 @@ class OrdenController extends BaseController
 	{
 		if(Input::get('tipo') == 'gestion')
 		{
+			$pres = Presupuesto::all();
 			$numOrden = Input::get('orden');
 			$orden = Orden::find($numOrden);
 			$orden->detalle = Input::get('detalle');
@@ -97,8 +98,9 @@ class OrdenController extends BaseController
 			$user = User::find($orden->user_id);
 			$user = $user->nombres;
 			$tecnico = User::find($orden->tecnico);
-			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo));
+			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres));
 		}else{
+			$pres = Presupuesto::all();
 			$numOrden = Input::get('NumOrden');
 			$orden = Orden::findOrFail($numOrden);
 			$cliente = Cliente::find($orden->cliente_id);
@@ -106,7 +108,7 @@ class OrdenController extends BaseController
 			$user = User::find($orden->user_id);
 			$user = $user->nombres;
 			$tecnico = User::find($orden->tecnico);
-			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo));
+			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo, 'presupuesto'=>$pres));
 		}
 	}
 
@@ -177,18 +179,6 @@ class OrdenController extends BaseController
 		}		
 	}
 
-	/** 
-    *  Presenta la vista de gestión de una orden de trabajo
-    * con la información de la orden seleccionada
-    *  @param int id
-    *  @return Response
-    **/
-	public function getGestion($id)	
-	{
-		$orden = Orden::findOrFail($id);
-		return View::make('orden.gestionarOrden')->with('orden',$orden);
-	}
-
 	/**
 	* 	Presenta la vista con listado de órdenes de trabajo
 	*	@param 
@@ -196,19 +186,34 @@ class OrdenController extends BaseController
 	**/
 	public function getListado()
 	{
-		$ordenes = orden::all();
+		$ordenes = Orden::all();
 		return View::make('orden.listaOrdenes')->with('ordenes',$ordenes);
 	}
 
 	/**
-	* 	Realiza cambios en los detalles de la orden de trabajo
+	* 	Administra el presupuesto de una orden de trabajo
 	*	@param 
 	*	@return Response
 	**/
-	public function postAdministrar()
-	{
-		
+	public function postPresupuesto()
+	{		
+		$orden = Orden::findOrFail(Input::get('orden'));
+		$valores = $_POST['presupuesto'];
+		foreach ($valores as $pres) {
+			$precio = Presupuesto::findOrFail($pres);
+			$orden->presupuestos()->save($precio,array('valor_actual'=>$precio->valor));					
+		}		
+		$pres = Presupuesto::all();
+		$orden->presupuestado = '1';
+		$orden->save();
+		$cliente = Cliente::find($orden->cliente_id);
+		$equipo = Equipo::find($orden->equipo_id);
+		$user = User::find($orden->user_id);
+		$user = $user->nombres;
+		$tecnico = User::find($orden->tecnico);
+		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres));
 	}
+
 	/** 
     * Ingresar un nuevo cliente
     *  @param 
