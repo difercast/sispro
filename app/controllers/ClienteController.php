@@ -27,7 +27,7 @@ class ClienteController extends BaseController{
 	/**
 	* Crea la vista Editar y envía datos de un cliente específico
 	* 
-	* @param int id
+	* @param int $id
 	* @return Response
 	**/
 	public function getModificar($id)
@@ -38,7 +38,7 @@ class ClienteController extends BaseController{
 	/**
 	* Crea la vista Ver y envía los datos del cliente
 	* 
-	* @param int id
+	* @param int $id
 	* @return Response
 	**/
 	public function getVer($id)
@@ -87,10 +87,10 @@ class ClienteController extends BaseController{
 		}
 	}
 
-	/** 
+   /** 
    *  Verifica si un número de CI es correcto
    * o si no se ha ingresado ningún valor
-   * @param int cedula
+   * @param int $cedula
    *  @return boolean
    **/
   public static function validarCI($cedula)
@@ -109,7 +109,7 @@ class ClienteController extends BaseController{
    * Verifica si un número de teléfono es correcto o si no 
    * se ha ingresado ningún valor
    *
-   * @param int telefono
+   * @param int $telefono
    * @return boolean
    **/
   public static function validarTelefono($telefono)
@@ -128,7 +128,7 @@ class ClienteController extends BaseController{
    * Verifica si un número de celular es correcto o si
    * no se ha ingresado ningún valor
    *
-   * @param int celular
+   * @param int $celular
    * @return boolean
    **/
   public static function validarCelular($celular)

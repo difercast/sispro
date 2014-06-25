@@ -1,5 +1,4 @@
 <?php
-
 /** 
 * @Sistema de gestión de reparaciones de equipos informáticos de la empresa Sisprocompu
 * @version 1.0      @modificado:07 de abril del 2014
@@ -9,7 +8,7 @@
 
 class SucursalController extends BaseController
 {
-	#Constructor de la clase
+	//Constructor de la clase
 	public function __construct()
 	{
 		$this -> beforeFilter('auth');
@@ -24,7 +23,6 @@ class SucursalController extends BaseController
 	* @param
 	* @return Response
 	**/
-
 	public function getIndex()
 	{
 		$sucursal = DB::table('sucursales')->get();
@@ -39,7 +37,6 @@ class SucursalController extends BaseController
 	**/
 	public function getNuevo()
 	{
-				
 		return View::make('sucursal.form')->with('status','nuevo');
 	}
 
@@ -64,7 +61,7 @@ class SucursalController extends BaseController
 	public function postIngresar()
 	{
 		$numero = self::numSuc();		
-		$empresa = Empresa::find(1);
+		$empresa = Empresa::findOrFail(1);
 		$sucursal = new Sucursal;
 		$reglas = array(
 			'provincia' => 'required',
@@ -74,12 +71,8 @@ class SucursalController extends BaseController
 			'celular' => 'required',
 			'email' => 'required|email'
 			);
-
 		$validador = Validator::make(Input::all(), $reglas);		
-
-		if($validador->passes() && $sucursal->validarTelefonos(Input::get('telefono'),Input::get('celular')))
-		{
-			
+		if($validador->passes() && $sucursal->validarTelefonos(Input::get('telefono'),Input::get('celular'))){
 			$sucursal -> provincia = Input::get('provincia');
 			$sucursal -> ciudad  = Input::get('ciudad');
 			$sucursal -> direccion = Input::get('direccion');
@@ -88,28 +81,24 @@ class SucursalController extends BaseController
 			$sucursal -> email = Input::get('email');
 			$sucursal -> empresa_id = $empresa->id;
 			$sucursal -> estado = '1';
-			if($numero == '0')
-			{
+			if($numero == '0'){
 				$sucursal -> nombre = 'Matriz';
 			}
-			else
-			{
+			else{
 				$sucursal -> nombre = 'Sucursal '.$numero;
 			}
 			$sucursal -> save();
 			return Redirect::to('sucursal')->with('status','okCreado');
 		}
-		else
-		{
+		else{
 			return Redirect::to('sucursal')->with('status','error');
 		}
-
 	}
 
 	/**
 	* Muestra el formulario para editar sucursales
 	* 
-	* @param int id
+	* @param int $id
 	* @return Response
 	**/	
 	public function getModificar($id)
@@ -117,7 +106,7 @@ class SucursalController extends BaseController
 		$sucursal = Sucursal::find($id);
 		if(is_null($sucursal))
 		{
-			return "No se encuentra la sucursal solicitada";
+			return App::abort(404);
 		}
 		return View::make('sucursal.form')->with(array('sucursal'=>$sucursal,'status'=>'modificar'));
 	}
@@ -140,11 +129,8 @@ class SucursalController extends BaseController
 			'celular' => 'required',
 			'email' => 'required|email'
 			);
-
 		$validador = Validator::make(Input::all(), $reglas);
-
-		if($validador->passes() && $sucursal->validarTelefonos(Input::get('telefono'),Input::get('celular')))
-		{
+		if($validador->passes() && $sucursal->validarTelefonos(Input::get('telefono'),Input::get('celular'))){
 			$sucursal -> provincia = Input::get('provincia');
 			$sucursal -> ciudad  = Input::get('ciudad');
 			$sucursal -> direccion = Input::get('direccion');
@@ -154,11 +140,9 @@ class SucursalController extends BaseController
 			$sucursal -> save();
 			return Redirect::guest('sucursal')->with('status','okEditado');
 		}
-		else
-		{
+		else{
 			return Redirect::guest('sucursal')->with('status','error');
 		}
-
 	}
 
 	/**
@@ -169,14 +153,10 @@ class SucursalController extends BaseController
 	**/
 	public function getInactivar($id)
 	{
-		$sucursal = Sucursal::find($id);
-
-		if(is_null($sucursal))
-		{
-			//App::abort(404);
-			return "error";
+		$sucursal = Sucursal::findOrFail($id);
+		if(is_null($sucursal)){
+			return App::abort(404);
 		}
-
 		$sucursal -> estado = '0';
 		$sucursal -> save();
 		return Redirect::to('sucursal')->with('status','okInactivo');
@@ -190,14 +170,10 @@ class SucursalController extends BaseController
 	**/
 	public function getActivar($id)
 	{
-		$sucursal = Sucursal::find($id);
-
-		if(is_null($sucursal))
-		{
-			//App::abort(404);
-			return "error";
+		$sucursal = Sucursal::findOrFail($id);
+		if(is_null($sucursal)){
+			return App::abort(404);
 		}
-
 		$sucursal -> estado = '1';
 		$sucursal -> save();
 		return Redirect::to('sucursal')->with('status','okActivo');
@@ -213,6 +189,4 @@ class SucursalController extends BaseController
 		$suc = Sucursal::findOrFail($id);
 		return View::make('sucursal.form')->with(array('sucursal'=>$suc,'status'=>'ver'));
 	}
-
-
 }

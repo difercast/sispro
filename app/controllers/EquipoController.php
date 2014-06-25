@@ -33,7 +33,7 @@ class EquipoController extends BaseController
 	/**
 	* Presenta el formulario de edición de datos del equipo
 	* 
-	* @param int id
+	* @param int $id
 	* @return Response
 	**/
 	public function getModificar($id)

@@ -9,33 +9,32 @@
 
 class EmpresaController extends BaseController
 {
-	//Constructor
+
+	public $restful = true;
+	
+	//Constructor de la clase
+
 	public function __construct()
 	{
 		$this -> beforeFilter('auth');
 		$this -> beforeFilter('autenticacion');
 	}
-
-	public $restful = true;
-
 	
 	/**
 	* Mostrar una lista de empresas
 	* 
-	*
+	* @param
 	* @return Response
 	**/
 	public function getIndex()
 	{
-		
 		$empresa = DB::table('empresas')->get();
 		return View::make('empresa.index')->with('empresa',$empresa);
-		
 	}
 	
 	/**
 	*Muestra el formulario para editar datos de la empresa
-	* 
+	*
 	* @param int id
 	* @return Response
 	**/
@@ -44,9 +43,8 @@ class EmpresaController extends BaseController
 		$empresa = Empresa::find($id);
 		if(is_null($empresa))
 		{
-			return "No existe el id solicitado de la empresa";
+			return Response::view('error.error404');
 		}
-		
 		return View::make('empresa.editar')->with('empresa',$empresa);
 	}
 	
@@ -60,11 +58,9 @@ class EmpresaController extends BaseController
 	{
 		$id=Input::get('id');
 		$empresa = Empresa::find($id);
-		if(is_null($empresa))
-		{
+		if(is_null($empresa)){
 			App::abort(404);
 		}
-
 		$reglas = array(
 			'ruc' => 'required|max:13',
 			'razon_social' => 'required',
@@ -72,23 +68,17 @@ class EmpresaController extends BaseController
 			'actividad' => 'required|numeric'
 			);
 		$validador = Validator::make(Input::all(),$reglas);
-
-		if($validador->passes() && $empresa->validarRuc(Input::get('ruc')))
-		{
+		if($validador->passes() && $empresa->validarRuc(Input::get('ruc'))){
 			$empresa->ruc = Input::get('ruc');
 			$empresa->razon_social = Input::get('razon_social');
 			$empresa->razon_comercial = Input::get('razon_comercial');
 			$empresa->actividad = Input::get('actividad');
-
 			$empresa->save();
 			return Redirect::to('empresa')->with('status','okEditado');
 		}
-		else
-		{			
-			//return  Redirect::route('empresa')->with('status','error');
-			return Redirect::guest('empresa')->with('status', 'error');
+		else{
+			return  Redirect::to('empresa')->with('status','error');
 		}
-					
 	}
 
 }
