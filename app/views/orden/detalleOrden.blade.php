@@ -23,6 +23,12 @@
 					{{ HTML::link("#", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
 					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}	
 				</div>
+			@elseif($orden->presupuestado == '1')
+				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+				    {{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
+					{{ HTML::link("#", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
+					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}	
+				</div>
 			@else
 				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 				    {{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
@@ -110,7 +116,7 @@
 			@if($orden->presupuestado != '1')
 				<span>No presupuestado</span>
 			@else
-				<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center" >
+				<table data-role="table"  class="movie-list ui-responsive" >
 					<thead>
 						<tr>
 							<th>Detalle</th>
@@ -121,10 +127,21 @@
 						@foreach($orden->presupuestos as $valores)
 						<tr>							
 							<td>{{$valores->detalle}}</td>
-							<td>USD {{number_format($valores->pivot->valor_actual,2) }}</td>							
+							<td>$ {{number_format($valores->pivot->valor_actual,2) }}</td>							
 						</tr>
 						@endforeach
-						<td>Total</td>							
+						<tr>
+							<td style="text-align: right;"><b>Subtotal</b></td>
+							<td>$ {{number_format($orden->subtotal,2) }}</td>							
+						</tr>
+						<tr>
+							<td style="text-align: right;"><b>IVA</b></td>
+							<td>{{$orden::IVA}} %</td>							
+						</tr>					
+						<tr>
+							<td style="text-align: right;"><b>TOTAL</b></td>
+							<td>$ {{number_format($orden->total,2) }}</td>							
+						</tr>		
 					</tbody>
 				</table>
 			@endif

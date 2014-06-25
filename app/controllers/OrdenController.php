@@ -199,12 +199,16 @@ class OrdenController extends BaseController
 	{		
 		$orden = Orden::findOrFail(Input::get('orden'));
 		$valores = $_POST['presupuesto'];
+		$subtotal = 0.00;
 		foreach ($valores as $pres) {
 			$precio = Presupuesto::findOrFail($pres);
-			$orden->presupuestos()->save($precio,array('valor_actual'=>$precio->valor));					
+			$orden->presupuestos()->save($precio,array('valor_actual'=>$precio->valor));
+			$subtotal+= $precio->valor;										
 		}		
 		$pres = Presupuesto::all();
 		$orden->presupuestado = '1';
+		$orden->subtotal = $subtotal;
+		$orden->total = ($subtotal * $orden::IVA)/10;
 		$orden->save();
 		$cliente = Cliente::find($orden->cliente_id);
 		$equipo = Equipo::find($orden->equipo_id);
