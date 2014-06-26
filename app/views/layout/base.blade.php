@@ -6,10 +6,9 @@
 		<title>Sistema de reparación de equipos informáticos de Sisprocompu</title>
 	@show
 	<meta name="viewport" content="width=device-width, initial-scale=1" />	
+	{{HTML::style('css/jquery.mobile-1.4.2.min.css')}}
 	{{HTML::style('css/tema/sispro.css');}}
 	{{HTML::style('css/tema/jquery.mobile.icons.min.css');}}
-	{{HTML::style('http://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css');}}
-		 	
 	@yield('head')
 </head>
 <body>
@@ -35,8 +34,8 @@
 	</div>
 </body>
 </html>
-	{{HTML::script('http://code.jquery.com/jquery-1.9.1.min.js');}}
-	{{HTML::script('http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js');}} 
+	{{HTML::script('js/jquery.js')}}
+	{{HTML::script('js/jquery.mobile-1.4.2.js')}}
 @yield('scripts')
 
 

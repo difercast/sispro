@@ -7,9 +7,10 @@
 * @author Diego Castillo.
 *
 */
-
+define ("IVA" , 1.12);	
 class OrdenController extends BaseController
 {
+
 	//Contructor de la clase
 	public function __construct()
 	{
@@ -186,7 +187,7 @@ class OrdenController extends BaseController
 	**/
 	public function getListado()
 	{
-		$ordenes = Orden::all();
+		$ordenes = Orden::paginate(15);
 		return View::make('orden.listaOrdenes')->with('ordenes',$ordenes);
 	}
 
@@ -197,26 +198,27 @@ class OrdenController extends BaseController
 	**/
 	public function postPresupuesto()
 	{		
+		$pres = Presupuesto::all();
 		$orden = Orden::findOrFail(Input::get('orden'));
 		$valores = $_POST['presupuesto'];
-		$subtotal = 0.00;
-		foreach ($valores as $pres) {
-			$precio = Presupuesto::findOrFail($pres);
+		$sub = 0;
+		foreach($valores as $valor){
+			$precio = Presupuesto::findOrFail($valor);
 			$orden->presupuestos()->save($precio,array('valor_actual'=>$precio->valor));
-			$subtotal+= $precio->valor;										
-		}		
-		$pres = Presupuesto::all();
+			$sub += $precio->valor;
+		}				
 		$orden->presupuestado = '1';
-		$orden->subtotal = $subtotal;
-		$orden->total = ($subtotal * $orden::IVA)/10;
+		$orden->subtotal = $sub;
+		$orden->total = ($sub*1.12);
 		$orden->save();
-		$cliente = Cliente::find($orden->cliente_id);
-		$equipo = Equipo::find($orden->equipo_id);
-		$user = User::find($orden->user_id);
-		$user = $user->nombres;
-		$tecnico = User::find($orden->tecnico);
-		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres));
+		$cliente = Cliente::findOrFail($orden->cliente_id);
+		$equipo = Equipo::findOrFail($orden->equipo_id);
+		$user = User::findOrFail($orden->user_id);
+		$usuario = $user->nombres;
+		$tecnico = User::findOrFail($orden->tecnico);
+		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$usuario,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres));
 	}
+	
 
 	/** 
     * Ingresar un nuevo cliente

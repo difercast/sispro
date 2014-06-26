@@ -25,9 +25,9 @@ class EquipoController extends BaseController
 	* @return Response
 	**/
 	public function getIndex()
-	{		
-		$equipo = DB::table('equipos')->get();
-		return View::make('equipo.index')->with('equipo',$equipo);
+	{				
+		$equipo = Equipo::paginate(15);
+		return View::make('equipo.index')->with('equipos',$equipo);
 	}
 
 	/**

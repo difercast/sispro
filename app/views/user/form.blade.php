@@ -14,9 +14,6 @@
 @stop
 {{--Sección head--}}
 @section('head')
-	<!-- scripts -->
-	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
-	{{HTML::script('js/validadores/camposUser.js');}}
 @stop
 {{--Sección header--}}
 @section('header')
@@ -46,9 +43,9 @@
 		<div data-role="fieldcontain">
 			{{Form::label('cedula','N° de Cédula: *')}}
 			@if(isset($user))		
-			{{ Form::text('cedula', $user->cedula,array('id'=>'cedula','class'=>'required'))}}
+				{{ Form::text('cedula', $user->cedula,array('id'=>'cedula','class'=>'required'))}}
 			@else
-			{{ Form::text('cedula','',array('id'=>'cedula','class'=>'required')) }}
+				{{ Form::text('cedula','',array('id'=>'cedula','class'=>'required','maxlength'=>'10')) }}
 			@endif
 		</div>
 		<div data-role="fieldcontain">
@@ -151,5 +148,10 @@
 			{{ Form::submit('Guardar')}}			
 		</div>
 	{{Form::close()}}
+@stop
+@section('scripts')
+	<!-- scripts -->
+	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
+	{{HTML::script('js/validadores/camposUser.js');}}
 @stop
 

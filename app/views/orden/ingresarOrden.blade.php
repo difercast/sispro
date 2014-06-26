@@ -11,34 +11,7 @@
 	<title>Ingresar orden de trabajo</title>
 @stop
 {{--Sección head--}}
-@section('head')
-	<!-- scripts -->
-	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
-	{{HTML::script('js/validadores/camposIngresoOrden.js');}}
-	<script type="text/javascript">
-	//Carga los datos del cliente cuando el usuario seleccione uno
-    $(document).ready(function(){
-        $('#cliente').change(function(){
-            $.ajax({
-            	url:"procesaCliente",
-            	type:"POST",
-            	data:"idCliente="+$('#cliente').val(),
-            	success: function(clientes){            		
-            		$('#nombres').val(clientes[0]);
-            		$('#cedula').val(clientes[1]);
-            		$('#direccion').val(clientes[2]);
-            		$('#telefono').val(clientes[3]); 
-            		$('#celular').val(clientes[4]);
-            		$('#email').val(clientes[5]);
-            		$('#observaciones').val(clientes[6]);
-            		$('#id_cliente').val(clientes[7]);           		
-            		//$('#datosCliente').html(clientes);
-            	}
-            })
-
-        });    
-    });
-	</script>
+@section('head')	
 @stop
 {{--Sección header--}}
 @section('header')	
@@ -147,5 +120,35 @@
 @stop
 {{--Sección secundario--}}
 @section('secundario')	
+@stop
+{{--Sección scripts--}}
+@section('scripts')
+	<!-- scripts -->
+	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
+	{{HTML::script('js/validadores/camposIngresoOrden.js');}}
+	<script type="text/javascript">
+	//Carga los datos del cliente cuando el usuario seleccione uno
+    $(document).ready(function(){
+        $('#cliente').change(function(){
+            $.ajax({
+            	url:"procesaCliente",
+            	type:"POST",
+            	data:"idCliente="+$('#cliente').val(),
+            	success: function(clientes){            		
+            		$('#nombres').val(clientes[0]);
+            		$('#cedula').val(clientes[1]);
+            		$('#direccion').val(clientes[2]);
+            		$('#telefono').val(clientes[3]); 
+            		$('#celular').val(clientes[4]);
+            		$('#email').val(clientes[5]);
+            		$('#observaciones').val(clientes[6]);
+            		$('#id_cliente').val(clientes[7]);           		
+            		//$('#datosCliente').html(clientes);
+            	}
+            })
+
+        });    
+    });
+	</script>
 @stop
 

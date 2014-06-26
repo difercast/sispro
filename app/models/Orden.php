@@ -10,7 +10,6 @@
 class Orden extends Eloquent
 {
   protected $table = 'ordenes';
-  const IVA = 12;
   
 	
   /**

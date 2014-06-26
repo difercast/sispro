@@ -67,8 +67,9 @@
 						</td>
 					</tr>
 				@endforeach
-			</tbody>
+			</tbody>			 
 		</table>
+		{{ $ordenes->links() }}
 	@stop
 	{{--Sección secundario--}}
 	@section('secundario')

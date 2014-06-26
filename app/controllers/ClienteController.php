@@ -20,9 +20,9 @@ class ClienteController extends BaseController{
 	* @return Response
 	**/
 	public function getIndex()
-	{		
-		$cliente = DB::table('clientes')->paginate(15);
-		return View::make('cliente.index')->with('cliente',$cliente);
+	{				
+		$cliente = Cliente::paginate(15);		
+		return View::make('cliente.index')->with('clientes',$cliente);
 	}
 	/**
 	* Crea la vista Editar y envía datos de un cliente específico

@@ -43,7 +43,7 @@ class EmpresaController extends BaseController
 		$empresa = Empresa::find($id);
 		if(is_null($empresa))
 		{
-			return Response::view('error.error404');
+			return App::abort(404);
 		}
 		return View::make('empresa.editar')->with('empresa',$empresa);
 	}
@@ -59,7 +59,7 @@ class EmpresaController extends BaseController
 		$id=Input::get('id');
 		$empresa = Empresa::find($id);
 		if(is_null($empresa)){
-			App::abort(404);
+			return App::abort(404);
 		}
 		$reglas = array(
 			'ruc' => 'required|max:13',

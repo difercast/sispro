@@ -38,7 +38,9 @@ Route::get('tecnico', array('before' => 'auth','as'=>'tecnico', function()
 }));
 Route::get('vendedor', array('before' => 'auth','as'=>'vendedor', function()
 {
-	return View::make('Admin.vendedor');
+	$cliente = Cliente::all();
+	$select = array(0 => 'Seleccione...')+$cliente->lists('nombres','id');
+	return View::make('Admin.vendedor')->with('cliente',$select);
 }));
 //Routes con controladores REstfull
 Route::controller('empresa','EmpresaController');

@@ -4,8 +4,7 @@
 	<title>Equipos</title>
 @stop
 {{--Sección head--}}
-@section('head')
-	{{ HTML::script('js/mensajes.js'); }}
+@section('head')	
 	{{ HTML::style('css/mensajes.css'); }}
 @stop
 {{--Sección header--}}
@@ -18,7 +17,8 @@
 		{{ HTML::link('vendedor','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@endif
 @stop
-{{--Sección primario--}}
+@if($equipos)
+	{{--Sección primario--}}
 @section('primario')
 	<?php $status=Session::get('status') ?>
 	@if($status == 'error')
@@ -45,7 +45,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach($equipo as $equipo)
+			@foreach($equipos as $equipo)
 			<tr>
 				<td>{{ $equipo -> tipo}}</td>
 				<td>{{ $equipo -> marca}}</td>
@@ -55,7 +55,8 @@
 			</tr>
 			@endforeach			
 		</tbody>		
-	</table>	
+	</table>
+	{{$equipos->links()}}	
 @stop
 {{--Sección secundario--}}
 @section('secundario')
@@ -73,25 +74,24 @@
 	@elseif(Auth::user()->rol == 'tecnico')
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
 			<li data-icon="false">{{ HTML::link('ordenTrabajo', 'Ingresar orden de trabajo'); }}</li>
-			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado', 'Lista órdenes de trabajo'); }}</li>		
-			<li data-role="collapsible" data-iconpos="right" data-corners="false">
-	    		<h2>Buscar orden</h2>
-	    		<ul data-role="listview" data-inset="false" data-shadow="false" data-corners="false" >
-					<li data-icon="false">{{ HTML::link('ordenTrabajo/buscarporcliente', 'Por cliente',array('data-rel'=>'dialog')); }}</li>
-					<li data-icon="false">{{ HTML::link('ordenTrabajo/buscar', 'Por número de orden',array('data-rel'=>'dialog')); }}</li>
-				</ul>
-			</li> 		
+			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado', 'Lista órdenes de trabajo'); }}</li>						
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false">Equipos</li>		
 			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
 		</ul>
 	@elseif(Auth::user()->rol == 'vendedor')
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
-			<li data-icon="false"><a href="#">Ingresar orden</a></li>
-			<li data-icon="false"><a href="#">Clientes</a></li>
-			<li data-icon="false">Equipos</li>
-			<li data-icon="false"><a href="#">Cambiar contrase&ntildea </a></li>
-			<li data-icon="false"><a href="logout">Salir</a></li>
+			<li data-icon="false">{{ HTML::link('ordenTrabajo', 'Ingresar orden de trabajo'); }}</li>
+			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado', 'Lista órdenes de trabajo'); }}</li>						
+			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
+			<li data-icon="false">Equipos</li>		
+			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
 		</ul>
 	@endif
 @stop
+{{--Scripts--}}
+@section('scripts')
+	{{ HTML::script('js/mensajes.js'); }}
+@stop
+
+@endif

@@ -10,7 +10,13 @@
 	@stop
 	{{--Sección header--}}
 	@section('header')		
-		{{ HTML::link('tecnico','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
+		@if(Auth::user()->rol == 'tecnico')	
+			{{ HTML::link('tecnico','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); 
+		}}
+		@else
+			{{ HTML::link('vendedor','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); 
+			}}
+		@endif	
 	@stop
 	{{--Sección primario--}}
 	@section('primario')
@@ -22,10 +28,10 @@
 				    {{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
 					{{ HTML::link("#", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
 					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}	
-				</div>
+				</div>			
 			@elseif($orden->presupuestado == '1')
 				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-				    {{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
+				    {{ HTML::link( '#','Administrar orden',array('class'=>'ui-btn')); }}
 					{{ HTML::link("#", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
 					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}	
 				</div>
@@ -38,7 +44,7 @@
 			@endif			
 		@elseif($orden->entregado == '0' && Auth::user()->rol == 'vendedor')
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-			    {{ HTML::link('#', 'Entregar',array('class'=>'ui-btn')); }}	
+			    {{ HTML::link('#panelEntrega', 'Entregar',array('class'=>'ui-btn')); }}	
 				{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}
 			</div>		
 		@endif		
@@ -136,7 +142,7 @@
 						</tr>
 						<tr>
 							<td style="text-align: right;"><b>IVA</b></td>
-							<td>{{$orden::IVA}} %</td>							
+							<td> 12%</td>							
 						</tr>					
 						<tr>
 							<td style="text-align: right;"><b>TOTAL</b></td>
@@ -176,7 +182,7 @@
 	@stop
 	{{--Sección paneles--}}
 	@section('paneles')
-	{{--Panel que contiene la información del cliente--}}
+		{{--Panel que contiene la información del cliente--}}
 		<div data-role="panel" id="panelCliente" data-display="overlay">
 			<h3 align="center">Detalles de cliente</h3>
 			{{Form::open()}}				
@@ -271,6 +277,14 @@
 				</table>
 				{{Form::hidden('orden',$orden->id,array('id'=>'orden'))}}							
 				{{Form::submit('Guardar')}}
+			{{Form::close()}}
+		</div>
+		{{--Panel de entrega de equipos--}}
+		<div data-role="panel" id="panelEntrega" data-display="overlay">
+			<h3 align="center">Entrega de un equipo</h3>
+			{{Form::open()}}				
+				
+				<a href="#" data-role="button" data-rel="close" data-theme="b">Aceptar</a>
 			{{Form::close()}}
 		</div>
 	@stop		

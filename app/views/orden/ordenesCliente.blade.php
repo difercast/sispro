@@ -8,7 +8,11 @@
 @stop
 {{--Sección header--}}
 @section('header')	
-	{{ HTML::link('tecnico','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
+	@if(Auth::user()->rol == 'tecnico')
+		{{ HTML::link('tecnico','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
+	@elseif(Auth::user()->rol == 'vendedor')
+		{{ HTML::link('vendedor','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
+	@endif
 @stop
 {{--Sección primario--}}
 @section('primario')
