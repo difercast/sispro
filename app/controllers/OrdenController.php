@@ -218,7 +218,29 @@ class OrdenController extends BaseController
 		$tecnico = User::findOrFail($orden->tecnico);
 		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$usuario,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres));
 	}
-	
+
+	/**
+	* 	Registrar la entrega de un equipo
+	*	@param 
+	*	@return Response
+	**/	
+	public function postEntregar()
+	{
+		$pres = Presupuesto::all();
+		$orden = Orden::findOrFail(Input::get('orden'));
+		if(Input::get('entregado') == '1'){
+			$orden->entregado = 1;
+			$orden->fecha_entregado = date('Y-m-d H:i:s', time());
+			$orden->save();
+			$cliente = Cliente::findOrFail($orden->cliente_id);
+		$equipo = Equipo::findOrFail($orden->equipo_id);
+		$user = User::findOrFail($orden->user_id);
+		$usuario = $user->nombres;
+		$tecnico = User::findOrFail($orden->tecnico);
+		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$usuario,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres));
+
+		}
+	}
 
 	/** 
     * Ingresar un nuevo cliente

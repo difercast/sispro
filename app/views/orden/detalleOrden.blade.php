@@ -41,12 +41,19 @@
 					{{ HTML::link("#detallePresupuesto", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
 					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}	
 				</div>
-			@endif			
-		@elseif($orden->entregado == '0' && Auth::user()->rol == 'vendedor')
-			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-			    {{ HTML::link('#panelEntrega', 'Entregar',array('class'=>'ui-btn')); }}	
-				{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}
-			</div>		
+			@endif
+		@elseif(Auth::user()->rol == 'vendedor' && $orden->presupuestado == '1')
+			@if($orden->entregado == '0')
+				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+				    {{ HTML::link('#panelEntrega', 'Entregar',array('class'=>'ui-btn')); }}	
+					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}
+				</div>
+			@elseif($orden->entregado == '1')
+				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+				    {{ HTML::link('#', 'Entregar',array('class'=>'ui-btn')); }}	
+					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}
+				</div>
+			@endif							
 		@endif		
 		{{Form::open(array('id'=>'ordenForm'))}}
 			{{--Fecha de ingreso y usuario que ingresó el equipo--}}
@@ -170,11 +177,15 @@
 			<div data-role="fieldcontain">
 				{{Form::label('terminado','Equipo entregado:')}}
 				@if($orden->entregado == '1')
-					{{Form::text('serie','Entregado',array('data-mini'=>'true','readonly'=>'true'))}}
+					{{Form::text('serie','Entregado',array('data-mini'=>'true','readonly'=>'true'))}}					
 				@else
 					{{Form::text('serie',' No entregado',array('data-mini'=>'true','readonly'=>'true'))}}
 				@endif
 			</div>
+			@if($orden->entregado == '1')
+				<span>Equipo entregado el {{ date("d M Y",strtotime($orden->fecha_entregado)) }}</span>
+			@endif
+
 		{{Form::close()}}	
 	@stop
 	{{--Sección secundario--}}
@@ -282,9 +293,45 @@
 		{{--Panel de entrega de equipos--}}
 		<div data-role="panel" id="panelEntrega" data-display="overlay">
 			<h3 align="center">Entrega de un equipo</h3>
-			{{Form::open()}}				
-				
-				<a href="#" data-role="button" data-rel="close" data-theme="b">Aceptar</a>
+			{{Form::open(array('url' => 'ordenTrabajo/entregar'))}}				
+				{{Form::label('cliente','Cliente:')}}
+				{{Form::text('nombres',$cliente->nombres,array('readonly'=>'true'))}}
+				<br/>
+				{{Form::label('detalle','Detalle de reparación')}}
+				{{Form::textarea('informe',$orden->informe,array('data-mini'=>'true','readonly'=>'true','id'=>'informeRep'))}}
+				<br/>
+				{{Form::label('valores','A pagar:')}}
+				<table data-role="table"  class="movie-list ui-responsive" >
+					<thead>
+						<tr>
+							<th>Detalle</th>
+							<th>Valor</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($orden->presupuestos as $valores)
+						<tr>							
+							<td>{{$valores->detalle}}</td>
+							<td>$ {{number_format($valores->pivot->valor_actual,2) }}</td>							
+						</tr>
+						@endforeach
+						<tr>
+							<td style="text-align: right;"><b>Subtotal</b></td>
+							<td>$ {{number_format($orden->subtotal,2) }}</td>							
+						</tr>
+						<tr>
+							<td style="text-align: right;"><b>IVA</b></td>
+							<td> 12%</td>							
+						</tr>					
+						<tr>
+							<td style="text-align: right;"><b>TOTAL</b></td>
+							<td>$ {{number_format($orden->total,2) }}</td>							
+						</tr>		
+					</tbody>
+				</table>
+				{{Form::hidden('entregado','1')}}
+				{{Form::hidden('orden',$orden->id)}}
+				{{Form::submit('Entregar')}}
 			{{Form::close()}}
 		</div>
 	@stop		
