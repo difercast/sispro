@@ -10,7 +10,19 @@
 class Orden extends Eloquent
 {
   protected $table = 'ordenes';
-  
+
+  /**
+   * encontrar una sucursal de una orden de trabajo
+   * @param int $id
+   * @return Response
+   */
+  public function getSucursal($id)
+  {
+    $orden = $this->findOrFail($id);
+    $sucursal = $orden->Sucursal_id;
+    return $sucursal;
+  }
+
 	
   /**
    * Relaciones entre órdenes y presupuestos
@@ -19,12 +31,12 @@ class Orden extends Eloquent
    */
   public function presupuestos()
  {
-
- return $this->belongsToMany('Presupuesto')->withPivot('valor_actual');
-
+  return $this->belongsToMany('Presupuesto')->withPivot('valor_actual');
  }
 
-	/**
+
+  
+  /**
 	 * Validar el número de cédula al ingresar un usuario.
 	 * @param string ci
 	 * @return boolean

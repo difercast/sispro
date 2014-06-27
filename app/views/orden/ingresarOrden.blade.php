@@ -63,7 +63,7 @@
 			</div>
 			<div data-role="fieldcontain">
 				{{ Form::label('email','Email:')}}	
-				{{ Form::textarea('direccion','',array('id'=>'direccion'))}}
+				{{ Form::textarea('email','',array('id'=>'email'))}}
 			</div>
 			<div data-role="fieldcontain">
 				{{ Form::label('observaciones','Observaciones:')}}	

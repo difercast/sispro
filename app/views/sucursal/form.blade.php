@@ -17,10 +17,7 @@
 	@show
 @stop
 {{--Sección head--}}
-@section('head')
-	<!-- scripts -->
-	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
-	{{HTML::script('js/validadores/camposSucursal.js');}}
+@section('head')	
 @stop
 {{--Sección header--}}
 @section('header')	
@@ -32,6 +29,7 @@
 		<h3>Información detallada de {{ $sucursal->nombre}}</h3>
 	@else
 		<h3>Por favor, ingrese la información de la sucursal</h3>
+		<span style="color: red;">* elementos requeridos</span>
 		{{ Form::open($form) }}
 	@endif
 	<div data-role="fieldcontain">				
@@ -63,67 +61,77 @@
 			'Santo Domingo' => 'Santo Domingo de los Tsáchilas',
 			'Sucumbíos' => 'Sucumbíos',
 			'Tungurahua' => 'Tungurahua',
-			'Zamora Chinchipe' => 'Zamora Chinchipe'
-		,array('id'=>'provincia','class'=>'required')))}}
+			'Zamora Chinchipe' => 'Zamora Chinchipe')			
+		,array('id'=>'provincia','class'=>'required'))}}
 		@endif
 	</div>
-	<div data-role="fieldcontain">		
-		{{ Form::label('ciudad','Ciudad:') }}		
-		@if(isset($sucursal))
+	<div data-role="fieldcontain">						
+		@if(isset($sucursal))			
 			@if($status == "ver")
+				{{ Form::label('ciudad','Ciudad:') }}
 				{{Form::text('ciudad',$sucursal->ciudad,array('readonly'=>'true'))}}
-			@else		
+			@else
+				{{ Form::label('ciudad','* Ciudad:') }}		
 				{{ Form::text('ciudad', $sucursal->ciudad,array('id'=>'ciudad','class'=>'required'))}}
 			@endif
 		@else
+			{{ Form::label('ciudad','* Ciudad:') }}
 			{{ Form::text('ciudad','',array('id'=>'ciudad','class'=>'required')) }}
 		@endif
 	</div>
-	<div data-role="fieldcontain">		
-		{{ Form::label('direccion','Dirección:') }}		
+	<div data-role="fieldcontain">						
 		@if(isset($sucursal))
 			@if($status == "ver")
+				{{ Form::label('direccion','Dirección:') }}
 				{{Form::textarea('direccion',$sucursal->direccion,array('readonly'=>'true'))}}		
 			@else
+				{{ Form::label('direccion','* Dirección:') }}
 				{{ Form::textarea('direccion', $sucursal->direccion,array('id'=>'direccion','class'=>'required')) }}
 			@endif
 		@else
+			{{ Form::label('direccion','* Dirección:') }}
 			{{ Form::textarea('direccion','',array('id'=>'direccion','class'=>'required')) }}
 		@endif
 	</div>
-	<div data-role="fieldcontain">		
-		{{ Form::label('telefono','Teléfono:') }}
+	<div data-role="fieldcontain">				
 		@if(isset($sucursal))
 			@if($status == "ver")
+				{{ Form::label('telefono','Teléfono:') }}
 				{{Form::text('telefono',$sucursal->telefono,array('readonly'=>'true'))}}
-			@else		
-				{{ Form::text('telefono',$sucursal->telefono,array('id'=>'telefono','class'=>'required')) }}
+			@else
+				{{ Form::label('telefono','* Teléfono:') }}		
+				{{ Form::text('telefono',$sucursal->telefono,array('id'=>'telefono','class'=>'required','maxlength'=>'7')) }}
 			@endif					
 		@else
-			{{ Form::text('telefono','',array('id'=>'telefono','class'=>'required')) }}
+			{{ Form::label('telefono','* Teléfono:') }}
+			{{ Form::text('telefono','',array('id'=>'telefono','class'=>'required','maxlength'=>'7')) }}
 		@endif	
 	</div>
-	<div data-role="fieldcontain">		
-		{{ Form::label('celular','Celular:') }}
+	<div data-role="fieldcontain">				
 		@if(isset($sucursal))
 			@if($status == "ver")
+				{{ Form::label('celular','Celular:') }}
 				{{Form::text('celular',$sucursal->celular,array('readonly'=>'true'))}}
-			@else		
-				{{ Form::text('celular',$sucursal->celular,array('id'=>'celular','class'=>'required')) }}
+			@else
+				{{ Form::label('celular','* Celular:') }}		
+				{{ Form::text('celular',$sucursal->celular,array('id'=>'celular','class'=>'required','maxlength'=>'10')) }}
 			@endif		
 		@else
-			{{ Form::text('celular','',array('id'=>'celular','class'=>'required'))}}
+			{{ Form::label('celular','* Celular:') }}
+			{{ Form::text('celular','',array('id'=>'celular','class'=>'required','maxlength'=>'10'))}}
 		@endif
 	</div>
-	<div data-role="fieldcontain">		
-		{{ Form::label('email','Email:') }}
+	<div data-role="fieldcontain">				
 		@if(isset($sucursal))
 			@if($status == "ver")
+				{{ Form::label('email','Email:') }}
 				{{Form::text('email',$sucursal->email,array('readonly'=>'true'))}}
-			@else		
+			@else
+				{{ Form::label('email','* Email:') }}		
 				{{ Form::email('email',$sucursal->email,array('id'=>'email','class'=>'required')) }}
 			@endif		
 		@else
+			{{ Form::label('email','* Email:') }}
 			{{ Form::email('email','',array('id'=>'email','class'=>'required')) }}
 		@endif		
 	</div>
@@ -131,12 +139,17 @@
 		@if(isset($sucursal))
 			{{ Form::hidden('id',$sucursal->id)}}
 		@endif
-
 		<div data-role="controlgroup" data-type="horizontal" align="center">
 			{{ Form::submit('Guardar')}}
 		</div>
 	@endif	
 	{{ Form::close() }}
+@stop
+{{--Scripts--}}
+@section('scripts')
+	<!-- scripts -->
+	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
+	{{HTML::script('js/validadores/camposSucursal.js');}}
 @stop
 
 

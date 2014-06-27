@@ -99,7 +99,9 @@ class OrdenController extends BaseController
 			$user = User::find($orden->user_id);
 			$user = $user->nombres;
 			$tecnico = User::find($orden->tecnico);
-			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres));
+			$suc = Sucursal::findOrFail($orden->Sucursal_id);
+			$sucursal = $suc->nombre;
+			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres,'sucursal'=>$sucursal));
 		}else{
 			$pres = Presupuesto::all();
 			$numOrden = Input::get('NumOrden');
@@ -109,7 +111,9 @@ class OrdenController extends BaseController
 			$user = User::find($orden->user_id);
 			$user = $user->nombres;
 			$tecnico = User::find($orden->tecnico);
-			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo, 'presupuesto'=>$pres));
+			$suc = Sucursal::findOrFail($orden->Sucursal_id);
+			$sucursal = $suc->nombre;
+			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo, 'presupuesto'=>$pres,'sucursal'=>$sucursal));
 		}
 	}
 
@@ -197,8 +201,7 @@ class OrdenController extends BaseController
 	*	@return Response
 	**/
 	public function postPresupuesto()
-	{		
-		$pres = Presupuesto::all();
+	{				
 		$orden = Orden::findOrFail(Input::get('orden'));
 		$valores = $_POST['presupuesto'];
 		$sub = 0;
@@ -215,8 +218,11 @@ class OrdenController extends BaseController
 		$equipo = Equipo::findOrFail($orden->equipo_id);
 		$user = User::findOrFail($orden->user_id);
 		$usuario = $user->nombres;
-		$tecnico = User::findOrFail($orden->tecnico);
-		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$usuario,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres));
+		$pres = Presupuesto::all();
+		$suc = Sucursal::findOrFail($orden->Sucursal_id);
+		$sucursal = $suc->nombre;
+		//$tecnico = User::findOrFail($orden->tecnico);
+		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$usuario,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres,'sucursal'=>$sucursal));
 	}
 
 	/**
@@ -237,7 +243,9 @@ class OrdenController extends BaseController
 		$user = User::findOrFail($orden->user_id);
 		$usuario = $user->nombres;
 		$tecnico = User::findOrFail($orden->tecnico);
-		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$usuario,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres));
+		$suc = Sucursal::findOrFail($orden->Sucursal_id);
+		$sucursal = $suc->nombre;
+		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$usuario,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres,'sucursal'=>$sucursal));
 
 		}
 	}

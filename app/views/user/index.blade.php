@@ -43,10 +43,10 @@
 	<div data-role="controlgroup" data-type="horizontal">
 		{{ HTML::link('user/nuevo', 'Nuevo',array('data-role'=>'button')); }}	
 	</div>
-	<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center" >
+	<table data-role="table" data-mode="reflow" class="ui-responsive  movie-list " >
 		<thead>
 			<tr>
-				<th>N°</th>
+				<th>N</th>
 				<th>Nombres</th>
 				<th>Apellidos</th>
 				<th>Teléfono</th>

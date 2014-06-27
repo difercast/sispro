@@ -22,46 +22,52 @@
 	@section('primario')
 		<h3 align="center">Orden de trabajo N° {{$orden->id}}</h3>		
 		{{--Opción de la orden de trabajo--}}
-		@if(Auth::user()->rol == 'tecnico' && $orden->entregado != '1')
-			@if($orden->estado != '2')
-				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-				    {{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
-					{{ HTML::link("#", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
-					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}	
-				</div>			
-			@elseif($orden->presupuestado == '1')
-				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-				    {{ HTML::link( '#','Administrar orden',array('class'=>'ui-btn')); }}
-					{{ HTML::link("#", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
-					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}	
-				</div>
-			@else
-				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-				    {{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
-					{{ HTML::link("#detallePresupuesto", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
-					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}	
-				</div>
+		@if($orden->getSucursal($orden->id) == Auth::user()->sucursal_id)
+			@if(Auth::user()->rol == 'tecnico')
+				@if($orden->estado == '3')
+					<p>La orden se ha dado de baja</p>
+				@elseif($orden->entregado != '1' && ($orden->estado != '2') && $orden->presupuestado == '0')
+					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						{{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
+						{{ HTML::link("#", 'Detalle del presupuesto',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
+						{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}
+					</div>					
+				@elseif($orden->entregado == '0' && $orden->estado == '2' && $orden->presupuestado == '0')
+					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						{{ HTML::link( '#','Administrar orden',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
+						{{ HTML::link("#detallePresupuesto", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
+						{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}
+					</div>					
+				@elseif($orden->entregado == '1' || $orden->presupuestado == '1')					
+					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						{{ HTML::link('#', 'Generar documento',array('data-role'=>'button')); }}
+					</div>					
+				@endif
+			@elseif (Auth::user()->rol == 'vendedor')
+				@if($orden->presupuestado == '1' && $orden->entregado == '0')
+					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						{{ HTML::link('#panelEntrega', 'Entregar',array('data-role'=>'button')); }}
+						{{ HTML::link('#', 'Generar documento',array('data-role'=>'button')); }}
+					</div>
+				@else
+					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+						{{ HTML::link('#panelEntrega', 'Entregar',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
+						{{ HTML::link('#', 'Generar documento',array('data-role'=>'button')); }}
+					</div>
+				@endif
 			@endif
-		@elseif(Auth::user()->rol == 'vendedor' && $orden->presupuestado == '1')
-			@if($orden->entregado == '0')
-				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-				    {{ HTML::link('#panelEntrega', 'Entregar',array('class'=>'ui-btn')); }}	
-					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}
-				</div>
-			@elseif($orden->entregado == '1')
-				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-				    {{ HTML::link('#', 'Entregar',array('class'=>'ui-btn')); }}	
-					{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}
-				</div>
-			@endif							
-		@endif		
+		@else
+			<span>Las opciones para moficicar la información de la orden de trabajo no están disponibles porque la misma fue ingresada en otra sucursal</span>
+		@endif
+
+		
 		{{Form::open(array('id'=>'ordenForm'))}}
 			{{--Fecha de ingreso y usuario que ingresó el equipo--}}
 			<div class="rwd-example">
 				<div class="ui-block-a">
 					<div data-role="fieldcontain">
 						{{Form::label('fechaIngreso','Ingreso:')}}
-						{{Form::text('fechaIngreso',date("d M Y",strtotime($orden->created_at)),array('data-mini'=>'true','readonly'=>'true'))}}
+						{{Form::text('fechaIngreso',date("d M Y",strtotime($orden->created_at ))." en ". $sucursal,array('data-mini'=>'true','readonly'=>'true'))}}
 					</div>
 				</div>
 				<div class="ui-block-b">
@@ -167,25 +173,18 @@
 				@elseif($orden->estado == '1')
 					{{Form::text('serie','En reparación',array('data-mini'=>'true','readonly'=>'true'))}}
 				@else
-					{{Form::text('serie','Reparación terminada',array('data-mini'=>'true','readonly'=>'true'))}}
+					{{Form::text('serie','Reparación terminada el '.date("d M Y",strtotime($orden->fecha_terminado)),array('data-mini'=>'true','readonly'=>'true'))}}
 				@endif
-			</div>
-			@if($orden->estado == '2')
-				<span>Reparación terminada al {{ date("d M Y",strtotime($orden->fecha_terminado)) }}</span>	
-			@endif		
+			</div>	
 			{{--Equipo entregado--}}
 			<div data-role="fieldcontain">
 				{{Form::label('terminado','Equipo entregado:')}}
 				@if($orden->entregado == '1')
-					{{Form::text('serie','Entregado',array('data-mini'=>'true','readonly'=>'true'))}}					
+					{{Form::text('serie','Entregado el '.date("d M Y",strtotime($orden->fecha_entregado)),array('data-mini'=>'true','readonly'=>'true'))}}					
 				@else
 					{{Form::text('serie',' No entregado',array('data-mini'=>'true','readonly'=>'true'))}}
 				@endif
 			</div>
-			@if($orden->entregado == '1')
-				<span>Equipo entregado el {{ date("d M Y",strtotime($orden->fecha_entregado)) }}</span>
-			@endif
-
 		{{Form::close()}}	
 	@stop
 	{{--Sección secundario--}}

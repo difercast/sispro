@@ -25,7 +25,7 @@
 		</div>		
 	@endif	
 	@if($empresa)
-		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center" >
+		<table data-role="table" id="movie-table-custom" data-mode="reflow" class="movie-list ui-responsive">		
 			<thead>
 				<tr>
 					<th>Razón comercial</th>

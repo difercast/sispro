@@ -6,9 +6,12 @@
 		<title>Sistema de reparación de equipos informáticos de Sisprocompu</title>
 	@show
 	<meta name="viewport" content="width=device-width, initial-scale=1" />	
-	{{HTML::style('css/jquery.mobile-1.4.2.min.css')}}
-	{{HTML::style('css/tema/sispro.css');}}
+	{{HTML::style('css/normalize.css');}}	
+	<link href="//fonts.googleapis.com/css?family=Roboto:100italic,100,300italic,300,400italic,400,500italic,500,700italic,700,900italic,900" rel="stylesheet" type="text/css">
+	
 	{{HTML::style('css/tema/jquery.mobile.icons.min.css');}}
+	{{HTML::style('css/jquery.mobile-1.4.2.min.css')}}
+	{{HTML::style('css/tema/sispro.css');}}	
 	@yield('head')
 </head>
 <body>
