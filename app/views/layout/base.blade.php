@@ -40,8 +40,8 @@
 </body>
 </html>
 	{{HTML::script('js/jquery.js')}}
+	@yield('scripts')
 	{{HTML::script('js/jquery.mobile-1.4.2.js')}}
-@yield('scripts')
 
 
 
