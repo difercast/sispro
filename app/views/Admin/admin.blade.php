@@ -7,13 +7,14 @@
 	@stop
 	{{--Sección primario--}}
 	@section('primario')
-		<h2>Sisprocompu</h2>
+		<h1>Sisprocompu</h1>
 		<span>Bienvenido al sistema de gestión de reparaciones de equipos informáticos, para emprezar por favor eliga una opción</span>
 	@stop
 	{{--Sección secundario--}}
 	@section('secundario')
 		<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">
+			<li data-role="list-divider">Opciones</li>
 			<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
 			<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>
 			<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>

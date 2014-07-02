@@ -4,7 +4,7 @@
 		$accion = "Editar";
 		$form = array('url'=>'user/editar','id'=>'formUser');
 	else:		
-		$accion = "Ingresar";
+		$accion = "Nuevo";
 		$form = array('url'=>'user/ingresar','id'=>'formUser');
 	endif;		
 ?>
@@ -19,10 +19,12 @@
 @section('header')
 	{{ HTML::link('user','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
-{{--Sección primario--}}
-@section('primario')
-	<h3>Por favor, ingrese la información del usuario</h3>
+{{--Sección principal--}}
+@section('principal')
+	<h1 align="center">{{$accion }} usuario</h1>
+	<p><strong>Por favor, ingrese la información del usuario</strong></p>
 	<span style="color: red;">* Elementos requeridos</span>
+	<br><br>
 	{{ Form::open($form)}}
 		<div data-role="fieldcontain">
 			{{Form::label('apellidos','* Apellidos:')}}

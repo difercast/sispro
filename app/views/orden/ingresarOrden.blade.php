@@ -17,12 +17,13 @@
 @section('header')	
 	{{ HTML::link($accion,'',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 @stop
-{{--Sección primario--}}
-@section('primario')
-	<h3 align="center">Ingresar una nueva orden de trabajo</h3>	
+{{--Sección principal--}}
+@section('principal')
+	<h1 align="center">Ingresar una nueva orden de trabajo</h1>
+	<span style="color: red;">* Elementos requeridos</span><br>	
 	{{--Formulario de ingreso de orden de trabajo--}}
 	{{Form::open(array('url'=>'ordenTrabajo/ingresar','id'=>'formIngresarOrden'))}}
-		<div data-role="fieldcontain">
+		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
 			{{Form::label('fechaIngreso','Fecha de ingreso:')}}
 			{{Form::text('fechaIngreso',date("d/m/Y"),array('readonly'=>'true','id'=>'fechaIngreso'))}}
 		</div>
@@ -30,9 +31,9 @@
 		<div data-role="fieldcontain">
 			{{Form::label('usuario','Integrante que recepta el equipo:')}}
 			{{Form::text('usuario',Auth::user()->nombres,array('data-mini'=>'true','readonly'=>'true'))}}
-		</div>
+		</div><br/>
 		{{--Selección del cliente--}}		
-		<h4>Información del cliente</h4>
+		<h2>Información del cliente</h2>
 		<div data-role="fieldcontain">
 			@if(isset($clientes))
 			{{Form::label('cliente','Seleccione un cliente:')}}
@@ -42,15 +43,15 @@
 		{{--Datos del cliente--}}		
 		<div id="datosCliente">
 			<div data-role="fieldcontain">
-				{{ Form::label('nombres','Nombres: *')}}	
+				{{ Form::label('nombres','* Nombres:')}}	
 				{{ Form::text('nombres','',array('data-mini'=>'true','id'=>'nombres'))}}
 			</div>
 			<div data-role="fieldcontain">
-				{{ Form::label('cedula','Cédula: *')}}	
+				{{ Form::label('cedula','* Cédula:')}}	
 				{{ Form::text('cedula','',array('data-mini'=>'true','id'=>'cedula','maxlength'=>'10'))}}
 			</div>
 			<div data-role="fieldcontain">
-				{{ Form::label('direccion','Dirección: *')}}	
+				{{ Form::label('direccion','* Dirección:')}}	
 				{{ Form::textarea('direccion','',array('id'=>'direccion'))}}
 			</div>
 			<div data-role="fieldcontain">
@@ -70,28 +71,29 @@
 				{{ Form::textarea('observaciones','',array('id'=>'observaciones'))}}
 			</div>
 			{{ Form::hidden('id_cliente','0',array('id'=>'id_cliente'))}}
-		</div>
+		</div><br/>
 		{{--Datos del equipo--}}
-		<h4>Información del equipo</h4>
+		<h2>Información del equipo</h2>
 		<div data-role="fieldcontain">
-			{{ Form::label('tipo','Tipo de equipo: *')}}	
+			{{ Form::label('tipo','* Tipo de equipo:')}}	
 			{{ Form::text('tipo','',array('data-mini'=>'true','id'=>'tipo'))}}
 		</div>
 		<div data-role="fieldcontain">
-			{{ Form::label('marca','Marca: *')}}	
+			{{ Form::label('marca','* Marca:')}}	
 			{{ Form::text('marca','',array('data-mini'=>'true','id'=>'marca'))}}
 		</div>
 		<div data-role="fieldcontain">
-			{{ Form::label('modelo','Modelo: *')}}	
+			{{ Form::label('modelo','* Modelo:')}}	
 			{{ Form::text('modelo','',array('data-mini'=>'true','id'=>'modelo'))}}
 		</div>
 		<div data-role="fieldcontain">
-			{{ Form::label('serie','Número de serie: *')}}	
+			{{ Form::label('serie','* Número de serie:')}}	
 			{{ Form::text('serie','',array('data-mini'=>'true','id'=>'serie'))}}
-		</div>
-		<h4>Detalles de la orden de trabajo</h4>
+		</div><br/>
+		{{--Detalles de la orden de trabajo--}}
+		<h2>Detalles de la orden de trabajo</h2>
 		<div data-role="fieldcontain">
-			{{ Form::label('problema','Problema del equipo: *')}}	
+			{{ Form::label('problema','* Problema del equipo:')}}	
 			{{ Form::textarea('problema','',array('id'=>'problema'))}}<br/>
 		</div>
 		<div data-role="fieldcontain">
@@ -107,13 +109,13 @@
 		</div>
 		{{--Fecha de prometido--}}
 		<div data-role="fieldcontain">
-			{{Form::label('fechaPrometido', 'Fecha de prometido: *')}}
+			{{Form::label('fechaPrometido', '* Fecha de prometido:')}}
 			<input type="date" id="fechaPrometido" name="fechaPrometido"/>
 		</div>
 		{{--Botones de ingreso--}}
 		<div data-role= "controlgroup" data-type="horizontal" align="center" data-mini="true">
 			{{ Form::submit('Ingresar')}}
-			{{ Form::button('Cancelar',array('url'=>'#'))}}
+			
 		</div>		
 		{{ Form::hidden('user_id',Auth::user()->id)}}
 	{{Form::close()}}

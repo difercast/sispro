@@ -18,8 +18,8 @@
 			}}
 		@endif	
 	@stop
-	{{--Sección primario--}}
-	@section('primario')
+	{{--Sección principal--}}
+	@section('principal')
 		<h3 align="center">Orden de trabajo N° {{$orden->id}}</h3>		
 		{{--Opción de la orden de trabajo--}}
 		@if($orden->getSucursal($orden->id) == Auth::user()->sucursal_id)
@@ -63,7 +63,7 @@
 		
 		{{Form::open(array('id'=>'ordenForm'))}}
 			{{--Fecha de ingreso y usuario que ingresó el equipo--}}
-			<div class="rwd-example">
+			<div class="ui-grid-a ui-responsive">
 				<div class="ui-block-a">
 					<div data-role="fieldcontain">
 						{{Form::label('fechaIngreso','Ingreso:')}}
@@ -71,12 +71,13 @@
 					</div>
 				</div>
 				<div class="ui-block-b">
-					<div data-role="fieldcontain" data-position="horizontal">
+					<div data-role="fieldcontain">
 						{{Form::label('integrante','Integrante:')}}
 						{{Form::text('user',$user,array('data-mini'=>'true','readonly'=>'true'))}}
 					</div>
 				</div>
 			</div>
+			<br/><br><br>
 			{{--Datos del cliente--}}
 			<span><strong>Cliente:</strong></span>	
 			<div class="rwd-example">
@@ -121,11 +122,11 @@
 			{{--Detalle de la reparación--}}
 			<h4>Detalles de la reparación</h4>
 			<div class="rwd-example">
-				<div class="ui-block-a">
+				<div class="ui-block-a ui-responsive" >
 						{{Form::label('detalle','Detalle de la reparación:')}}
 						{{Form::textarea('detalle',$orden->detalle,array('data-mini'=>'true','readonly'=>'true','id'=>'detalleRep'))}}
 				</div>
-				<div class="ui-block-b">
+				<div class="ui-block-b ui-responsive">
 						{{Form::label('informe','Informe al cliente:')}}
 						{{Form::textarea('informe',$orden->informe,array('data-mini'=>'true','readonly'=>'true','id'=>'informeRep'))}}
 				</div>
@@ -333,6 +334,7 @@
 				{{Form::submit('Entregar')}}
 			{{Form::close()}}
 		</div>
+		
 	@stop		
 @endif
 

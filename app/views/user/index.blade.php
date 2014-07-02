@@ -13,7 +13,7 @@
 @stop
 {{--Sección primario--}}
 @section('primario')
-	<h2>Usuarios</h2>
+	<h1>Usuarios</h1>
 	<?php $status=Session::get('status') ?>
 	@if($status == 'error')
 		<div id="error"  align="center">
@@ -46,7 +46,7 @@
 	<table data-role="table" data-mode="reflow" class="ui-responsive  movie-list " >
 		<thead>
 			<tr>
-				<th>N</th>
+				<th>N°</th>
 				<th>Nombres</th>
 				<th>Apellidos</th>
 				<th>Teléfono</th>
@@ -100,9 +100,10 @@
 @section('secundario')
 	<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 	<ul data-role="listview" class="ui-listview-outer" data-inset="true">
+		<li data-role="list-divider">Opciones</li>
 		<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
 		<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>		
-		<li data-icon="false">Usuarios</li>
+		<li data-icon="false" class="fondo">Usuarios</li>
 		<li data-icon="false"><a href="#">Informes</a></li>
 		<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 		<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>

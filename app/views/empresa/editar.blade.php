@@ -13,9 +13,9 @@
 	{{ HTML::link('empresa','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
 {{--Sección primario--}}
-@section('primario')		
-	<h3 align="center">Modificar datos de la empresa</h3>
-	<h4>Por favor, ingrese la nueva información de la empresa</h4>
+@section('principal')		
+	<h1 align="center">Modificar datos de la empresa</h1>
+	<p><strong>Por favor, ingrese la nueva información de la empresa</strong></p>
 	<span style="color: red;">* elementos requeridos</span>
 	{{ Form::open(array('url'=>'empresa/editar','id'=>'formEditar')) }}
 		<div class="ui-field-contain">

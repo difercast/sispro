@@ -21,8 +21,8 @@
 @section('header')
 	{{ HTML::link('presupuesto','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
-{{--Sección Primario--}}
-@section('primario')
+{{--Sección principal--}}
+@section('principal')
 	@if($accion == 'Editar')
 		<h3>Por favor, ingrese los nuevos datos del presupuesto</h3>
 		<span style="color:red">* Campos obligatorios</span>

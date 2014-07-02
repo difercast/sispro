@@ -5,7 +5,7 @@
 		$form = array('url'=>'cliente/editar','id'=>'formCliente');
 		$detalle = "Por favor, ingrese los nuevos datos del cliente";
 	else:		
-		$accion = "Información del usuario";
+		$accion = "Información del cliente";
 		$detalle = "";		
 		$form = array();
 	endif;		
@@ -24,10 +24,10 @@
 @section('header')	
 	{{ HTML::link('cliente','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
-{{--Sección primario--}}
-@section('primario')
-	<h2 align="center">{{$accion}}</h2>	
-	<h3>{{ $detalle}}</h3>
+{{--Sección principal--}}
+@section('principal')
+	<h1 align="center">{{$accion}}</h1><br/>	
+	<p><strong>{{ $detalle}}</strong></p>
 	@if($estado == 'editar')
 		<span style="color: red;">* Elementos requeridos</span>
 	@endif

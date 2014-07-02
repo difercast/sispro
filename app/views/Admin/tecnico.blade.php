@@ -39,8 +39,9 @@
 	@section('secundario')
 		<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
+			<li data-role="list-divider">Opciones</li>
 			<li data-icon="false">{{ HTML::link('ordenTrabajo', 'Ingresar orden de trabajo'); }}</li>
-			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado', 'Lista órdenes de trabajo'); }}</li>		
+			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado/1', 'Lista órdenes de trabajo'); }}</li>		
 			<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-inset="false">
 	    		<h2>Buscar orden</h2>
 	    		<ul data-role="listview" data-corners="false" >				

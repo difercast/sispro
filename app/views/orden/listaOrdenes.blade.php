@@ -12,12 +12,63 @@
 	@endif
 @stop
 @if($ordenes)
-	{{--Sección primario--}}
-	@section('primario')
-		<h3>Órdenes de trabajo</h3>
+	{{--Sección principal--}}
+	@section('principal')
+		<h1>Órdenes de trabajo</h1>
+		<div class="listas">
+			<?php $status=Session::get('estado') ?>
+			<p align="center">Filtros de búsqueda</p>
+			<div class="opciones">
+				@if($estado == 'todos')
+					<div data-role="controlgroup" data-type="horizontal" data-mini="true" align="center">
+						{{ HTML::link( '#','Todos',array('data-role'=>'button','class'=>'ui-state-disabled controlG')); }}
+						{{ HTML::link("ordenTrabajo/listado/2", 'Entregados',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('ordenTrabajo/listado/3', 'Reparación terminada',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('ordenTrabajo/listado/4', 'Sin revisar',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('ordenTrabajo/listado/5', 'Dados de baja',array('class'=>'ui-btn controlG')); }}
+					</div>
+				@elseif($estado == 'entregados')
+					<div data-role="controlgroup" data-type="horizontal" data-mini="true" align="center">
+						{{ HTML::link( 'ordenTrabajo/listado/1','Todos',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link("#", 'Entregados',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
+						{{ HTML::link('ordenTrabajo/listado/3', 'Reparación terminada',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('ordenTrabajo/listado/4', 'Sin revisar',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('ordenTrabajo/listado/5', 'Dados de baja',array('class'=>'ui-btn controlG')); }}
+					</div>
+				@elseif($estado == 'terminado')
+					<div data-role="controlgroup" data-type="horizontal" data-mini="true" align="center">
+						{{ HTML::link( 'ordenTrabajo/listado/1','Todos',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link("ordenTrabajo/listado/2", 'Entregados',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('#', 'Reparación terminada',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
+						{{ HTML::link('ordenTrabajo/listado/4', 'Sin revisar',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('ordenTrabajo/listado/5', 'Dados de baja',array('class'=>'ui-btn controlG')); }}
+					</div>
+				@elseif($estado == 'sinRevisar')
+					<div data-role="controlgroup" data-type="horizontal" data-mini="true" align="center">
+						{{ HTML::link( 'ordenTrabajo/listado/1','Todos',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link("ordenTrabajo/listado/2", 'Entregados',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('ordenTrabajo/listado/3', 'Reparación terminada',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('#', 'Sin revisar',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
+						{{ HTML::link('ordenTrabajo/listado/5', 'Dados de baja',array('class'=>'ui-btn controlG')); }}
+					</div>
+				@elseif($estado == 'baja')
+					<div data-role="controlgroup" data-type="horizontal" data-mini="true" align="center">
+						{{ HTML::link( 'ordenTrabajo/listado/1','Todos',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link("ordenTrabajo/listado/2", 'Entregados',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('ordenTrabajo/listado/3', 'Reparación terminada',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('ordenTrabajo/listado/4', 'Sin revisar',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('#', 'Dados de baja',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
+					</div>
+				@endif
+			</div>
+			<br>
+		</div>				
 		{{Form::open()}}
-			<input id="filterTable-input" data-type="search"/>
+			<br>
+			<h3 align="center">Lista de órdenes de trabajo</h3>			
+			<input id="filterTable-input" data-type="search" placeholder="Buscar orden de trabajo"/>
 		{{Form::close()}}
+		<br>
 		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" data-filter="true" data-input="#filterTable-input">
 			<thead>
 				<tr>
@@ -49,7 +100,7 @@
 							@elseif($orden->estado == '1')
 								En reparación
 							@elseif($orden->estado == '2')
-								repración terminada
+								reparación terminada
 							@endif
 						</td>
 						<td>

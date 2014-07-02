@@ -13,9 +13,10 @@
 @section('header')	
 	{{ HTML::link('equipo','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
-{{--Sección primario--}}
-@section('primario')
-		<h3>Modificar información del equipo</h3>
+{{--Sección principal--}}
+@section('principal')
+		<h1 align="center">Modificar equipo</h1>
+		<p><strong>Por favor, ingrese la nueva informacipon del equipo</strong></p>
 		<span style="color: red;">* Elementos requeridos</span>
 		{{ Form::open(array('url'=>'equipo/editar','id'=>'formEquipoMod'))}}
 			<div data-role="fieldcontain">

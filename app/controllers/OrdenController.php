@@ -186,13 +186,28 @@ class OrdenController extends BaseController
 
 	/**
 	* 	Presenta la vista con listado de órdenes de trabajo
-	*	@param 
+	*	@param int $estado
 	*	@return Response
 	**/
-	public function getListado()
+	public function getListado($estado)
 	{
-		$ordenes = Orden::paginate(15);
-		return View::make('orden.listaOrdenes')->with('ordenes',$ordenes);
+		if($estado == 1){
+			$ordenes = Orden::paginate(15);
+			return View::make('orden.listaOrdenes')->with(array('ordenes'=>$ordenes,'estado'=>'todos'));
+		}elseif($estado == 2){
+			$ordenes = Orden::where('entregado','=','1')->orderBy('id', 'desc')->paginate(15);
+			return View::make('orden.listaOrdenes')->with(array('ordenes'=>$ordenes,'estado'=>'entregados'));
+		}elseif($estado == 3){
+			$ordenes = Orden::where('estado','=','2')->orderBy('id', 'desc')->paginate(15);
+			return View::make('orden.listaOrdenes')->with(array('ordenes'=>$ordenes,'estado'=>'terminado'));
+		}elseif ($estado == 4) {
+			$ordenes = Orden::where('estado','=','0')->orderBy('id','desc')->paginate(15);
+			return View::make('orden.listaOrdenes')->with(array('ordenes'=>$ordenes,'estado'=>'sinRevisar'));
+		}elseif ($estado == 5) {
+			$ordenes = Orden::where('estado','=','3')->orderBy('id','desc')->paginate(15);
+			return View::make('orden.listaOrdenes')->with(array('ordenes'=>$ordenes,'estado'=>'baja'));
+		}
+		
 	}
 
 	/**

@@ -11,7 +11,7 @@
 	{{ HTML::link('user','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
 {{--Sección principal--}}
-@section('primario')
+@section('principal')
 	@if($user)
 	<h3>Información del usuario</h3>
 	{{ Form::open()}}

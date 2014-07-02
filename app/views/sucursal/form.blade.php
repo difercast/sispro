@@ -4,7 +4,7 @@
 		$accion = "Editar";
 		$form = array('url'=>'sucursal/editar','id'=>'formSucursal');
 	else:		
-		$accion = "Ingresar";
+		$accion = "Nueva";
 		$form = array('url'=>'sucursal/ingresar','id'=>'formSucursal');
 	endif;	
 ?>
@@ -23,10 +23,13 @@
 @section('header')	
 	{{ HTML::link('sucursal','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
-{{--Sección primario--}}
-@section('primario')
+{{--Sección principal--}}
+@section('principal')
+	@if(isset($accion) && $status != 'ver')
+		<h1 align="center">{{$accion }} sucursal</h1>
+	@endif
 	@if($status == "ver")
-		<h3>Información detallada de {{ $sucursal->nombre}}</h3>
+		<h2 align="center">Información de {{ $sucursal->nombre}}</h2><br>
 	@else
 		<h3>Por favor, ingrese la información de la sucursal</h3>
 		<span style="color: red;">* elementos requeridos</span>

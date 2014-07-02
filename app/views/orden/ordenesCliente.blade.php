@@ -14,8 +14,8 @@
 		{{ HTML::link('vendedor','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 	@endif
 @stop
-{{--Sección primario--}}
-@section('primario')
+{{--Sección principal--}}
+@section('principal')
 	@if($cliente)
 	<h3>Órdenes de trabajo por cliente</h3>
 	<p><strong>Cliente: </strong> {{ $cliente -> nombres}}</p>

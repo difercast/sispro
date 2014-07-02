@@ -255,85 +255,7 @@ html .ui-alt-icon .ui-radio-off:after {
 }
 /*Estilos para realizar páginas con responsibe web desing*/
 
-@media all and (max-width: 480px){
-	.logo{
-		position: absolute;
-	}
-	.primario{
-		margin-top: 50px;
 
-		padding: 1em;
-	}
-	.secundario{
-		
-	}
-	.titular{
-		display: none;
-	}
-	.titulo{
-		display: none;
-	}
-}
-@media all and (min-width: 650px){
-	.secundario{
-		text-align: left;
-		float: left;
-		width: 45%;
-	}
-	.secundario{
-		margin: 30px 0 20px 2%;
-		padding: 20px 4% 0 0;
-		background: none;
-		border-top: none;
-		position: relative;
-	}
-	.secundario{
-		padding: 0;
-	}
-	.primario{
-		width: 45%;
-		float: right;
-		margin-top: 30px;
-		margin-right: 1%;
-		padding-right: 1%;
-	}
-
-
-}
-@media all and (min-width: 750px){
-
-	.secundario{
-		width: 30%;
-	}
-	.primario{
-		width: 56%;
-		padding-right: 1%;
-	}
-}
-@media all and (min-width: 1200px){
-
-	.primario{
-		float: right;
-		width: 70%;
-		padding: 1.5em 1% 3em 5%;
-		margin: 1px;		
-		height: 100%;
-	}
-	.secundario{
-		margin: 0;
-		margin-right: 3px;
-		margin-left: 0;
-		padding: 0;
-		background: none;
-		border-top: none;
-		position: relative;
-		border-right: 0;
-		border-left: 0;
-		text-align: left;		
-		float: left;
-		width: 20%;
-	}	
-}
 
 .rwd-example .ui-body {
     text-align: left;
@@ -354,6 +276,22 @@ html .ui-alt-icon .ui-radio-off:after {
 .rwd-example > div + div .ui-body {
     border-top-width: 0;
 }
+
+.logo{
+
+}
+.titular{
+	display: none;
+}
+
+@media screen and(min-width: 768px){
+	.logo{
+		display: none;
+	}	
+
+}
+
+
 /* 1st breakpoint - Float B and C, leave A full width on top */
 @media all and (min-width: 42em) {    
 
@@ -446,52 +384,6 @@ html .ui-alt-icon .ui-radio-off:after {
 /* Swatches */
 /* A
 -----------------------------------------------------------------------------------------------------------*/
-.fondo{
-	background-color: ##8c8c8c;
-	color: #ffffff;
-}
-.logo{	
-	display: inline-block;
-	float: left;
-	width: 200px;
-}
-label.error { 
-	float: left; 
-	color: red; 
-	padding-top: .5em; 
-	vertical-align: top; 
-	font-weight:bold
-}
-/*Estilos en las tablas */
-.movie-list thead th,
-.movie-list tbody tr:last-child {
-    border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
-    border-bottom: 1px solid rgba(0,0,0,.1);
-}
-.movie-list tbody th,
-.movie-list tbody td {
-    border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
-    border-bottom: 1px solid rgba(0,0,0,.05);
-}
-.movie-list tbody tr:last-child th,
-.movie-list tbody tr:last-child td {
-    border-bottom: 0;
-}
-.movie-list tbody tr:nth-child(odd) td,
-.movie-list tbody tr:nth-child(odd) th {
-    background-color: #eeeeee; /* non-RGBA fallback  */
-    background-color: rgba(0,0,0,.04);
-}
-.titular{
-	margin-left:230px;
-}
-.titulo{
-		font-size: 18px;
-		font-weight: normal;
-		margin: ;
-		padding: 0;
-		text-align: center;
-}
 /* Bar: Toolbars, dividers, slider track */
 .ui-bar-a,
 .ui-page-theme-a .ui-bar-inherit,

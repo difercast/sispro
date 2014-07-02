@@ -3,13 +3,17 @@
 @section('titulo')
 	<title>Sucursales</title>
 @stop
+{{--Head--}}
+@section('head')
+	{{ HTML::style('css/mensajes.css'); }}
+@stop
 {{--Sección header--}}
 @section('header')	
 	{{ HTML::link('admin','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 @stop
 {{--Sección primario--}}
 @section('primario')
-	<h2>Sucursales</h2>
+	<h1>Sucursales</h1>
 	<?php $status=Session::get('status') ?>
 	@if($status == 'error')
 		<div id="error" align="center">
@@ -36,7 +40,7 @@
 	<div data-role="controlgroup" data-type="horizontal">
 		{{ HTML::link('sucursal/nuevo', 'Nuevo',array('data-role'=>'button')); }}	
 	</div>
-	<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center" >
+	<table data-role="table" id="movie-table-custom" data-mode="reflow" class="movie-list ui-responsive">
 		<thead>
 				<tr>
 					<th>Nombre</th>
@@ -83,8 +87,9 @@
 @section('secundario')
 	<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 	<ul data-role="listview" class="ui-listview-outer" data-inset="true">
+		<li data-role="list-divider">Opciones</li>
 		<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
-		<li data-icon="false">Sucursales</li>		
+		<li data-icon="false" class="fondo">Sucursales</li>		
 		<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>
 		<li data-icon="false"><a href="#">Informes</a></li>
 		<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
@@ -95,5 +100,5 @@
 @stop
 
 {{ HTML::script('js/mensajes.js'); }}
-{{ HTML::style('css/mensajes.css'); }}
+
 

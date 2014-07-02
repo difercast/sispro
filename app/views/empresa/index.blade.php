@@ -13,14 +13,14 @@
 @stop
 {{--Sección primario--}}
 @section('primario')
-	<h2>Empresa</h2>	
+	<h1>Empresa</h1>	
 	<?php $status=Session::get('status') ?>
 	@if($status == 'error')
 		<div id="error" align="center">			
 				<p>¡Error!, por favor verifique los datos ingresados </p>
 		</div>
 	@elseif($status == 'okEditado')
-		<div id='mensajeEditar' align="center">
+		<div class='mensajeEditar' align="center">
 			<p>La información de la empresa se modificó correctamente</p>
 		</div>		
 	@endif	
@@ -54,10 +54,11 @@
 @section('secundario')
 	<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 	<ul data-role="listview" class="ui-listview-outer" data-inset="true">
+		<li data-role="list-divider">Opciones</li>
 		<li class="fondo" data-icon="false">Empresa</li>
 		<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>		
 		<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>
-		<li data-icon="false"><a href="#">Informes</a></li>
+		<li data-icon="false" ><a href="#">Informes</a></li>
 		<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 		<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>
 		<li data-icon="false"><a href="#">Cambiar contrase&ntildea </a></li>
