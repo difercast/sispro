@@ -10,6 +10,7 @@
 	{{HTML::style('css/jquery.mobile-1.4.2.min.css')}}
 	{{HTML::style('css/sispro/sispro.css');}}	
 	{{HTML::style('css/sispro/jquery.mobile.icons.min.css');}}	
+	{{HTML::style('//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css');}}
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
 	@yield('head')
 </head>
@@ -32,14 +33,14 @@
 				@yield('secundario')
 			</div>
 		</div>		
-		@yield('paneles')
-		{{HTML::script('js/jquery.js');}}
-		@yield('scripts')			
-	</div>
-	
-	{{HTML::script('js/jquery.mobile-1.4.2.js')}}
+		@yield('paneles')				
+		@yield('scripts')
+		
+	</div>		
 </body>
 </html>
+{{HTML::script('js/jquery.js');}}
+{{HTML::script('js/jquery.mobile-1.4.2.js')}}
 
 
 	

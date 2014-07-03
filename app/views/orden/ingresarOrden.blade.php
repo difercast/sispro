@@ -11,7 +11,8 @@
 	<title>Ingresar orden de trabajo</title>
 @stop
 {{--Sección head--}}
-@section('head')	
+@section('head')
+	{{HTML::style('js/validadores/ui/jquery-ui.css');}}	
 @stop
 {{--Sección header--}}
 @section('header')	
@@ -102,13 +103,13 @@
 		<div data-role="fieldcontain">
 			@if(isset($tecnicos))
 			{{ Form::label('tecnico','Técnico asignado:')}}
-			{{ Form::select('tecnico',$tecnicos,array('data-mini'=>'true','id'=>'tecnico'))}}
+			{{ Form::select('tecnico',$tecnicos,array('id'=>'tecnico'))}}
 			@endif
 		</div>
 		{{--Fecha de prometido--}}
 		<div data-role="fieldcontain">
 			{{Form::label('fechaPrometido', '* Fecha de prometido:')}}
-			<input type="date" id="fechaPrometido" name="fechaPrometido"/>
+			{{Form::text('fechaPrometido','',array('id'=>'datepicker'))}}
 		</div>
 		{{--Botones de ingreso--}}
 		<div data-role= "controlgroup" data-type="horizontal" align="center" data-mini="true">
@@ -154,6 +155,12 @@
 	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
 	{{HTML::script('js/validadores/camposIngresoOrden.js');}}
 	{{HTML::script('js/validadores/cargarCliente.js');}}
+	{{HTML::script('js/validadores/ui/jquery-ui.js');}}
+		<script>
+		  $(function() {
+		    $( "#datepicker" ).datepicker();
+		  });
+		</script>
 
 @stop
 

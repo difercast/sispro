@@ -42,7 +42,7 @@
 		<div data-role="fieldcontain">			
 			@if($estado == "editar")
 				{{Form::label('cedula','Cédula: *')}}
-				{{Form::text('cedula',$cliente->cedula,array('data-mini'=>'true','id'=>'cedula'))}}
+				{{Form::text('cedula',$cliente->cedula,array('data-mini'=>'true','id'=>'cedula','maxlength'=>'10'))}}
 			@else
 				{{Form::label('cedula','Cédula:')}}
 				{{Form::text('cedula',$cliente->cedula,array('data-mini'=>'true','readonly'=>'true'))}}
