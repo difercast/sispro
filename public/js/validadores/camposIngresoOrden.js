@@ -1,11 +1,11 @@
 $( document ).on( "pageinit", function( event ) {
-//$(document).ready(function(){
+	console.log('exito');
 	//Validar que la fecha de prometido no sea menor que la fecha de ingreso
 	$.validator.addMethod('validDate', function(value, element) {
 		var startDate = $('#fechaIngreso').val();
 		//return Date.parse(startDate) < Date.parse(value);
 		return Date.parse(value) >= Date.parse(startDate);
-	}, "* End date must be after start date");
+	}, "* Fecha de prometido debe ser mayor a la fecha de ingreso");
 	//Validar que el campo ingresado solo contenga letras
 	$.validator.addMethod('letters', function(val, element, param){
 		return val.match(new RegExp("." + param + "$"));

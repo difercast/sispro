@@ -38,12 +38,6 @@
 			{{HTML::link('#ingresoCliente','Buscar cliente',array('class'=>'btnBuscar ui-btn'))}}
 			
 		</div>
-		<div data-role="fieldcontain">
-			@if(isset($clientes))
-			{{Form::label('cliente','Seleccione un cliente:')}}
-			{{Form::select('cliente',$clientes,array('data-mini'=>'true','id'=>'cliente'))}}
-			@endif
-		</div>
 		{{--Datos del cliente--}}		
 		<div id="datosCliente">
 			<div data-role="fieldcontain">
@@ -127,47 +121,40 @@
 @section('paneles')
 	<div data-role="panel" id="ingresoCliente" data-display="overlay">
 		<h2 align="center">Buscar cliente</h2>
+		@if($todosClientes)
 		{{Form::open()}}
-			<div data-role="fieldcontain">
-				{{Form::label('buscar','Buscar por:')}}
-				{{Form::select('buscar', array(
-					'0'=>'Cédula de identidad',
-					'1'=>'Nombres'
-				))}}
-			</div>
-			{{Form::text('ingresoDato',"",array('placeholder'=>'Ingrese los datos'))}}
-			{{Form::submit('Buscar')}}
+			<input id="buscarCliente" data-type="search" placeholder="Buscar equipo">
 		{{Form::close()}}
+		{{Form::open(array('id'=>'formBuscar'))}}
+			<table data-role="table" data-mode="reflow" data-filter="true" data-input="#buscarCliente" class="movie-list ui-responsive">
+				<thead>
+					<tr>
+						<th>OK</th>
+						<th>Cliente</th>
+						<th>CI</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($todosClientes as $cliente)
+					<tr>
+						<td>{{ Form::radio('idCli',$cliente->id,array('id'=>'idCli'))}}</td>
+						<td>{{$cliente->nombres}}</td>
+						<td>{{$cliente->cedula}}</td>
+					</tr>
+					@endforeach
+				</tbody>
+			</table>
+			{{Form::button('Buscar',array('id'=>'enviar'))}}
+		{{Form::close()}}
+		@endif
 	</div>
 @stop
-{{--Sección scripts--}}
 @section('scripts')
-	<!-- scripts -->
+<!-- scripts -->
 	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
 	{{HTML::script('js/validadores/camposIngresoOrden.js');}}
-	<script type="text/javascript">
-	//Carga los datos del cliente cuando el usuario seleccione uno
-    $(document).ready(function(){
-        $('#cliente').change(function(){
-            $.ajax({
-            	url:"procesaCliente",
-            	type:"POST",
-            	data:"idCliente="+$('#cliente').val(),
-            	success: function(clientes){            		
-            		$('#nombres').val(clientes[0]);
-            		$('#cedula').val(clientes[1]);
-            		$('#direccion').val(clientes[2]);
-            		$('#telefono').val(clientes[3]); 
-            		$('#celular').val(clientes[4]);
-            		$('#email').val(clientes[5]);
-            		$('#observaciones').val(clientes[6]);
-            		$('#id_cliente').val(clientes[7]);           		
-            		//$('#datosCliente').html(clientes);
-            	}
-            })
+	{{HTML::script('js/validadores/cargarCliente.js');}}
 
-        });    
-    });
-	</script>
 @stop
+
 

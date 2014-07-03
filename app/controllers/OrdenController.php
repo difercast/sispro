@@ -34,7 +34,8 @@ class OrdenController extends BaseController
 		$tecnico = array(0 => 'Seleccione...')+$tecnicos->lists('nombres','id');
 		$cliente = Cliente::all();
 		$select = array(0 => 'Seleccione...')+$cliente->lists('nombres','id');
-		return View::make('orden.ingresarOrden')->with(array('tecnicos'=>$tecnico,'clientes'=>$select));
+		$clientes = Cliente::all();
+		return View::make('orden.ingresarOrden')->with(array('tecnicos'=>$tecnico,'clientes'=>$select,'todosClientes'=>$clientes));
 	}
 
 	/** 
@@ -100,7 +101,7 @@ class OrdenController extends BaseController
 			$user = $user->nombres;
 			$tecnico = User::find($orden->tecnico);
 			$suc = Sucursal::findOrFail($orden->Sucursal_id);
-			$sucursal = $suc->nombre;
+			$sucursal = $suc->nombre;			
 			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres,'sucursal'=>$sucursal));
 		}else{
 			$pres = Presupuesto::all();
@@ -112,7 +113,7 @@ class OrdenController extends BaseController
 			$user = $user->nombres;
 			$tecnico = User::find($orden->tecnico);
 			$suc = Sucursal::findOrFail($orden->Sucursal_id);
-			$sucursal = $suc->nombre;
+			$sucursal = $suc->nombre;			
 			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo, 'presupuesto'=>$pres,'sucursal'=>$sucursal));
 		}
 	}
@@ -236,7 +237,6 @@ class OrdenController extends BaseController
 		$pres = Presupuesto::all();
 		$suc = Sucursal::findOrFail($orden->Sucursal_id);
 		$sucursal = $suc->nombre;
-		//$tecnico = User::findOrFail($orden->tecnico);
 		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$usuario,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres,'sucursal'=>$sucursal));
 	}
 

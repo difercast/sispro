@@ -58,8 +58,8 @@ Route::controller('presupuesto','PresupuestoController');
 Route::post('procesaCliente',function()
 {
 	
-	$idCliente = Input::get('idCliente');
-	$id = Cliente::find($idCliente);	
+	$idCliente = Input::get('idCli');
+	$id = Cliente::findOrFail($idCliente);	
 	$clientes =  array(		
 		$id->nombres,
 		$id->cedula,

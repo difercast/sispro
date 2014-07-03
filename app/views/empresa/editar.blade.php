@@ -6,7 +6,7 @@
 @stop
 {{--Sección head--}}
 @section('head')
-
+		
 @stop
 {{--Sección header--}}
 @section('header')
@@ -38,11 +38,11 @@
 		<div data-role="controlgroup" data-type="horizontal" align="center">
 			{{ Form::submit('Editar')}}
 		</div>
-	{{ Form::close() }}		
+	{{ Form::close() }}
 @stop
 {{--Sección Scripts--}}
 @section('scripts')
-		<!-- scripts -->
+	<!-- scripts -->
 	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
 	{{HTML::script('js/validadores/camposEmpresa.js');}}
 @stop

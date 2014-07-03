@@ -42,7 +42,7 @@
 						<td>{{ $empresa -> razon_social }}</td>
 						<td>{{ $empresa -> ruc }}</td>
 						<td>{{ $empresa -> actividad }}</td>						
-						<td>{{ HTML::link( 'empresa/modificar/'.$empresa->id,'Editar', array('data-role'=>'button','data-mini'=>'true')) }}</td>
+						<td>{{ HTML::link( 'empresa/modificar/'.$empresa->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-ajax'=>'true')) }}</td>
 					@endforeach
 				</tr>
 			</tbody>
