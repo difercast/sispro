@@ -2,7 +2,8 @@ $(document).ready(function(){
 	//Validar que la fecha de prometido no sea menor que la fecha de ingreso
 	$.validator.addMethod('validDate', function(value, element) {
 		var startDate = $('#fechaIngreso').val();
-		return Date.parse(startDate) < Date.parse(value);
+		//return Date.parse(startDate) < Date.parse(value);
+		return Date.parse(value) >= Date.parse(startDate);
 	}, "* End date must be after start date");
 	//Validar que el campo ingresado solo contenga letras
 	$.validator.addMethod('letters', function(val, element, param){
@@ -25,7 +26,7 @@ $(document).ready(function(){
 			modelo: {required:true},
 			serie: {required:true, alphaNumeric: true},
 			problema: {required: true},
-			fechaPrometido: {required: true, validDate: true}
+			fechaPrometido: {required: true, validDate: true}			
 		},
 		messages:{
 			nombres:{

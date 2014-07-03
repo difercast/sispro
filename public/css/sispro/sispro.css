@@ -608,7 +608,8 @@ html head + body .ui-body-a.ui-focus {
 		margin-left: 20%;
 		border:2.5px solid #f9f9f9;
 	    border-radius: 10px;
-	    background-color: #f9f9f9;	    
+	    background-color: #f0f0f0;
+	    /*background-color: #f9f9f9;*/	    
 	}
 	.opciones{
 		margin-left: 5px;
@@ -666,6 +667,13 @@ html head + body .ui-body-a.ui-focus {
 	background-color: #135072 !important;
 	color: white !important;	
 	border-left: 2.5px solid #135072;	
+}
+.btnBuscar{
+	background-color: #135072 !important;	
+	border-left: 2.5px solid #135072;	
+	border-radius: 5px;
+	color: white !important;		
+	padding: 0.5em;
 }
 .listas{
 	border:2.5px solid #f9f9f9;

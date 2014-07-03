@@ -34,6 +34,10 @@
 		</div><br/>
 		{{--Selección del cliente--}}		
 		<h2>Información del cliente</h2>
+		<div data-role= "controlgroup" data-type="horizontal">
+			{{HTML::link('#ingresoCliente','Buscar cliente',array('class'=>'btnBuscar ui-btn'))}}
+			
+		</div>
 		<div data-role="fieldcontain">
 			@if(isset($clientes))
 			{{Form::label('cliente','Seleccione un cliente:')}}
@@ -115,13 +119,26 @@
 		{{--Botones de ingreso--}}
 		<div data-role= "controlgroup" data-type="horizontal" align="center" data-mini="true">
 			{{ Form::submit('Ingresar')}}
-			
 		</div>		
 		{{ Form::hidden('user_id',Auth::user()->id)}}
 	{{Form::close()}}
 @stop
-{{--Sección secundario--}}
-@section('secundario')	
+{{--Sección paneles--}}
+@section('paneles')
+	<div data-role="panel" id="ingresoCliente" data-display="overlay">
+		<h2 align="center">Buscar cliente</h2>
+		{{Form::open()}}
+			<div data-role="fieldcontain">
+				{{Form::label('buscar','Buscar por:')}}
+				{{Form::select('buscar', array(
+					'0'=>'Cédula de identidad',
+					'1'=>'Nombres'
+				))}}
+			</div>
+			{{Form::text('ingresoDato',"",array('placeholder'=>'Ingrese los datos'))}}
+			{{Form::submit('Buscar')}}
+		{{Form::close()}}
+	</div>
 @stop
 {{--Sección scripts--}}
 @section('scripts')
