@@ -1,5 +1,4 @@
-$(document).ready(function(){
-	//Método para validar que los datos sean alfanuméricos
+$( document ).on( "pageinit", function( event ) {
 	$.validator.addMethod('alphaNumeric', function(val, elemento) {
 		return this.optional(elemento) || /^[a-z0-9\-\s]+$/i.test(val);
 	}, 'El campo debe contener valores alfanuméricos');

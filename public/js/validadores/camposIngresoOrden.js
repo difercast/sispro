@@ -1,4 +1,5 @@
-$(document).ready(function(){
+$( document ).on( "pageinit", function( event ) {
+//$(document).ready(function(){
 	//Validar que la fecha de prometido no sea menor que la fecha de ingreso
 	$.validator.addMethod('validDate', function(value, element) {
 		var startDate = $('#fechaIngreso').val();

@@ -1,5 +1,5 @@
-$(document).ready(function(){
-	//Validar que el campo ingresado solo contenga letras
+$( document ).on( "pageinit", function( event ) {
+	console.log('éxito');
 	$.validator.addMethod('letters', function(val, element, param){
 		return val.match(new RegExp("." + param + "$"));
 	});

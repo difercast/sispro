@@ -675,6 +675,13 @@ html head + body .ui-body-a.ui-focus {
 	color: white !important;		
 	padding: 0.5em;
 }
+label.error { 
+	float: left; 
+	color: red; 
+	padding-top: .5em; 
+	vertical-align: top; 
+	font-weight:bold
+}
 .listas{
 	border:2.5px solid #f9f9f9;
 	border-radius: 10px;

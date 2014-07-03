@@ -16,9 +16,6 @@
 <body>
 	<div data-role="page" id="pag">
 		<div data-role="header">
-			{{--<div class="logo">
-				<img src="images/logo.png" alt="Sisprocompu"/>
-			</div>--}}
 			<div class="titular">
 					<h1 class="titulo">Sistema de gestión de reparaciones</h1>
 			</div>
@@ -35,13 +32,17 @@
 				@yield('secundario')
 			</div>
 		</div>		
-		@yield('paneles')	
+		@yield('paneles')
+		@yield('scripts')	
 	</div>
 </body>
 </html>
-	{{HTML::script('js/jquery.js')}}
-	@yield('scripts')
+	{{HTML::script('js/jquery.js')}}	
 	{{HTML::script('js/jquery.mobile-1.4.2.js')}}
+	
+
+
+
 
 
 

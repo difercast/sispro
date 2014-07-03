@@ -1,5 +1,6 @@
 //Validación de campos para ingresar o modificar un presupuesto
-$(document).ready(function(){
+$(document).bind('pageinit',function(){
+//$(document).ready(function(){
 	$('#formPresupuesto').validate({
 		rules: {
 			detalle:{required: true},
