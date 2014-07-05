@@ -45,7 +45,7 @@
 		<div data-role="fieldcontain">
 			{{Form::label('cedula','* N° de Cédula:')}}
 			@if(isset($user))		
-				{{ Form::text('cedula', $user->cedula,array('id'=>'cedula','class'=>'required'))}}
+				{{ Form::text('cedula', $user->cedula,array('id'=>'cedula','class'=>'required','maxlength'=>'10'))}}
 			@else
 				{{ Form::text('cedula','',array('id'=>'cedula','class'=>'required','maxlength'=>'10')) }}
 			@endif
@@ -88,7 +88,7 @@
 		<div data-role="fieldcontain">
 			@if(isset($user))
 				{{Form::label('sucursal','* Sucursal:')}}
-				@if(isset($sucursal))
+				@if(isset($sucursal))					
 					{{ Form::select('sucursal',$sucursal,array('id'=>'sucursal','class'=>'required'))}}			
 				@endif
 			@else
@@ -111,11 +111,9 @@
 				@if($user->rol == 'administrador')
 					{{Form::hidden('rol','administrador')}}
 				@else
-				{{Form::label('rol','* Rol:')}}
-				{{Form::select('rol',array(
-					'tecnico'=>'Técnico',
-					'vendedor'=>'Vendedor'
-				))}}			
+					{{Form::label('rol','* Rol:')}}
+					{{Form::text('rol',$user->rol,(array('readonly'=>true)))}}
+		
 				@endif	
 			@else
 				{{Form::label('rol','* Rol:')}}

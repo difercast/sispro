@@ -3,6 +3,10 @@
 @section('titulo')
 	<title>Lista de órdenes de trabajo</title>
 @show
+{{--Head--}}
+@section('head')
+	{{HTML::style('css/paginacion.css')}}
+@stop
 {{--Sección header--}}
 @section('header')		
 	@if(Auth::user()->rol == 'tecnico')
@@ -120,7 +124,9 @@
 				@endforeach
 			</tbody>			 
 		</table>
+		<br>
 		{{ $ordenes->links() }}
+		<br><br>
 	@stop
 	{{--Sección secundario--}}
 	@section('secundario')

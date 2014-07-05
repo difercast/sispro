@@ -20,7 +20,7 @@
 				<p>¡Error!, por favor verifique los datos ingresados </p>
 		</div>
 	@elseif($status == 'okEditado')
-		<div class='mensajeEditar' align="center">
+		<div class='mensajeEditar' align="center" id="mensajeEditar">
 			<p>La información de la empresa se modificó correctamente</p>
 		</div>		
 	@endif	
@@ -64,6 +64,10 @@
 		<li data-icon="false"><a href="#">Cambiar contrase&ntildea </a></li>
 		<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
 	</ul>
+@stop
+{{--Scripts--}}
+@section('scripts')
+	{{ HTML::script('js/mensajes.js'); }}
 @stop
 
 

@@ -7,7 +7,7 @@
 	@show
 	<meta name="viewport" content="width=device-width, initial-scale=1" />		
 	{{HTML::style('css/normalize.css')}}
-	{{HTML::style('css/jquery.mobile-1.4.2.min.css')}}
+	{{HTML::style('css/jquery.mobile-1.4.2.min.css')}}	
 	{{HTML::style('css/sispro/sispro.css');}}	
 	{{HTML::style('css/sispro/jquery.mobile.icons.min.css');}}	
 	{{HTML::style('//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css');}}
@@ -33,9 +33,8 @@
 				@yield('secundario')
 			</div>
 		</div>		
-		@yield('paneles')				
-		@yield('scripts')
-		
+		@yield('paneles')						
+		@yield('scripts')		
 	</div>		
 </body>
 </html>

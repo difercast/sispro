@@ -12,7 +12,7 @@
 @stop
 {{--Sección head--}}
 @section('head')
-	{{HTML::style('js/validadores/ui/jquery-ui.css');}}	
+	{{HTML::style('css/jqm-datebox-1.4.2.css');}}
 @stop
 {{--Sección header--}}
 @section('header')	
@@ -103,14 +103,16 @@
 		<div data-role="fieldcontain">
 			@if(isset($tecnicos))
 			{{ Form::label('tecnico','Técnico asignado:')}}
-			{{ Form::select('tecnico',$tecnicos,array('id'=>'tecnico'))}}
+			{{Form::select('tecnico',$tecnicos)}}
 			@endif
 		</div>
 		{{--Fecha de prometido--}}
 		<div data-role="fieldcontain">
 			{{Form::label('fechaPrometido', '* Fecha de prometido:')}}
-			{{Form::text('fechaPrometido','',array('id'=>'datepicker'))}}
-		</div>
+			<input name="fechaPrometido" id="fechaPrometido" type="date" data-role="datebox"
+   				data-options='{"mode": "datebox","overrideDateFormat":"%d/%m/%Y","useNewStyle":true}'/>
+			</div>
+
 		{{--Botones de ingreso--}}
 		<div data-role= "controlgroup" data-type="horizontal" align="center" data-mini="true">
 			{{ Form::submit('Ingresar')}}
@@ -138,7 +140,7 @@
 				<tbody>
 					@foreach($todosClientes as $cliente)
 					<tr>
-						<td>{{ Form::radio('idCli',$cliente->id,array('id'=>'idCli'))}}</td>
+						<td>{{ Form::radio('idCli',$cliente->id,array('data-role'=>'date'))}}</td>
 						<td>{{$cliente->nombres}}</td>
 						<td>{{$cliente->cedula}}</td>
 					</tr>
@@ -155,13 +157,8 @@
 	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
 	{{HTML::script('js/validadores/camposIngresoOrden.js');}}
 	{{HTML::script('js/validadores/cargarCliente.js');}}
-	{{HTML::script('js/validadores/ui/jquery-ui.js');}}
-		<script>
-		  $(function() {
-		    $( "#datepicker" ).datepicker();
-		  });
-		</script>
-
+	{{HTML::script('js/validadores/jqm-datebox-1.4.2.core.js')}}
+	{{HTML::script('js/validadores/jqm-datebox-1.4.2.mode.datebox.js')}}		
 @stop
 
 

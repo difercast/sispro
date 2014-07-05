@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on('pageinit',function() {
     $('#mensajeEditar').click(function() {
        $("#mensajeEditar").hide();
     });

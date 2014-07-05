@@ -111,5 +111,9 @@
 		<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
 	</ul>
 @stop
-{{ HTML::script('js/mensajes.js'); }}
+{{--Scripts--}}
+@section('scripts')
+	{{ HTML::script('js/mensajes.js'); }}
+@stop
+
 

@@ -7,6 +7,7 @@
 	{{--Head--}}
 	@section('head')
 		{{ HTML::style('css/mensajes.css'); }}
+		{{HTML::style('css/listas.css')}}
 	@stop
 	{{--Header--}}
 	@section('header')		

@@ -6,6 +6,7 @@
 {{--Sección head--}}
 @section('head')	
 	{{ HTML::style('css/mensajes.css'); }}
+	{{HTML::style('css/paginacion.css')}}
 @stop
 {{--Sección header--}}
 @section('header')
@@ -57,7 +58,9 @@
 			@endforeach			
 		</tbody>		
 	</table>
-	{{$equipos->links()}}	
+	<br/>
+	{{$equipos->links()}}
+	<br/><br>	
 @stop
 {{--Sección secundario--}}
 @section('secundario')

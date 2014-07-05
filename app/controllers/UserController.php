@@ -128,6 +128,7 @@ class UserController extends BaseController
 		$sucursal = Sucursal::where('estado','=','1')->get();
 		$select = array(0 => 'Seleccione...')+$sucursal->lists('nombre','id');
 		$user = User::findOrFail($id);		
+		$suc = Sucursal::findOrFail($user->sucursal_id);
 		return View::make('user.form')->with(array('user'=>$user,'sucursal'=>$select));
 	}
 
@@ -140,6 +141,7 @@ class UserController extends BaseController
 	**/
 	public function postEditar()
 	{
+		
 		$user = User::findOrFail(Input::get('id'));
 		$reglas = array(
 			'apellidos'=>'required',
@@ -150,7 +152,6 @@ class UserController extends BaseController
 			'username'=>'required'
 			);
 		$validador = Validator::make(Input::all(),$reglas);
-
 		if($validador->passes() && $user->validarCI(Input::get('cedula')))
 		{
 			if(self::validarTelefono(Input::get('telefono')) && self::validarCelular(Input::get('celular')))
@@ -161,10 +162,9 @@ class UserController extends BaseController
 				$user -> direccion = Input::get('direccion');
 				$user -> telefono = Input::get('telefono');
 				$user -> celular = Input::get('celular');
-				$user -> email = Input::get('email');
-				$user -> rol = Input::get('rol');
+				$user -> email = Input::get('email');				
 				$user -> username = Input::get('username');
-				$user -> sucursal_id = Input::get('sucursal');
+				$user -> sucursal_id = Input::get('sucursal');				
 				$user -> save();
 				return Redirect::to('user')->with('status','okEditado');
 			}

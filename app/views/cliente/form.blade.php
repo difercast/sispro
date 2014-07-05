@@ -62,7 +62,7 @@
 			@if($estado == "editar")
 				{{Form::text('telefono',$cliente->telefono,array('data-mini'=>'true','id'=>'telefono'))}}
 			@else
-				{{Form::text('telefono',$cliente->telefono,array('data-mini'=>'true','readonly'=>'true'))}}
+				{{Form::text('telefono',$cliente->telefono,array('data-mini'=>'true','readonly'=>'true','maxlength'=>'7'))}}
 			@endif
 		</div>
 		<div data-role="fieldcontain">
@@ -70,7 +70,7 @@
 			@if($estado == "editar")
 				{{Form::text('celular',$cliente->celular,array('data-mini'=>'true','id'=>'celular'))}}
 			@else
-				{{Form::text('celular',$cliente->celular,array('data-mini'=>'true','readonly'=>'true'))}}
+				{{Form::text('celular',$cliente->celular,array('data-mini'=>'true','readonly'=>'true','maxlength'=>'10'))}}
 			@endif
 		</div>
 		<div data-role="fieldcontain">

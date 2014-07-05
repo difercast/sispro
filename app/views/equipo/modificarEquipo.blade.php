@@ -17,19 +17,19 @@
 		<span style="color: red;">* Elementos requeridos</span>
 		{{ Form::open(array('url'=>'equipo/editar','id'=>'formEquipoMod'))}}
 			<div data-role="fieldcontain">
-				{{ Form::label('tipo','Tipo de equipo: *')}}
+				{{ Form::label('tipo','* Tipo de equipo:')}}
 				{{ Form::text('tipo',$equipo->tipo,array('data-mini'=>'true','id'=>'tipo','class'=>'required'))}}
 			</div>
 			<div data-role="fieldcontain">
-				{{ Form::label('marca','Marca: *')}}
+				{{ Form::label('marca','* Marca:')}}
 				{{ Form::text('marca',$equipo->marca,array('data-mini'=>'true','id'=>'marca'))}}
 			</div>
 			<div data-role="fieldcontain">
-				{{ Form::label('modelo','Modelo: *')}}
+				{{ Form::label('modelo','* Modelo:')}}
 				{{ Form::text('modelo',$equipo->modelo,array('data-mini'=>'true','id'=>'modelo'))}}
 			</div>
 			<div data-role="fieldcontain">
-				{{ Form::label('serie','Número de serie: *')}}
+				{{ Form::label('serie','* Número de serie:')}}
 				{{ Form::text('serie',$equipo->serie,array('data-mini'=>'true','id'=>'serie'))}}
 			</div>
 			{{ Form::hidden('id',$equipo->id)}}
