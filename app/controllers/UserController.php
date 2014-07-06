@@ -136,7 +136,7 @@ class UserController extends BaseController
 	/**
 	* Editar la información de un usuario
 	* 
-	* 
+	* @param
 	* @return Response
 	**/
 	public function postEditar()

@@ -50,6 +50,21 @@ Route::controller('cliente','ClienteController');
 Route::controller('equipo','EquipoController');
 Route::controller('ordenTrabajo','OrdenController');
 Route::controller('presupuesto','PresupuestoController');
+Route::group(array('prefix'=>'informe'),function()
+{
+	//Primera ruta
+	Route::get('/',function()
+	{
+		return View::make('informes.listaInformes');
+	});
+
+	//Segunda ruta
+	Route::get('ingreso',function(){
+		$sucursal = Sucursal::where('estado','=','1')->get();
+		$select = array(0 => 'Todos')+$sucursal->lists('nombre','id');
+		return View::make('informes.ingresoEquipos')->with('sucursal',$select);
+	});
+});
 
 /**
 * Carga los datos del cliente en el formulario de ingreso de una

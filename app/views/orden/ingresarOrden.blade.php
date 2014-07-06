@@ -95,6 +95,7 @@
 			{{ Form::label('problema','* Problema del equipo:')}}	
 			{{ Form::textarea('problema','',array('id'=>'problema'))}}<br/>
 		</div>
+		{{--Accesorios--}}
 		<div data-role="fieldcontain">
 			{{ Form::label('accesorios','Accesorios:')}}	
 			{{ Form::textarea('accesorios','',array('id'=>'accesorios'))}}<br/>
@@ -110,9 +111,8 @@
 		<div data-role="fieldcontain">
 			{{Form::label('fechaPrometido', '* Fecha de prometido:')}}
 			<input name="fechaPrometido" id="fechaPrometido" type="date" data-role="datebox"
-   				data-options='{"mode": "datebox","overrideDateFormat":"%d/%m/%Y","useNewStyle":true}'/>
+   				data-options='{"mode": "calbox","overrideDateFormat":"%d/%m/%Y","useNewStyle":true}'/>
 			</div>
-
 		{{--Botones de ingreso--}}
 		<div data-role= "controlgroup" data-type="horizontal" align="center" data-mini="true">
 			{{ Form::submit('Ingresar')}}
@@ -158,7 +158,7 @@
 	{{HTML::script('js/validadores/camposIngresoOrden.js');}}
 	{{HTML::script('js/validadores/cargarCliente.js');}}
 	{{HTML::script('js/validadores/jqm-datebox-1.4.2.core.js')}}
-	{{HTML::script('js/validadores/jqm-datebox-1.4.2.mode.datebox.js')}}		
+	{{HTML::script('js/validadores/jqm-datebox-1.4.2.mode.calbox.js')}}		
 @stop
 
 

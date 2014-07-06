@@ -22,13 +22,7 @@
 			<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
 			<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>
 			<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>
-			 <li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false">
-			    <h2 class="bordes">Informes</h2>
-			    <ul data-role="listview" data-shadow="false" data-inset="true" data-corners="false">
-					<li data-icon="false">{{ HTML::link('#', 'Reparaciones realizadas por técnico',array('data-rel'=>'popup')); }}</li>
-					<li data-icon="false">{{ HTML::link('#', 'Equipos entregados por vendedor',array('data-rel'=>'popup')); }}</li>
-				</ul>
-			</li> 
+			<li data-icon="false">{{ HTML::link('informe', 'Informes'); }}</li>			
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>
 			<li data-icon="false">{{ HTML::link('presupuesto', 'Presupuesto'); }}</li>		

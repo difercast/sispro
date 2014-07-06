@@ -50,6 +50,7 @@
 				{{ Form::text('cedula','',array('id'=>'cedula','class'=>'required','maxlength'=>'10')) }}
 			@endif
 		</div>
+		{{--Dirección--}}
 		<div data-role="fieldcontain">
 			{{Form::label('direccion','* Dirección:')}}
 			@if(isset($user))		
@@ -58,21 +59,22 @@
 			{{ Form::textarea('direccion','',array('id'=>'direccion','class'=>'required')) }}
 			@endif
 		</div>
+		{{--Teléfono--}}
 		<div data-role="fieldcontain">
 			{{Form::label('telefono','Teléfono:')}}
 			@if(isset($user))		
-			{{ Form::text('telefono', $user->telefono)}}
+			{{ Form::text('telefono', $user->telefono, array('maxlength'=>'7'))}}
 			@else
-			{{ Form::text('telefono') }}
+			{{ Form::text('telefono','',array('maxlength'=>'7')) }}
 			@endif
 		</div>
 		{{--celular--}}
 		<div data-role="fieldcontain">
 			{{Form::label('celular','Teléfono celular:')}}
 			@if(isset($user))		
-			{{ Form::text('celular', $user->celular)}}
+			{{ Form::text('celular', $user->celular,array('maxlength'=>'10'))}}
 			@else
-			{{ Form::text('celular') }}
+			{{ Form::text('celular','',array('maxlength'=>'10')) }}
 			@endif
 		</div>
 		{{--email--}}
