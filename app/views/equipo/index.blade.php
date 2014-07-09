@@ -5,8 +5,7 @@
 @stop
 {{--Sección head--}}
 @section('head')	
-	{{ HTML::style('css/mensajes.css'); }}
-	{{HTML::style('css/paginacion.css')}}
+	{{ HTML::style('css/mensajes.css'); }}	
 @stop
 {{--Sección header--}}
 @section('header')
@@ -80,7 +79,7 @@
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
 			<li data-role="list-divider">Opciones</li>
 			<li data-icon="false">{{ HTML::link('ordenTrabajo', 'Ingresar orden de trabajo'); }}</li>
-			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado', 'Lista órdenes de trabajo'); }}</li>
+			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado/1', 'Lista órdenes de trabajo'); }}</li>
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false" class="fondo">Equipos</li>		
 			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
@@ -89,7 +88,7 @@
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
 			<li data-role="list-divider">Opciones</li>
 			<li data-icon="false">{{ HTML::link('ordenTrabajo', 'Ingresar orden de trabajo'); }}</li>
-			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado', 'Lista órdenes de trabajo'); }}</li>
+			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado/1', 'Lista órdenes de trabajo'); }}</li>
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false" class="fondo">Equipos</li>		
 			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>

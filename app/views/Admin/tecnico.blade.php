@@ -6,8 +6,7 @@
 	@stop
 	{{--Head--}}
 	@section('head')
-		{{ HTML::style('css/mensajes.css'); }}
-		{{HTML::style('css/listas.css')}}
+		{{ HTML::style('css/mensajes.css'); }}		
 	@stop
 	{{--Header--}}
 	@section('header')		
@@ -49,20 +48,41 @@
 					<li data-icon="false">{{ HTML::link('#popupNumOrden', 'Por número de orden',array('data-rel'=>'popup')); }}</li>
 					<li data-icon="false">{{ HTML::link('#popupCliente', 'Por cliente',array('data-rel'=>'popup')); }}</li>
 				</ul>
-			</li> 		
+			</li> 
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>		
 			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
 		</ul>
 		{{--Popups para la búsqueda de órdenes de trabajo--}}
-		<div data-role="popup" id="popupCliente" align="center">
-			<div style="padding:10px 20px;">
-				<p>por favor, seleccione el cliente</p>
-				{{Form::open(array('url'=>'ordenTrabajo/porcliente'))}}
-					{{Form::select('cliente',$cliente)}}
+		<div data-role="popup" id="popupCliente" align="center">			
+			{{--Prueba--}}
+			<h2 align="center">Buscar cliente</h2>
+			@if($cliente)
+				{{Form::open()}}
+					<input id="buscarCliente" data-type="search" placeholder="Buscar equipo">
+				{{Form::close()}}
+				{{Form::open(array('url'=>'ordenTrabajo/porcliente','id'=>'formBuscar'))}}
+					<table data-role="table" data-mode="reflow" data-filter="true" data-input="#buscarCliente" class="movie-list ui-responsive">
+						<thead>
+							<tr>
+								<th>OK</th>
+								<th>Cliente</th>
+								<th>CI</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($cliente as $cliente)
+							<tr>
+								<td>{{ Form::radio('cliente',$cliente->id)}}</td>
+								<td>{{$cliente->nombres}}</td>
+								<td>{{$cliente->cedula}}</td>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
 					{{Form::submit('Buscar')}}			
 				{{Form::close()}}
-			</div>		
+			@endif	
 		</div>
 		<div data-role="popup" id="popupNumOrden">
 			<div style="padding:10px 20px;">
@@ -74,20 +94,10 @@
 			</div>		
 		</div>
 	@stop	
-	{{ HTML::script('js/mensajes.js'); }}
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#errorDatos').click(function(){
-				$('#errorDatos').hide();
-			});
-			$('#error').click(function(){
-				$('#error').hide();
-			});
-			$('#mensajeCrear').click(function(){
-				$('#mensajeCrear').hide();
-			});
-		});
-	</script>
+	{{--Scripts--}}
+	@section('scripts')
+		{{ HTML::script('js/mensajes.js'); }}	
+	@stop
 @else
 	{{Redirect::to('/')}}
 @endif

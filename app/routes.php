@@ -20,6 +20,10 @@ Route::get('/',array('as'=>'index', function()
 * Rutas de inicio y cierre de sesión
 **/
 Route::post('log','UserLogin@user');
+//Ruta de ingreso de clientes
+Route::get('logCliente',function(){
+	return View::make('loginCliente');	
+});
 Route::get('logout', 'UserLogin@out');
 
 /**
@@ -34,7 +38,7 @@ Route::get('tecnico', array('before' => 'auth','as'=>'tecnico', function()
 {
 	$cliente = Cliente::all();
 	$select = array(0 => 'Seleccione...')+$cliente->lists('nombres','id');
-	return View::make('Admin.tecnico')->with('cliente',$select);
+	return View::make('Admin.tecnico')->with('cliente',$cliente);
 }));
 Route::get('vendedor', array('before' => 'auth','as'=>'vendedor', function()
 {
@@ -50,20 +54,18 @@ Route::controller('cliente','ClienteController');
 Route::controller('equipo','EquipoController');
 Route::controller('ordenTrabajo','OrdenController');
 Route::controller('presupuesto','PresupuestoController');
+
 Route::group(array('prefix'=>'informe'),function()
 {
 	//Primera ruta
 	Route::get('/',function()
 	{
-		return View::make('informes.listaInformes');
-	});
-
-	//Segunda ruta
-	Route::get('ingreso',function(){
 		$sucursal = Sucursal::where('estado','=','1')->get();
 		$select = array(0 => 'Todos')+$sucursal->lists('nombre','id');
-		return View::make('informes.ingresoEquipos')->with('sucursal',$select);
+		return View::make('informes.listaInformes')->with('sucursal',$select);
 	});
+	//Segunda ruta
+	Route::post('ingresoEquipos', 'InformeController@ingreso');
 });
 
 /**

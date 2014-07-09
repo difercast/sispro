@@ -26,7 +26,7 @@
 	{{Form::open(array('url'=>'ordenTrabajo/ingresar','id'=>'formIngresarOrden'))}}
 		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
 			{{Form::label('fechaIngreso','Fecha de ingreso:')}}
-			{{Form::text('fechaIngreso',date("d/m/Y"),array('readonly'=>'true','id'=>'fechaIngreso'))}}
+			{{Form::text('fechaIngreso',date("Y/m/d"),array('readonly'=>'true','id'=>'fechaIngreso'))}}
 		</div>
 		{{--Usuario que recepta el equipo--}}		
 		<div data-role="fieldcontain">
@@ -111,7 +111,7 @@
 		<div data-role="fieldcontain">
 			{{Form::label('fechaPrometido', '* Fecha de prometido:')}}
 			<input name="fechaPrometido" id="fechaPrometido" type="date" data-role="datebox"
-   				data-options='{"mode": "calbox","overrideDateFormat":"%d/%m/%Y","useNewStyle":true}'/>
+   				data-options='{"mode": "calbox","overrideDateFormat":"%Y/%m/%d","useNewStyle":true}'/>
 			</div>
 		{{--Botones de ingreso--}}
 		<div data-role= "controlgroup" data-type="horizontal" align="center" data-mini="true">

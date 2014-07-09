@@ -11,6 +11,7 @@
 	{{HTML::style('css/sispro/sispro.css');}}	
 	{{HTML::style('css/listas.css')}}
 	{{HTML::style('css/jqm-datebox-1.4.2.css');}}
+	{{HTML::style('css/paginacion.css')}}
 	@yield('head')
 	{{HTML::style('css/sispro/jquery.mobile.icons.min.css');}}		
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>

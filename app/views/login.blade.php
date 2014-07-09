@@ -30,7 +30,7 @@
     <ul data-role="listview" class="ui-listview-outer" data-inset="true">
         <li data-role="list-divider">Opciones de ingreso</li>
         <li class="fondo">Ingreso usuarios</li>
-        <li>{{ HTML::link('#', 'Ingreso clientes'); }}</li>              
+        <li>{{ HTML::link('logCliente', 'Ingreso clientes'); }}</li>              
     </ul>
 @stop
 

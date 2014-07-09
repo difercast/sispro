@@ -70,10 +70,10 @@
 		{{Form::open()}}
 			<br>
 			<h3 align="center">Lista de órdenes de trabajo</h3>			
-			<input id="filterTable-input" data-type="search" placeholder="Buscar orden de trabajo"/>
+			<input id="buscar" data-type="search" placeholder="Buscar orden de trabajo"/>
 		{{Form::close()}}
 		<br>
-		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" data-filter="true" data-input="#filterTable-input">
+		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" data-filter="true" data-input="#buscar">
 			<thead>
 				<tr>
 					<th>Número</th>

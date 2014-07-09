@@ -64,7 +64,7 @@ class OrdenController extends BaseController
 
 
 	/** 
-	 * Presentarun lista de órdenes de trabajo deacuerdo
+	 * Presentar una lista de órdenes de trabajo deacuerdo
 	 *  al cliente seleccionado
 	 * @param 
 	 * @return Response
@@ -72,7 +72,7 @@ class OrdenController extends BaseController
 	public function anyPorcliente()
 	{
 		$cliente = Cliente::findOrFail(Input::get('cliente'));
-		$lista = $cliente->ordenes()->get();				
+		$lista = $cliente->ordenes()->get();			
 		return View::make('orden.ordenesCliente')->with(array('orden'=>$lista,'cliente'=>$cliente));
 	}
 
@@ -153,9 +153,15 @@ class OrdenController extends BaseController
 					$orden->accesorios = Input::get('accesorios');
 					$orden->tecnico = Input::get('tecnico');
 					$orden->sucursal_id = Auth::user()->sucursal_id;
+					$orden->fecha_ingreso = date('Y-m-d');
 					$orden->fechaPrometido = Input::get('fechaPrometido');					
 					$orden->save();
-					return Redirect::to('tecnico')->with('status','okCreado');
+					if(Auth::user()->rol == 'tecnico'){
+						return Redirect::to('tecnico')->with('status','okCreado');
+					}
+					elseif (Auth::user()->rol=='vendedor'){
+						return Redirect::to('vendedor')->with('status','okCreado');
+					}					
 				}
 				else{
 					if(Auth::user()->rol == 'tecnico'){
@@ -193,7 +199,7 @@ class OrdenController extends BaseController
 	public function getListado($estado)
 	{
 		if($estado == 1){
-			$ordenes = Orden::paginate(15);
+			$ordenes = Orden::orderBy('id','desc')->paginate(15);
 			return View::make('orden.listaOrdenes')->with(array('ordenes'=>$ordenes,'estado'=>'todos'));
 		}elseif($estado == 2){
 			$ordenes = Orden::where('entregado','=','1')->orderBy('id', 'desc')->paginate(15);

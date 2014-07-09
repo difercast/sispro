@@ -36,6 +36,7 @@ class UserLogin extends BaseController
         	}
            	elseif (Auth::user()->rol == "tecnico" && Auth::user()->estado == "1" && $estadoSuc == '1') 
             {
+               $clientes = Cliente::all();
                return Redirect::route('tecnico');
             }
             elseif (Auth::user()->rol == "vendedor" && Auth::user()->estado == "1" && $estadoSuc == '1') 
