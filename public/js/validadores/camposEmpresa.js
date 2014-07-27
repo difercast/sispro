@@ -6,13 +6,17 @@ $( document ).on( "pageinit", function( event ) {
      $.validator.addMethod('validaAct', function(value, element){
      	return (value.substr(0,2) == '00');
      });
+     $.validator.addMethod('ultimosDigitos',function(value,element){
+     	return (value.substr(10,2) == '00');
+     });
 	$('#formEditar').validate({
 		rules: {
 			ruc: {
 				required: true,
 				number: true,					
 				maxlength: 13,
-				minlength: 13
+				minlength: 13,
+				ultimosDigitos: true
 			},
 			razon_social:{
 				required: true,
@@ -35,7 +39,8 @@ $( document ).on( "pageinit", function( event ) {
 				required: "Campo requerido",
 				number: 'Ingresa un número',
 				maxlength: 'El RUC debe contener 13 dígitos',
-				minlength: 'El RUC debe contener 13 dígitos'												
+				minlength: 'El RUC debe contener 13 dígitos',
+				ultimosDigitos: 'Error al procesar el Ruc'												
 			},
 			razon_social: {
 				required: "Campo requerido",

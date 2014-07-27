@@ -15,6 +15,7 @@ class UserController extends BaseController
 		$this -> beforeFilter('autenticacion');
 	}
 	public $restful = true;
+
 	/**
 	* Función para mostrar el detalle de la empresa ingresada
 	* 
@@ -29,6 +30,7 @@ class UserController extends BaseController
 		return View::make('user.index')->with(array('user'=>$user,'sucursal'=>$sucursal));
 		
 	}
+	
 	/**
 	* Función para mostrar formulario de ingreso de usuarios
 	* 
@@ -38,7 +40,7 @@ class UserController extends BaseController
 	public function getNuevo()
 	{
 		$sucursal = Sucursal::where('estado','=','1')->get();
-		$select = array(0 => 'Seleccione...')+$sucursal->lists('nombre','id');
+		$select = $sucursal->lists('nombre','id');
 		return View::make('user.form')->with('sucursal',$select);
 	}
 

@@ -178,6 +178,7 @@ class SucursalController extends BaseController
 		$sucursal -> save();
 		return Redirect::to('sucursal')->with('status','okActivo');
 	}
+	
 	/**
 	* Enviar datos de la sucursal
 	* 
