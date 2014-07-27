@@ -244,6 +244,7 @@ html .ui-alt-icon .ui-radio-off:after {
     .rwd-example .ui-block-c {
       float: left;
       width: 49.95%;
+      margin-left: 3%;
     }
     .rwd-example .ui-block-b p,
     .rwd-example .ui-block-c p {
@@ -273,6 +274,7 @@ html .ui-alt-icon .ui-radio-off:after {
     .rwd-example .ui-block-c {
       float: left;
       width: 49.95%;
+      margin-left: 3%;
     }
     .rwd-example > div:first-child .ui-body {
         border-bottom-width: 1px;
@@ -295,6 +297,7 @@ html .ui-alt-icon .ui-radio-off:after {
     .rwd-example .ui-block-c {
       float: right;
       width: 48.95%;
+      margin-left: 3%;
       /*width: 24.925%;*/
     }
 }
@@ -620,6 +623,16 @@ html head + body .ui-body-a.ui-focus {
 	border-radius: 50%;
 	width: 20%;
 }
+.btnBuscar{
+	background-color: #135072 !important;	
+	border-left: 2.5px solid #135072;	
+	border-radius: 5px;
+	color: white !important;		
+	padding: 0.5em;
+}
+.bloque{
+	padding: 5px;
+}
 .controlG{	
 	color: #213338 !important;
 }
@@ -628,13 +641,7 @@ html head + body .ui-body-a.ui-focus {
 	color: white !important;	
 	border-left: 2.5px solid #135072;	
 }
-.btnBuscar{
-	background-color: #135072 !important;	
-	border-left: 2.5px solid #135072;	
-	border-radius: 5px;
-	color: white !important;		
-	padding: 0.5em;
-}
+
 label.error { 
 	float: left; 
 	color: red; 

@@ -35,11 +35,12 @@
 		<span style="color: red;">* elementos requeridos</span>
 		{{ Form::open($form) }}
 	@endif
-	<div data-role="fieldcontain">				
-		{{ Form::label('provincia','Provincia:')}}
+	<div data-role="fieldcontain">						
 		@if($status == "ver")
+			{{ Form::label('provincia','Provincia:')}}
 			{{Form::text('provincia',$sucursal->provincia,array('readonly'=>'true'))}}
 		@else
+		{{ Form::label('provincia','* Provincia:')}}
 		{{ Form::select('provincia',array(
 			'Azuay' => 'Azuay',
 			'Bolivar' => 'Bolivar',
@@ -64,7 +65,7 @@
 			'Santo Domingo' => 'Santo Domingo de los Tsáchilas',
 			'Sucumbíos' => 'Sucumbíos',
 			'Tungurahua' => 'Tungurahua',
-			'Zamora Chinchipe' => 'Zamora Chinchipe')			
+			'Zamora Chinchipe' => 'Zamora Chinchipe'),'Loja'			
 		,array('id'=>'provincia','class'=>'required'))}}
 		@endif
 	</div>

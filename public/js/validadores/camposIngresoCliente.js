@@ -1,11 +1,10 @@
 $(document).on('pageinit',function(){
-	console.log('éxito');
+	console.log('éxito');	
 	$.validator.addMethod('validDate', function(value, element) {
 		var startDate = $('#fechaInicio').val();
-		return new Date(value) >= new Date(startDate);				
+		return Date.parse(value) > Date.parse(startDate);				
 	}, "Fecha de terminado debe ser mayor que la fecha de ingreso");	
-
-	$('#formIngreso').validate({
+	$('#formIngresoUser').validate({		
 		rules:{
 			fechaInicio: {required: true},
 			fechaFinal: {required: true, validDate: true}
@@ -14,6 +13,5 @@ $(document).on('pageinit',function(){
 			fechaInicio:{required:'Campo requerido'},
 			fechaFinal:{required:'Campo requerido'}
 		}
-	});
-	
+	});	
 });

@@ -4,7 +4,28 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*"
+		"symfony/finder": "2.4.2",
+		"symfony/filesystem": "2.4.2",
+		"symfony/console": "2.4.2",
+		"classpreloader/classpreloader": "1.0.1",
+		"monolog/monolog": "1.7.0",	
+		"nesbot/carbon": "1.8.0",
+		"patchwork/utf8": "1.1.20",
+		"phpseclib/phpseclib": "0.3.6",
+		"predis/predis": "0.8.5",
+		"symfony/http-foundation": "2.4.2",
+		"symfony/event-dispatcher": "2.4.2",
+		"symfony/debug": "2.4.2",
+		"symfony/http-kernel": "2.4.2",
+		"stack/builder": "1.0.1",
+		"swiftmailer/swiftmailer": "5.0.3",
+		"symfony/dom-crawler": "2.4.2",
+		"symfony/browser-kit": "2.4.2",
+		"symfony/css-selector": "2.4.2",
+		"symfony/process": "2.4.2",
+		"symfony/routing": "2.4.2",
+		"symfony/traslation": "2.4.2",
+		"symfony/security-core": "2.4.2"
 	},
 	"autoload": {
 		"classmap": [

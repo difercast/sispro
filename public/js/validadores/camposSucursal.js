@@ -4,6 +4,9 @@ $( document ).on( "pageinit", function( event ) {
 	$.validator.addMethod('letters', function(val, element, param){
 		return val.match(new RegExp("." + param + "$"));
 	});
+	$.validator.addMethod('validCelu', function(value, element){
+		return (value.substr(0,2) == '09')
+	});
 	$('#formSucursal').validate({
 		rules: {
 			provincia: {
@@ -26,7 +29,8 @@ $( document ).on( "pageinit", function( event ) {
 				required: true,
 				number: true,
 				maxlength: 10,
-				minlength: 10
+				minlength: 10,
+				validCelu: true
 			},
 			email:{
 				required: true,
@@ -54,7 +58,8 @@ $( document ).on( "pageinit", function( event ) {
 				required: 'Campo requerido',
 				number: 'El campo debe ser un número',
 				maxlength: 'El celular debe contener 10 caracteres',
-				minlength: 'El celular debe contener 10 caracteres'
+				minlength: 'El celular debe contener 10 caracteres',
+				validCelu: 'Error al registrar el número de celular'
 			},
 			email:{
 				required: 'Campo requerido',

@@ -65,31 +65,32 @@
 			{{--Fecha de ingreso y usuario que ingresó el equipo--}}
 			<div class="ui-grid-a ui-responsive">
 				<div class="ui-block-a">
-					<div data-role="fieldcontain">
+					<div class="bloque">
 						{{Form::label('fechaIngreso','Ingreso:')}}
 						{{Form::text('fechaIngreso',date("d M Y",strtotime($orden->created_at ))." en ". $sucursal,array('data-mini'=>'true','readonly'=>'true'))}}
-					</div>
+					</div>											
 				</div>
 				<div class="ui-block-b">
-					<div data-role="fieldcontain">
+					<div class="bloque">
 						{{Form::label('integrante','Integrante:')}}
 						{{Form::text('user',$user,array('data-mini'=>'true','readonly'=>'true'))}}
-					</div>
-				</div>
+					</div>						
+				</div>						
 			</div>
-			<br/><br><br>
+			<br><br>
 			{{--Datos del cliente--}}
 			<span><strong>Cliente:</strong></span>	
-			<div class="rwd-example">
-				<div class="ui-block-a">					
+			<div class="ui-grid-a ui-responsive">
+				<div class="ui-block-a">
+					<div class="bloque">
 						{{Form::text('nombres',$cliente->nombres,array('readonly'=>'true'))}}				
+					</div>											
 				</div>
-				<div class="ui-block-b">					
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-			    		{{ HTML::link('#panelCliente', 'Detalles del cliente',array('class'=>'ui-btn')); }}		
-					</div>
-
-				</div>
+				<div class="ui-block-b">
+					<div data-role="controlgroup" data-type="horizontal" class="bloque">
+						{{ HTML::link('#panelCliente', 'Detalles del cliente',array('class'=>'ui-btn')); }}
+					</div>						
+				</div>						
 			</div><br/>
 			{{--Datos del equipo--}}									
 			<span><strong>Equipo:</strong></span><br/>
@@ -108,29 +109,40 @@
 			<div data-role="fieldcontain">
 				{{Form::label('serie','Número de serie:')}}
 				{{Form::text('serie',$equipo->serie,array('data-mini'=>'true','readonly'=>'true'))}}
-			</div><br/>			
-			<div class="rwd-example">
+			</div><br/>
+			{{--Problemas y accesorios--}}
+			<div class="ui-grid-a ui-responsive">
 				<div class="ui-block-a">
+					<div class="bloque">
 						{{Form::label('problema','Problema:')}}
-						{{Form::textarea('problema',$orden->problema,array('data-mini'=>'true','readonly'=>'true'))}}
+						{{Form::textarea('problema',$orden->problema,array('data-mini'=>'true','readonly'=>'true'))}}					
+					</div>											
 				</div>
 				<div class="ui-block-b">
+					<div class="bloque">
 						{{Form::label('accesorios','Accesorios:')}}
 						{{Form::textarea('accesorios',$orden->accesorios,array('data-mini'=>'true','readonly'=>'true'))}}
-				</div>
-			</div><br/>
+					</div>						
+				</div>						
+			</div>
+			<br/>
 			{{--Detalle de la reparación--}}
 			<h4>Detalles de la reparación</h4>
-			<div class="rwd-example">
-				<div class="ui-block-a ui-responsive" >
+			<div class="ui-grid-a ui-responsive">
+				<div class="ui-block-a">
+					<div class="bloque">
 						{{Form::label('detalle','Detalle de la reparación:')}}
-						{{Form::textarea('detalle',$orden->detalle,array('data-mini'=>'true','readonly'=>'true','id'=>'detalleRep'))}}
+						{{Form::textarea('detalle',$orden->detalle,array('data-mini'=>'true','readonly'=>'true','id'=>'detalleRep'))}}					
+					</div>											
 				</div>
-				<div class="ui-block-b ui-responsive">
+				<div class="ui-block-b">
+					<div class="bloque">
 						{{Form::label('informe','Informe al cliente:')}}
 						{{Form::textarea('informe',$orden->informe,array('data-mini'=>'true','readonly'=>'true','id'=>'informeRep'))}}
-				</div>
-			</div><br/>
+					</div>
+				</div>						
+			</div>
+			<br/>
 			{{--Dertalles del presupuesto--}}
 			<h4>Detalles del presupuesto</h4>
 			@if($orden->presupuestado != '1')
@@ -331,6 +343,7 @@
 				</table>
 				{{Form::hidden('entregado','1')}}
 				{{Form::hidden('orden',$orden->id)}}
+				{{Form::hidden('vendedor',Auth::user()->id)}}
 				{{Form::submit('Entregar')}}
 			{{Form::close()}}
 		</div>

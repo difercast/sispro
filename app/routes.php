@@ -13,9 +13,12 @@
 
 Route::get('/',array('as'=>'index', function()
 {
-	return View::make('login');
+	return View::make('login');	
 }));
-
+route::get('ejemplo',function(){
+	$html = View::make('hello');
+	return PDF::load($html, 'A4', 'portrait')->download();					    	
+});
 /**
 * Rutas de inicio y cierre de sesión
 **/
@@ -62,10 +65,25 @@ Route::group(array('prefix'=>'informe'),function()
 	{
 		$sucursal = Sucursal::where('estado','=','1')->get();
 		$select = array(0 => 'Todos')+$sucursal->lists('nombre','id');
-		return View::make('informes.listaInformes')->with('sucursal',$select);
+		//todos los usuarios
+		$users = User::all();
+		$user = $users->lists('nombres','id');
+		//Usuarios con rol Técnico
+		$tec = User::where('rol','=','tecnico')->get();
+		$tecnico = $tec->lists('nombres','id');
+		//Usuarios con rol vendedor
+		$ven = User::where('rol','=','vendedor')->get();
+		$vendedor = array(0 => 'Todos')+$ven->lists('nombres','id');
+		return View::make('informes.listaInformes')->with(array('sucursal'=>$select,'user'=>$user,'tecnicos'=>$tecnico,
+			'vendedores'=>$vendedor));
 	});
 	//Segunda ruta
 	Route::post('ingresoEquipos', 'InformeController@ingreso');
+	Route::post('ingresoEquiposUser','InformeController@ingresoUsers');
+	Route::post('reparadosTecnico','InformeController@reparadosTecnico');
+	Route::post('sinRevisar','InformeController@ordenesSinRevisar');
+	Route::post('entregadosPorVendedor', 'InformeController@entregadosVendedor');
+	Route::post('repTecnicoEntr', 'InformeController@repTecnicoEntregados');
 });
 
 /**

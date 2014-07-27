@@ -152,16 +152,13 @@ class OrdenController extends BaseController
 					$orden->problema = Input::get('problema');
 					$orden->accesorios = Input::get('accesorios');
 					$orden->tecnico = Input::get('tecnico');
-					$orden->sucursal_id = Auth::user()->sucursal_id;
+					$orden->Sucursal_id = Auth::user()->sucursal_id;
 					$orden->fecha_ingreso = date('Y-m-d');
 					$orden->fechaPrometido = Input::get('fechaPrometido');					
-					$orden->save();
-					if(Auth::user()->rol == 'tecnico'){
-						return Redirect::to('tecnico')->with('status','okCreado');
-					}
-					elseif (Auth::user()->rol=='vendedor'){
-						return Redirect::to('vendedor')->with('status','okCreado');
-					}					
+					$orden->vendedor_id = Auth::user()->id;
+					$orden->save();					
+					return Redirect::to('/');
+					//return PDF::load($html, 'A4', 'portrait')->output();					    	
 				}
 				else{
 					if(Auth::user()->rol == 'tecnico'){
@@ -256,8 +253,9 @@ class OrdenController extends BaseController
 		$pres = Presupuesto::all();
 		$orden = Orden::findOrFail(Input::get('orden'));
 		if(Input::get('entregado') == '1'){
-			$orden->entregado = 1;
-			$orden->fecha_entregado = date('Y-m-d H:i:s', time());
+			$orden->entregado = '1';
+			$orden->fecha_entregado = date('Y-m-d', time());
+			$orden->vendedor_id = Input::get('vendedor');
 			$orden->save();
 			$cliente = Cliente::findOrFail($orden->cliente_id);
 		$equipo = Equipo::findOrFail($orden->equipo_id);

@@ -1,11 +1,7 @@
 @extends('layout.base')
 {{--titulo--}}
 @section('titulo')
-	<title>Equipos ingresados a la empresa</title>
-@stop
-{{--head--}}
-@section('head')
-
+	<title>Equipos ingresados a la empresa por usuario</title>
 @stop
 {{--header--}}
 @section('header')
@@ -13,19 +9,19 @@
 @stop
 {{--Principal--}}
 @section('principal')
-	<h1>Equipos ingresados a la empresa</h1>
+	<h1>Equipos ingresados a la empresa por usuario</h1>
 	@if($ordenes)
 		<div data-role="controlgroup" data-type="horizontal">
 			{{ HTML::link('#', 'Generar documento',array('data-role'=>'button')); }}	
 		</div><br/>	
-		<p><strong>Sucursal: </strong>{{$sucursal}}</p><br/>
+		<p><strong>Usuario: </strong>{{$user}}</p><br/>
 			<table data-role="table" id="movie-table-custom" data-mode="reflow" class="movie-list ui-responsive">
 				<thead>
 					<tr>
 						<th>Nro de orden</th>					
 						<th>Cliente</th>
 						<th>Fecha de ingreso</th>
-						<th>Usuario</th>
+						<th>Sucursal</th>						
 						<th>Equipo</th>
 						<th>Problema</th>
 					</tr>
@@ -40,9 +36,9 @@
 							</td>
 							<td>{{$orden->fecha_ingreso}}</td>
 							<td>
-								<?php $user = User::findOrFail($orden->user_id); ?>
-								{{$user->nombres}}
-							</td>
+								<?php $suc= Sucursal::findOrFail($orden->Sucursal_id); ?>
+								{{$suc->nombre}}
+							</td>							
 							<td>
 								<?php $equipo = Equipo::findOrFail($orden->equipo_id); ?>
 								{{$equipo->tipo}}
@@ -53,11 +49,9 @@
 				</tbody>
 			</table>
 			<br>
-			{{$ordenes->links()}}<br>
-			<p>Número de órdenes de trabajo: {{count($ordenes)}}</p>	
+			{{$ordenes->links()}}<br/>	
+			<p>Número de órdenes de trabajo: {{count($ordenes)}}</p>
 	@else
 		<p>No hay registros que mostrar</p>
 	@endif	
 @stop
-
-

@@ -58,7 +58,7 @@
 		<li class="fondo" data-icon="false">Empresa</li>
 		<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>		
 		<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>
-		<li data-icon="false" ><a href="#">Informes</a></li>
+		<li data-icon="false" >{{ HTML::link('informe', 'Informes'); }}</li>
 		<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 		<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>
 		<li data-icon="false"><a href="#">Cambiar contrase&ntildea </a></li>
