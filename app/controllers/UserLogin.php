@@ -45,7 +45,7 @@ class UserLogin extends BaseController
             }
             else
             {
-                return  Redirect::route('index')->with('login_errors',true);    
+                return  Redirect::route('index')->with('suc_error',true);    
             }           
         }
         else
