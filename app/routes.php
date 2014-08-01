@@ -16,8 +16,9 @@ Route::get('/',array('as'=>'index', function()
 	return View::make('login');	
 }));
 route::get('ejemplo',function(){
-	$html = View::make('hello');
-	return PDF::load($html, 'A4', 'portrait')->download();					    	
+	$orden = Orden::findOrFail(20);
+	$html = View::make('imprimir.impOrden')->with('orden',$orden->id);
+	return PDF::load($html, 'A4', 'portrait')->show();					    	
 });
 /**
 * Rutas de inicio y cierre de sesión
@@ -29,6 +30,22 @@ Route::get('logCliente',function(){
 });
 Route::get('logout', 'UserLogin@out');
 
+
+
+//Rutas para generar documentos PDF
+Route::get('ingOrden/{numOrden}', function($numOrden){
+	$orden = Orden::findOrFail($numOrden);
+	$userRecep = User::findOrFail($orden->user_id);
+	$sucursal = Sucursal::findOrFail($userRecep->sucursal_id);
+	$empresa = Empresa::findOrFail($sucursal->empresa_id);
+	$cliente = Cliente::findOrFail($orden->cliente_id);
+	$equipo = Equipo::findOrFail($orden->equipo_id);
+	$tecnico = User::findOrFail($orden->tecnico);	
+	$html = View::make('imprimir.ingresoOrdenImp')->with(array('sucursal'=>$sucursal,'empresa'=>$empresa,'orden'=>$orden,
+		'cliente'=>$cliente,'equipo'=>$equipo,'usuario'=>$userRecep,'tecnico'=>$tecnico));	
+	return PDF::load($html, 'A4', 'portrait')->show();					    	
+
+});
 /**
 * Rutas para las pantallas de inicio de sesión de los usuarios
 * según el nivel al que pertenescan

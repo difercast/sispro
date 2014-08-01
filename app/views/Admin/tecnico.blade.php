@@ -17,10 +17,12 @@
 		<span>Bienvenido al sistema de gestión de reparaciones de equipos informáticos, para emprezar por favor elija una opción</span>
 		{{--Mensajes de errores--}}
 		<?php $status=Session::get('status') ?>
-		@if($status == "errorDatos")
-			<div id="errorDatos"  align="center">
-				<p>Error al ingresar la información del cliente, verifica los datos e intenta de nuevo </p>
+		@if($status == "ordenCreada")
+			<div  class="mensajeOrdenCreada" id="mensajeOrdenCreada" align="center">
+				<p>Orden de trabajo N° {{Session::get('orden')}} ingresada correctamente				
+				 {{ HTML::link('ingOrden/'.Session::get('orden'), 'Generar documento',array('target'=>'_blank','data-role'=>'button','data-mini'=>'true','data-inline'=>'true')); }}</p>
 			</div>
+			
 		@elseif($status == "errorEquipo")
 			<div id="error"  align="center">
 				<p>¡Error!, el equipo ya se encuenta ingresado a la empresa</p>
@@ -29,11 +31,11 @@
 			<div id="error"  align="center">
 				<p>Error al ingresar la orden de trabajo, por favor verifique los datos ingresados</p>
 			</div>
-		@elseif($status == "okCreado")
-			<div id="mensajeCrear"  align="center">
-				<p>Orden de trabajo ingresada correctamente</p>
+		@elseif($status == "errorDatos")
+			<div id="error"  align="center">
+				<p>Error al ingresar la información del cliente, verifica los datos e intenta de nuevo </p>
 			</div>
-		@endif		
+		@endif					
 	@stop
 	{{--Sección secundario--}}	
 	@section('secundario')
@@ -96,7 +98,7 @@
 	@stop	
 	{{--Scripts--}}
 	@section('scripts')
-		{{ HTML::script('js/mensajes.js'); }}	
+		{{ HTML::script('js/mensajes.js'); }}		
 	@stop
 @else
 	{{Redirect::to('/')}}

@@ -20,5 +20,8 @@ $(document).on('pageinit',function() {
     $('#errorDatos').click(function() {
        $("#errorDatos").hide();
     });
+    $('#mensajeOrdenCreada').click(function() {
+       $("#mensajeOrdenCreada").hide();
+    });
 });
 

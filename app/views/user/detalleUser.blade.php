@@ -62,8 +62,11 @@
 				{{ Form::text('rol', 'Técnico',array('readonly'=>'true'))}}
 			@elseif($user->rol == 'vendedor')
 				{{ Form::text('rol', 'Vendedor',array('readonly'=>'true'))}}
-			@endif
-		
+			@endif		
+		</div>
+		{{--Aceptar--}}
+		<div data-role="controlgroup" data-type="horizontal" align="center">
+			{{HTML::link('user','Aceptar',array('data-role'=>'button'))}}
 		</div>
 	{{Form::close()}}
 	@endif

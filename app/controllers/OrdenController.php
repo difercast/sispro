@@ -157,8 +157,12 @@ class OrdenController extends BaseController
 					$orden->fechaPrometido = Input::get('fechaPrometido');					
 					$orden->vendedor_id = Auth::user()->id;
 					$orden->save();					
-					return Redirect::to('/');
-					//return PDF::load($html, 'A4', 'portrait')->output();					    	
+					if(Auth::user()->rol == 'tecnico'){
+						return Redirect::to('tecnico')->with(array('status'=>'ordenCreada','orden'=>$orden->id));
+					}
+					elseif (Auth::user()->rol=='vendedor'){
+						return Redirect::to('vendedor')->with(array('status'=>'ordenCreada','orden'=>$orden->id));
+					}
 				}
 				else{
 					if(Auth::user()->rol == 'tecnico'){

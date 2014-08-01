@@ -8,6 +8,16 @@
     font-family: Verdana, Arial, Sans-Serif;
     color: #f7f8f7;
 }
+.mensajeOrdenCreada {
+    text-align:center;
+    height:60px;
+    width:100%;
+    background-color:#4fbb3e;
+    border-radius:5px;   
+    vertical-align: middle;
+    font-family: Verdana, Arial, Sans-Serif;
+    color: #f7f8f7;
+}
 #error {
 	text-align:center;
 	height:25px;
@@ -71,7 +81,6 @@
     font-family: Verdana, Arial, Sans-Serif;
     color: #f7f8f7;
 }
-
 
 
 /*Listas anidadas o Collapsibles dentro de listas */

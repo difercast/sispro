@@ -61,9 +61,9 @@
 					<td>{{ $sucursal -> direccion}}</td>
 					<td>{{ $sucursal -> telefono}}</td>					
 					@if($sucursal -> estado == '1')					
-					<td>Activo</td>
+						<td>Activo</td>
 					@else
-					<td>Inactivo</td>
+						<td>Inactivo</td>
 					@endif
 					<td> 
 						{{ HTML::link( 'sucursal/ver/'.$sucursal->id,'Ver', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}

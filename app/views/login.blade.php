@@ -16,7 +16,7 @@
             <div class="avatar" align="center"><img src="images/avatar.png"></div>            
             @if(Session::has('login_errors'))
                 <p style="color: #FB1D1D" align="center"> El nombre de usuario o contraseña no son correctos </p>
-            @else
+            @elseif(Session::has('error'))
                 <p style="color: #FB1D1D" align="center"> Error al ingresar, por favor contáctese con el administrador del sistema </p>
             @endif
             {{ Form::text('username',Input::old('username'),array('data-mini'=>'true','placeholder'=>'Usuario')) }}
