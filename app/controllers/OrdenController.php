@@ -129,7 +129,7 @@ class OrdenController extends BaseController
 			'tipo'=>'required',
 			'marca'=>'required',
 			'modelo'=>'required',
-			'serie'=>'required',
+			'serie'=>'required, unique:equipos,serie',
 			'nombres'=>'required',
 			'cedula'=>'required',
 			'problema'=>'required',			
@@ -346,23 +346,8 @@ class OrdenController extends BaseController
    **/
   public static function verificarEquipo($serie)
   {
-    $equipos = Equipo::where('serie','=',$serie)->get();
-    $numEquipos = count($equipos);
-    if($numEquipos != 0){
-        foreach ($equipo as $equipos) {
-        	$ordenes = $equipo->ordenes()->where('entregado','=','0')->get();
-        	$numOrdenes = count($ordenes);
-        	if ($numOrdenes != 0){
-          		return true;
-          		break;    
-        	}
-        	else{
-          	return false;
-          	break;            
-        	} 
-      	}
-    }
-    else return true; 
+ 
+  	return $false;
   }
 
   /** 
