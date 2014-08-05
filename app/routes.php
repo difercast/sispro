@@ -32,7 +32,8 @@ Route::get('logout', 'UserLogin@out');
 
 
 
-//Rutas para generar documentos PDF
+/*Rutas para generar documentos PDF*/
+//Ingreso orden 
 Route::get('ingOrden/{numOrden}', function($numOrden){
 	$orden = Orden::findOrFail($numOrden);
 	$userRecep = User::findOrFail($orden->user_id);
@@ -45,6 +46,12 @@ Route::get('ingOrden/{numOrden}', function($numOrden){
 		'cliente'=>$cliente,'equipo'=>$equipo,'usuario'=>$userRecep,'tecnico'=>$tecnico));	
 	return PDF::load($html, 'A4', 'portrait')->show();					    	
 
+});
+
+//Equipos ingresados
+Route::get('infIngresoOrden/{sucursal}/{inicio},{final}', function($sucursal, $inicio, $orden){
+	$suc = Sucursal::findOrFail(User::findOrFail(Auth::user()->sucursal_id));
+	$empresa = Empresa::findOrFail($suc->empresa_id);
 });
 /**
 * Rutas para las pantallas de inicio de sesión de los usuarios

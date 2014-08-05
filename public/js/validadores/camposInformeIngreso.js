@@ -3,7 +3,7 @@ $(document).on('pageinit',function(){
 	$.validator.addMethod('validDate', function(value, element) {
 		var startDate = $('#fechaInicio').val();
 		return new Date(value) >= new Date(startDate);				
-	}, "Fecha de terminado debe ser mayor que la fecha de ingreso");	
+	}, "Por favor, verifica las fechas");	
 
 	$('#formIngreso').validate({
 		rules:{

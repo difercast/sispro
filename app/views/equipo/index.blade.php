@@ -61,6 +61,7 @@
 	{{$equipos->links()}}
 	<br/><br>	
 @stop
+@endif
 {{--Sección secundario--}}
 @section('secundario')
 	@if(Auth::user()->rol == 'administrador')
@@ -99,4 +100,4 @@
 @section('scripts')
 	{{ HTML::script('js/mensajes.js'); }}
 @stop
-@endif
+

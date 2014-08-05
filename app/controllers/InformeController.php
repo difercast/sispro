@@ -19,14 +19,19 @@ class InformeController extends BaseController
 		$fechaInicio = date(Input::get('fechaInicio'));
 		$fechaFinal = date(Input::get('fechaFinal'));
 		$sucursal = Input::get('sucursal');		
-		if($sucursal == '0')		{
-			$orden = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))->paginate(15);
-			return View::make('informes.ingresoEquipos')->with(array('ordenes'=>$orden,'sucursal'=>'todos'));	
+		if($sucursal == '0'){
+			$orden = Orden::paginate(10);
+			//$orden = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))
+			// ->paginate(15);
+			return View::make('informes.ingresoEquipos')->with(array('ordenes'=>$orden,'sucursal'=>'Todos los',
+				'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal));	
 		}else{
 			$orden = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))
-			->where('Sucursal_id','=',$sucursal)->paginate(15);
+			 ->where('Sucursal_id','=',$sucursal)
+			 ->paginate(15);
 			$suc = Sucursal::findOrFail($sucursal);
-			return View::make('informes.ingresoEquipos')->with(array('ordenes'=>$orden,'sucursal'=>$suc->nombre));	
+			return View::make('informes.ingresoEquipos')->with(array('ordenes'=>$orden,'sucursal'=>$suc->nombre,
+				'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal));	
 		}		
 	}
 

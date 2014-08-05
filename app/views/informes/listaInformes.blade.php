@@ -197,11 +197,17 @@
 	{{--Script--}}
 	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
 	{{HTML::script('js/validadores/camposInformeIngreso.js');}}
+	{{HTML::script('js/validadores/jqm-datebox-1.4.2.core.js');}}
+	{{HTML::script('js/validadores/jqm-datebox-1.4.2.mode.calbox.js');}}
+@stop
+
+
+
+
+{{--
 	{{HTML::script('js/validadores/camposInfIngUser.js');}}
 	{{HTML::script('js/validadores/camposEquiposRep.js');}}
 	{{HTML::script('js/validadores/camposSinRevisar.js');}}
 	{{HTML::script('js/validadores/camposEntregados.js');}}
 	{{HTML::script('js/validadores/camposEntregadoTecnico.js');}}
-	{{HTML::script('js/validadores/jqm-datebox-1.4.2.core.js')}}
-	{{HTML::script('js/validadores/jqm-datebox-1.4.2.mode.calbox.js')}}
-@stop
+--}}
