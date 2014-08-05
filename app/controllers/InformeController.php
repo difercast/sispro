@@ -20,10 +20,9 @@ class InformeController extends BaseController
 		$fechaFinal = date(Input::get('fechaFinal'));
 		$sucursal = Input::get('sucursal');		
 		if($sucursal == '0'){
-			$orden = Orden::paginate(10);
-			//$orden = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))
-			// ->paginate(15);
-			return View::make('informes.ingresoEquipos')->with(array('ordenes'=>$orden,'sucursal'=>'Todos los',
+			$orden = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))
+			->paginate(15);
+			return View::make('informes.ingresoEquipos')->with(array('ordenes'=>$orden,'sucursal'=>'Todos los locales',
 				'fechaInicio'=>$fechaInicio,'fechaFinal'=>$fechaFinal));	
 		}else{
 			$orden = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))
