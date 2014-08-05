@@ -29,7 +29,7 @@
 			</div>
 		@elseif($status == "error")
 			<div id="error"  align="center">
-				<p>Error al ingresar la orden de trabajo, por favor verifique los datos ingresados</p>
+				<p>Error al ingresar la orden de trabajo, o el equipo ya se encuetra ingresado a la empresa</p>
 			</div>
 		@elseif($status == "errorDatos")
 			<div id="error"  align="center">
