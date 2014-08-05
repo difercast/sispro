@@ -344,20 +344,25 @@ class OrdenController extends BaseController
    * @param int serie
    *  @return boolean
    **/
-  public static function verificarEquipo($serie)
+   public static function verificarEquipo($serie)
   {
- 	$cont = true;
- 	$equipos = Equipo::where('serie','=',$serie)->get();
- 	if(!empty($equipo)){ 		
- 		$ordenes = Orden::where('equipo_id','=',$equipos[0]->id);
- 		foreach ($orden as $ordenes) {
- 			if($orden->entregado == '1'){
- 				$cont=false;
- 				break;
- 			}
- 		}
- 	}	
-  	return $cont;
+    $equipos = Equipo::where('serie','=',$serie)->get();
+    $numEquipos = count($equipos);
+    if($numEquipos != 0){
+        foreach ($equipos as $equipo) {
+        	$ordenes = $equipo->ordenes()->where('entregado','=','0')->get();
+        	$numOrdenes = count($ordenes);
+        	if ($numOrdenes != 0){
+          		return true;
+          		break;    
+        	}
+        	else{
+          		return false;
+          	break;            
+        	} 
+      	}
+    }
+    else return true; 
   }
 
   /** 
