@@ -81,7 +81,10 @@ Route::controller('cliente','ClienteController');
 Route::controller('equipo','EquipoController');
 Route::controller('ordenTrabajo','OrdenController');
 Route::controller('presupuesto','PresupuestoController');
+Route::controller('informe','InformeController');
+Route::controller('informes','InformeController');
 
+/**************************************************************
 Route::group(array('prefix'=>'informe'),function()
 {
 	//Primera ruta
@@ -109,14 +112,14 @@ Route::group(array('prefix'=>'informe'),function()
 	Route::post('entregadosPorVendedor', 'InformeController@entregadosVendedor');
 	Route::post('repTecnicoEntr', 'InformeController@repTecnicoEntregados');
 });
+***********************************************************************************/
 
 /**
 * Carga los datos del cliente en el formulario de ingreso de una
 * oden de trabajo
 **/
 Route::post('procesaCliente',function()
-{
-	
+{	
 	$idCliente = Input::get('idCli');
 	$id = Cliente::findOrFail($idCliente);	
 	$clientes =  array(		

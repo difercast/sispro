@@ -23,6 +23,7 @@
 			<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>
 			<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>
 			<li data-icon="false">{{ HTML::link('informe', 'Informes'); }}</li>			
+			<li data-icon="false">{{ HTML::link('informes', 'Informe'); }}</li>
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>
 			<li data-icon="false">{{ HTML::link('presupuesto', 'Presupuesto'); }}</li>		
