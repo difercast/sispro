@@ -82,7 +82,6 @@ Route::controller('equipo','EquipoController');
 Route::controller('ordenTrabajo','OrdenController');
 Route::controller('presupuesto','PresupuestoController');
 Route::controller('informe','InformeController');
-Route::controller('informes','InformeController');
 
 /**************************************************************
 Route::group(array('prefix'=>'informe'),function()
