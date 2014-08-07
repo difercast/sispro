@@ -42,18 +42,41 @@ class InformeController extends BaseController
 	{
 		$sucursal = Input::get('sucursal');
 		$fechaInicio = date(Input::get('fechaInicio'));
-		$fechaFinal = date(Input::get('fechaFinal'));				
-		if($sucursal == '0'){
-			$ordenes = Orden::whereBetween('fecha_ingreso',array($fechaInicio,$fechaFinal))->get();			
-			return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'sucursal'=>'Todos los locales',
-				'inicio'=>$fechaInicio,'final'=>$fechaFinal));			
+		$fechaFinal = date(Input::get('fechaFinal'));
+		$reglas = array(
+			'sucursal' => 'required',
+			'fechaInicio' => 'required',
+			'fechaFinal' => 'required');
+		$validador = Validator::make(Input::all(),$reglas);
+		if($validador->passes() && self::validaFechas($fechaInicio,$fechaFinal)){
+			if($sucursal == '0'){
+				$ordenes = Orden::whereBetween('fecha_ingreso',array($fechaInicio,$fechaFinal))->get();			
+				return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'sucursal'=>'Todos los locales',
+					'inicio'=>$fechaInicio,'final'=>$fechaFinal));			
+			}else{
+				$ordenes = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))			
+				->where('Sucursal_id','=',$sucursal)
+				->get();
+				$suc = Sucursal::findOrFail($sucursal);			
+				return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'sucursal'=>$suc->nombre,
+					'inicio'=>$fechaInicio,'final'=>$fechaFinal));
+			}
 		}else{
-			$ordenes = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))			
-			->where('Sucursal_id','=',$sucursal)
-			->get();
-			$suc = Sucursal::findOrFail($sucursal);			
-			return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'sucursal'=>$suc->nombre,
-				'inicio'=>$fechaInicio,'final'=>$fechaFinal));
-		}		
+			return Redirect::route('informes')->with('status','error');			
+		}			
 	}
+
+	/** 
+	* validar que el rango de fechas sea correcto
+	*
+	* @param date $inicio, date $final
+	* @return Response
+	**/
+	static function validaFechas($inicio, $termino)
+	{
+		if(date($termino) >= date($inicio))	return true;
+		else return false;
+		
+	}
+
 }

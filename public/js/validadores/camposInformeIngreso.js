@@ -1,17 +1,16 @@
 $(document).on('pageinit',function(){
 	console.log('éxito');
-	$.validator.addMethod('validDate', function(value, element) {
-		var startDate = $('#fechaInicio').val();
-		return new Date(value) >= new Date(startDate);				
-	}, "Por favor, verifica las fechas");	
-
-	$('#formIngreso').validate({
+	$.validator.addMethod('validaFechas', function(value, element) {
+		var startDate = $('#fechaFinal').val();
+		return Date.parse(value) <= Date.parse(startDate);				
+	});			
+	$('#FormIngreso').validate({
 		rules:{
-			fechaInicio: {required: true},
-			fechaFinal: {required: true, validDate: true}
+			fechaInicio: {validaFechas: true, required: true},
+			fechaFinal: {required: true}
 		},
 		messages:{
-			fechaInicio:{required:'Campo requerido'},
+			fechaInicio:{required:'Campo requerido', validaFechas:  "Por favor, verifica las fechas"},
 			fechaFinal:{required:'Campo requerido'}
 		}
 	});

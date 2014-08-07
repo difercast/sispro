@@ -87,7 +87,7 @@ Route::controller('presupuesto','PresupuestoController');
 Route::group(array('prefix'=>'informe'),function()
 {
 	//Primera ruta
-	Route::get('/',function()
+	Route::get('/',array('as'=>'informes',function()
 	{
 		$sucursal = Sucursal::where('estado','=','1')->get();
 		$select = array(0 => 'Todos')+$sucursal->lists('nombre','id');
@@ -103,7 +103,7 @@ Route::group(array('prefix'=>'informe'),function()
 		return View::make('informes.listaInformes')->with(array('sucursal'=>$select,'user'=>$user,'tecnicos'=>$tecnico,
 			'vendedores'=>$vendedor));*/				
 		return View::make('informes.listaInf')->with('sucursal',$select);
-	});
+	}));
 	//Segunda ruta
 	Route::get('ingreso', 'InformeController@ingreso');
 	Route::post('ingresoEquiposUser','InformeController@ingresoUsers');
