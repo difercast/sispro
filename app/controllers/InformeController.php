@@ -18,19 +18,7 @@ class InformeController extends BaseController
 		$this->beforeFilter('autenticacion');
 	}
 
-	/** 
-	* Muestra una lista de opciones de informes
-	*
-	* @param
-	* @return Response
-	**/
-	public function getIndex()
-	{		
-		$sucursal = Sucursal::where('estado','=','1')
-		->get();
-		$selectSuc = array(0 => 'todos')+ $sucursal->lists('nombre','id');				
-		return View::make('informes.listaInf')->with('sucursal',$selectSuc);
-	}
+	
 
 	/** 
 	* Informe de órdenes de trabajo ingresadas a la empresa por sucursal
@@ -64,6 +52,27 @@ class InformeController extends BaseController
 		}else{
 			return Redirect::route('informes')->with('status','error');			
 		}			
+	}
+
+	public function ingresoUser()
+	{
+		$user = Input::get('user');
+		$fechaInicio = date(Input::get('fechaInicio'));
+		$fechaFinal = date(Input::get('fechaFinal'));
+		$reglas = array( 'user'=>'required',
+			'fechaInicio'=>'required',
+			'fechaFinal'=>'required');
+		$validador = Validator::make(Input::all(), $reglas);
+		if($validador->passes() && self::validaFechas($fechaInicio, $fechaFinal)){
+			$ordenes = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))			
+			->where('user_id','=',$user)
+			->get();
+			$usuario = User::findOrFail($user);
+			return View::make('informes.IngOrdenUser')->with(array('ordenes'=>$ordenes,
+					'inicio'=>$fechaInicio,'final'=>$fechaFinal,'nombres'=>$usuario->nombres,'apellidos'=>$usuario->apellidos));			
+		}else{
+			return Redirect::route('informes')->with('status','error');
+		}
 	}
 
 	/** 

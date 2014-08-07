@@ -47,7 +47,31 @@
  			</div>
  			{{Form::close()}}
  		</li>
- 		{{--Ordenes ingresadas por usuario--}}
+ 		{{--Ordenes ingresadas por usuario--}}		
+ 		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false">
+ 			<h2>Ordenes de trabajo ingresadas a la empresa por un usuario</h2>
+ 			{{ Form::open(array('url' => 'informe/ingresoUser', 'method' => 'GET', 'id' => 'FormIngresoUser')) }}
+ 			<div class="ui-grid-a ui-responsive">
+ 				<div class="ui-block-a bloque"> 					 					
+ 					{{Form::label('fechaInicio','Fecha de inicio:')}}
+ 					<input name="fechaInicio" id="fechaInicio" type="date" class="required" data-role="datebox"
+   						data-options='{"mode": "calbox","overrideDateFormat":"%Y-%m-%d","useNewStyle":true}'/>
+ 				</div>
+ 				<div class="ui-block-b bloque">
+ 					{{Form::label('fechaFinal','Fecha de término:')}}
+ 					<input name="fechaFinal" id="fechaFinal" type="date" data-role="datebox" class="required" 
+   						data-options='{"mode": "calbox","overrideDateFormat":"%Y-%m-%d","useNewStyle":true}'/>
+ 				</div> 				
+ 			</div>
+ 			<div data-role="fieldcontain">
+ 				{{Form::label('user','Usuario:')}}
+ 				{{Form::select('user',$user,array('data-mini'=>'true'))}}
+ 			</div>
+ 			<div data-role="controlgroup" data-type="horizontal" align="center">
+ 				{{Form::submit('Consultar')}}
+ 			</div>
+ 			{{Form::close()}}
+ 		</li>	
  	</ul>
  @endif
  @stop
@@ -58,5 +82,5 @@
  	{{HTML::script('js/validadores/jqm-datebox-1.4.2.core.js');}}
 	{{HTML::script('js/validadores/jqm-datebox-1.4.2.mode.calbox.js');}}
 	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
-	{{HTML::script('js/validadores/camposInformeIngreso.js');}}
+	{{HTML::script('js/validadores/camposInformeIngreso.js');}}	
  @stop
