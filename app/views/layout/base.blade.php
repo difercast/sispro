@@ -34,6 +34,9 @@
 			<div class="secundario">
 				@yield('secundario')
 			</div>
+			<div class="todo">
+				@yield('todo')
+			</div>
 		</div>		
 		@yield('paneles')						
 		@yield('scripts')		

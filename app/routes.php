@@ -81,9 +81,9 @@ Route::controller('cliente','ClienteController');
 Route::controller('equipo','EquipoController');
 Route::controller('ordenTrabajo','OrdenController');
 Route::controller('presupuesto','PresupuestoController');
-Route::controller('informe','InformeController');
+//Route::controller('informe','InformeController');
 
-/**************************************************************
+
 Route::group(array('prefix'=>'informe'),function()
 {
 	//Primera ruta
@@ -92,7 +92,7 @@ Route::group(array('prefix'=>'informe'),function()
 		$sucursal = Sucursal::where('estado','=','1')->get();
 		$select = array(0 => 'Todos')+$sucursal->lists('nombre','id');
 		//todos los usuarios
-		$users = User::all();
+		/*$users = User::all();
 		$user = $users->lists('nombres','id');
 		//Usuarios con rol Técnico
 		$tec = User::where('rol','=','tecnico')->get();
@@ -101,17 +101,18 @@ Route::group(array('prefix'=>'informe'),function()
 		$ven = User::where('rol','=','vendedor')->get();
 		$vendedor = array(0 => 'Todos')+$ven->lists('nombres','id');
 		return View::make('informes.listaInformes')->with(array('sucursal'=>$select,'user'=>$user,'tecnicos'=>$tecnico,
-			'vendedores'=>$vendedor));
+			'vendedores'=>$vendedor));*/				
+		return View::make('informes.listaInf')->with('sucursal',$select);
 	});
 	//Segunda ruta
-	Route::post('ingresoEquipos', 'InformeController@ingreso');
+	Route::get('ingreso', 'InformeController@ingreso');
 	Route::post('ingresoEquiposUser','InformeController@ingresoUsers');
 	Route::post('reparadosTecnico','InformeController@reparadosTecnico');
 	Route::post('sinRevisar','InformeController@ordenesSinRevisar');
 	Route::post('entregadosPorVendedor', 'InformeController@entregadosVendedor');
 	Route::post('repTecnicoEntr', 'InformeController@repTecnicoEntregados');
 });
-***********************************************************************************/
+
 
 /**
 * Carga los datos del cliente en el formulario de ingreso de una

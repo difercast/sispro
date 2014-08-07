@@ -38,23 +38,22 @@ class InformeController extends BaseController
 	* @param
 	* @return Response
 	**/
-	public function getIngreso()
+	public function ingreso()
 	{
-		$fechaInicio = Input::get('fechaInicio');
-		$fechaFinal = Input::get('fechaFinal');
 		$sucursal = Input::get('sucursal');
+		$fechaInicio = date(Input::get('fechaInicio'));
+		$fechaFinal = date(Input::get('fechaFinal'));				
 		if($sucursal == '0'){
-			$ordenes = Orden::whereBetween('feche_ingreso',array($fechaInicio,$fechaFinal))
-			->paginate(15);
-			return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'sucursal'=>'Todos los locales'));	
+			$ordenes = Orden::whereBetween('fecha_ingreso',array($fechaInicio,$fechaFinal))->get();			
+			return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'sucursal'=>'Todos los locales',
+				'inicio'=>$fechaInicio,'final'=>$fechaFinal));			
 		}else{
-			$orden = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))			
+			$ordenes = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))			
 			->where('Sucursal_id','=',$sucursal)
-			->paginate(15);
-			$suc = Sucursal::findOrFail($sucursal);
+			->get();
+			$suc = Sucursal::findOrFail($sucursal);			
 			return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'sucursal'=>$suc->nombre,
 				'inicio'=>$fechaInicio,'final'=>$fechaFinal));
 		}		
-		
 	}
 }

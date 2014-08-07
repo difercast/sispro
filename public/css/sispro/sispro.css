@@ -594,6 +594,10 @@ html head + body .ui-body-a.ui-focus {
 		float: left;
 		margin-right: 1%;
 	}
+	.todo{
+		margin-right: 5%;
+		margin-left: 5%;
+	}
 	
 }
 
