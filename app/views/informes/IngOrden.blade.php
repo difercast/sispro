@@ -12,13 +12,13 @@
  @stop
  {{--principal--}}
  @section('todo') 	
- 	@if($sucursal && $inicio && $final) 
+ 	@if($inicio && $final && $local) 
  		<?php  $emp = Empresa::findOrFail(1); ?>		 		
  		<h2 align="center">{{$emp->razon_comercial}}</h2>
  		<h3 align="center">Ordenes de trabajo ingresadas a la empresa</h3>
  		<p align="center">
  			<strong>Período: </strong> 	{{$inicio}} a {{$final}}<br/>
- 			<strong>Sucursal: </strong> {{$sucursal}}</p>
+ 			<strong>Sucursal: </strong> {{$local}}</p>
  		@if($ordenes)
  			<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" >
 	 			<thead>
@@ -60,7 +60,8 @@
 	 				</tr>
 	 				@endforeach
 	 			</tbody>
-	 		</table><br/> 		 	
+	 		</table><br/>
+	 		{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'sucursal'=>$sucursal))->links()}} 		 	
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
  			{{HTML::link('#','Generar documento',array('data-role'=>'button'))}}

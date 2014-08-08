@@ -38,16 +38,16 @@ class InformeController extends BaseController
 		$validador = Validator::make(Input::all(),$reglas);
 		if($validador->passes() && self::validaFechas($fechaInicio,$fechaFinal)){
 			if($sucursal == '0'){
-				$ordenes = Orden::whereBetween('fecha_ingreso',array($fechaInicio,$fechaFinal))->get();			
-				return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'sucursal'=>'Todos los locales',
-					'inicio'=>$fechaInicio,'final'=>$fechaFinal));			
+				$ordenes = Orden::whereBetween('fecha_ingreso',array($fechaInicio,$fechaFinal))->paginate(15);			
+				return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'local'=>'Todos los locales',
+					'inicio'=>$fechaInicio,'final'=>$fechaFinal,'sucursal'=>$sucursal));			
 			}else{
 				$ordenes = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))			
 				->where('Sucursal_id','=',$sucursal)
-				->get();
+				->paginate(15);
 				$suc = Sucursal::findOrFail($sucursal);			
-				return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'sucursal'=>$suc->nombre,
-					'inicio'=>$fechaInicio,'final'=>$fechaFinal));
+				return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'local'=>$suc->nombre,
+					'inicio'=>$fechaInicio,'final'=>$fechaFinal,'sucursal'=>$sucursal));
 			}
 		}else{
 			return Redirect::route('informes')->with('status','error');			

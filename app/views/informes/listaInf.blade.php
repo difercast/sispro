@@ -72,6 +72,12 @@
  			</div>
  			{{Form::close()}}
  		</li>	
+ 		{{--Ordenes de trabajo terminadas por técnico--}}
+ 		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false">
+ 			<h2>Ordenes de trabajo terminadas</h2>
+ 			{{Form::open(array('url'=>'informe/repTerminadas', 'method' => 'GET', 'id' => 'FormRepTerminadas'))}}
+ 			{{Form::close()}}
+ 		</li>
  	</ul>
  @endif
  @stop
