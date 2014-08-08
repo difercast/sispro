@@ -4,6 +4,11 @@ $(document).on('pageinit',function(){
 		var startDate = $('#fechaInicio').val();
 		return Date.parse(value) >= Date.parse(startDate);				
 	});
+
+	$.validator.addMethod('validarFecha', function(value, element) {
+		var finalDate = $('#fechaFinal').val();
+		return new Date(value) <= new Date(finalDate);				
+	});
 		
 	$('#FormIngreso').validate({
 		rules:{			
@@ -19,12 +24,33 @@ $(document).on('pageinit',function(){
 	$('#FormIngresoUser').validate({		
 		rules:{
 			fechaInicio: {required: true},
-			fechaFinal: {required: true,validaFechas:true}
+			fechaFinal: {required: true}
 		},
 		messages:{
 			fechaInicio:{required:'Campo requerido'},
-			fechaFinal:{required:'Campo requerido',validaFechas:  "Por favor, verifica las fechas"}
+			fechaFinal:{required:'Campo requerido'}
+		}
+	}); 
+	
+	$('#FormRepTerminadas').validate({		
+		rules:{
+			fechaInicio: {required: true},
+			fechaFinal: {required: true}
+		},
+		messages:{
+			fechaInicio:{required:'Campo requerido'},
+			fechaFinal:{required:'Campo requerido'}
+		}
+	});	
+
+	$('#formOrndenEntgd').validate({		
+		rules:{
+			fechaInicio: {required: true},
+			fechaFinal: {required: true}
+		},
+		messages:{
+			fechaInicio:{required:'Campo requerido'},
+			fechaFinal:{required:'Campo requerido'}
 		}
 	});
-	
 });

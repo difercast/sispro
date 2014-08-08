@@ -82,6 +82,33 @@ class InformeController extends BaseController
 	}
 
 	/** 
+	* Informe de órdenes de trabajo entregadas por un vendedor
+	*
+	* @param
+	* @return Response
+	**/
+	public function ordenesEntregadas()
+	{
+		$vendedor = Input::get('vendedor');
+		$fechaInicio = date(Input::get('fechaInicio'));
+		$fechaFinal = date(Input::get('fechaFinal'));
+		$reglas = array( 'vendedor'=>'required',
+			'fechaInicio'=>'required',
+			'fechaFinal'=>'required');
+		$validador = Validator::make(Input::all(), $reglas);
+		if($validador->passes() && self::validaFechas($fechaInicio, $fechaFinal)){
+			$ordenes = Orden::whereRaw('entregado = ? and vendedor_id = ?', array('1',$vendedor))
+			->paginate(15);
+			$vend = User::findOrFail($vendedor);
+			return View::make('informes.OrdenesEntregadas')->with(array('ordenes'=>$ordenes,'inicio'=>$fechaInicio,
+				'final'=>$fechaFinal,'vend'=>$vend, 'vendedor'=>$vendedor));			
+		}else{
+			return Redirect::route('informes')->with('status','error');
+		}		
+	}
+
+
+	/** 
 	* Informe de órdenes de trabajo terminadas por un técnico
 	*
 	* @param

@@ -98,6 +98,32 @@
 	 			</div>
  			{{Form::close()}}
  		</li>
+
+ 		{{--Ordenes de trabajo entregados por un  vendedor--}}
+ 		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false">
+ 			<h2>Ordenes de trabajo entregados por un vendedor</h2>
+ 			{{Form::open(array('url'=>'informe/ordenEntreg','method'=>'GET','id'=>'formOrndenEntgd'))}}
+ 				<div class="ui-grid-a ui-responsive">
+	 				<div class="ui-block-a bloque"> 					 					
+	 					{{Form::label('fechaInicio','Fecha de inicio:')}}
+	 					<input name="fechaInicio" id="fechaInicio" type="date" class="required" data-role="datebox"
+	   						data-options='{"mode": "calbox","overrideDateFormat":"%Y-%m-%d","useNewStyle":true}'/>
+	 				</div>
+	 				<div class="ui-block-b bloque">
+	 					{{Form::label('fechaFinal','Fecha de término:')}}
+	 					<input name="fechaFinal" id="fechaFinal" type="date" data-role="datebox" class="required" 
+	   						data-options='{"mode": "calbox","overrideDateFormat":"%Y-%m-%d","useNewStyle":true}'/>
+	 				</div> 				
+	 			</div>
+	 			<div data-role="fliedcontain">
+	 				{{Form::label('vendedor','Vendedor:')}}
+	 				{{Form::select('vendedor',$vendedores,array('data-mini'=>'true'))}}
+	 			</div>
+	 			<div data-role="controlgroup" data-type="horizontal" align="center">
+	 				{{Form::submit('Consultar')}}
+	 			</div>
+ 			{{Form::close()}}
+ 		</li>
  	</ul>
  @endif
  @stop
