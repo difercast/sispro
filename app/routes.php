@@ -93,7 +93,10 @@ Route::group(array('prefix'=>'informe'),function()
 		$select = array(0 => 'Todos')+$sucursal->lists('nombre','id');
 
 		$users = User::where('rol','!=','administrador');
-		$user = $users->lists('nombres','id');	
+		$user = $users->lists('nombres','id');
+
+		$tecnicos = User::where('rol','=','tecnico');
+		$listaTecnicos = $tecnicos->lists('nombres','id');
 		//todos los usuarios
 		/*$users = User::all();
 		$user = $users->lists('nombres','id');
@@ -105,11 +108,13 @@ Route::group(array('prefix'=>'informe'),function()
 		$vendedor = array(0 => 'Todos')+$ven->lists('nombres','id');
 		return View::make('informes.listaInformes')->with(array('sucursal'=>$select,'user'=>$user,'tecnicos'=>$tecnico,
 			'vendedores'=>$vendedor));*/				
-		return View::make('informes.listaInf')->with(array('sucursal'=>$select,'user'=>$user));
+		return View::make('informes.listaInf')->with(array('sucursal'=>$select,'user'=>$user,'tecnicos'=>$listaTecnicos));
 	}));
 	//Segunda ruta
 	Route::get('ingreso', 'InformeController@ingreso');
 	Route::get('ingresoUser', 'InformeController@ingresoUser');
+	Route::get('repTerminadas', 'InformeController@RepTerminadas');
+	
 	Route::post('ingresoEquiposUser','InformeController@ingresoUsers');
 	Route::post('reparadosTecnico','InformeController@reparadosTecnico');
 	Route::post('sinRevisar','InformeController@ordenesSinRevisar');

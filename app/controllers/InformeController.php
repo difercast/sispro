@@ -54,6 +54,12 @@ class InformeController extends BaseController
 		}			
 	}
 
+	/** 
+	* Informe de órdenes de trabajo ingresadas a la empresa por un usuario determinado
+	*
+	* @param
+	* @return Response
+	**/
 	public function ingresoUser()
 	{
 		$user = Input::get('user');
@@ -66,12 +72,40 @@ class InformeController extends BaseController
 		if($validador->passes() && self::validaFechas($fechaInicio, $fechaFinal)){
 			$ordenes = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))			
 			->where('user_id','=',$user)
-			->get();
+			->paginate(15);
 			$usuario = User::findOrFail($user);
-			return View::make('informes.IngOrdenUser')->with(array('ordenes'=>$ordenes,
-					'inicio'=>$fechaInicio,'final'=>$fechaFinal,'nombres'=>$usuario->nombres,'apellidos'=>$usuario->apellidos));			
+			return View::make('informes.IngOrdenUser')->with(array('ordenes'=>$ordenes,'inicio'=>$fechaInicio,
+				'final'=>$fechaFinal,'nombres'=>$usuario->nombres,'apellidos'=>$usuario->apellidos, 'user'=>$user));			
 		}else{
 			return Redirect::route('informes')->with('status','error');
+		}
+	}
+
+	/** 
+	* Informe de órdenes de trabajo terminadas por un técnico
+	*
+	* @param
+	* @return Response
+	**/
+	public function RepTerminadas()
+	{
+		$tecnico = Input::get('tecnico');
+		$fechaInicio = Input::get('fechaInicio');
+		$fechaFinal = Input::get('fechaFinal');
+		$reglas = array('tecnico'=>'required',
+			'fechaInicio'=>'required',
+			'fechaFinal'=>'required');
+		$validador = Validator::make(Input::all(),$reglas);
+		if($validador->passes() && self::validaFechas($fechaInicio,$fechaFinal)){
+			$ordenes = Orden::whereBetween('fecha_terminado',array($fechaInicio,$fechaFinal))
+			->paginate(15);
+			$tec = User::findOrFail($tecnico);
+			return View::make('informes.repTerminadas')->with(array('tecnico'=>$tecnico,'inicio'=>$fechaInicio,'final'=>$fechaFinal,
+				'ordenes'=>$ordenes,'tec'=>$tec));
+			//return View::make('informes.repTerminadas')->compact($tecnico,$fechaInicio,$fechaFinal,$ordenes,$tec);
+		}
+		else{
+			return Redirect::route('informes')->with('status','error');	
 		}
 	}
 

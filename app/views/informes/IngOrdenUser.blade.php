@@ -57,7 +57,10 @@
 	 				</tr>
 	 				@endforeach
 	 			</tbody>
-	 		</table><br/> 		 	
+	 		</table><br/>
+	 		<div align="center">
+	 			{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'user'=>$user))->links()}}<br/><br/>
+	 		</div>	 		
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
  			{{HTML::link('#','Generar documento',array('data-role'=>'button'))}}

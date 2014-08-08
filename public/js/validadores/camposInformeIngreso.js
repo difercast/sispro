@@ -19,11 +19,11 @@ $(document).on('pageinit',function(){
 	$('#FormIngresoUser').validate({		
 		rules:{
 			fechaInicio: {required: true},
-			fechaFinal: {validaFechas: true, required: true}
+			fechaFinal: {required: true,validaFechas:true}
 		},
 		messages:{
 			fechaInicio:{required:'Campo requerido'},
-			fechaFinal:{validaFechas:  "Por favor, verifica las fechas", required:'Campo requerido'}
+			fechaFinal:{required:'Campo requerido',validaFechas:  "Por favor, verifica las fechas"}
 		}
 	});
 	
