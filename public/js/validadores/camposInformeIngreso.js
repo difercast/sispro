@@ -6,8 +6,8 @@ $(document).on('pageinit',function(){
 	});
 
 	$.validator.addMethod('validarFecha', function(value, element) {
-		var finalDate = $('#fechaFinal').val();
-		return new Date(value) <= new Date(finalDate);				
+		var startDate = $('#fechaInicio').val();
+		return Date.parse(value) <= Date.parse(startDate);				
 	});
 		
 	$('#FormIngreso').validate({
@@ -44,6 +44,17 @@ $(document).on('pageinit',function(){
 	});	
 
 	$('#formOrndenEntgd').validate({		
+		rules:{
+			fechaInicio: {required: true},
+			fechaFinal: {required: true}
+		},
+		messages:{
+			fechaInicio:{required:'Campo requerido'},
+			fechaFinal:{required:'Campo requerido'}
+		}
+	}); 
+
+	$('#OnderRepEntregada').validate({		
 		rules:{
 			fechaInicio: {required: true},
 			fechaFinal: {required: true}

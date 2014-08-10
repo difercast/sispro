@@ -19,7 +19,7 @@
  		<p align="center">
  			<strong>Período: </strong> 	{{$inicio}} a {{$final}}<br/>
  			<strong>Técnico: </strong> {{$vend->nombres}} {{$vend->apellidos}}</p>
- 		@if($ordenes)
+ 		@if($ordenes && $ordenes2 && count($ordenes2)!= 0)
  			<?php $totalGeneral = 0; ?>
  			<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" >
 	 			<thead>
@@ -50,12 +50,14 @@
 	 				<?php $totalGeneral += $orden->total; ?>
 	 				@endforeach
 	 			</tbody>
-	 		</table><br/>
-	 		<div align="center">
+	 		</table><br/>	 		
 	 			{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'vendedor'=>$vendedor))->links()}}<br/><br/>	 			
-	 		</div>
-	 		<p><strong>Número de órdenes:</strong> {{count($ordenes)}}<br/><br/>
+	 		<p><strong>Número de órdenes:</strong> {{count($ordenes2)}}<br/><br/>
 				<strong>Total presupuestado:</strong> ${{ $totalGeneral}} </p>
+ 		@else
+ 			<br/><br/><br/><br/>
+ 			<p align="center"><strong>No existen registros para mostrar</strong></p>
+ 			<br/><br/><br/><br/>
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
  			{{HTML::link('#','Generar documento',array('data-role'=>'button'))}}

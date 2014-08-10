@@ -19,7 +19,7 @@
  		<p align="center">
  			<strong>Período: </strong> 	{{$inicio}} a {{$final}}<br/>
  			<strong>Sucursal: </strong> {{$local}}</p>
- 		@if($ordenes && $ordenes2)
+ 		@if($ordenes && $ordenes2 && count($ordenes2)!=0)
  			<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" >
 	 			<thead>
 	 				<tr>
@@ -66,11 +66,14 @@
 	 		</table><br/>
 	 		{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'sucursal'=>$sucursal))->links()}}<br/><br/>
 	 		<p>Número de órdenes de trabajo: {{count($ordenes2)}}</p>
+ 		@else
+ 			<br/><br/><br/><br/>
+ 			<p align="center"><strong>No existen registros para mostrar</strong></p>
+ 			<br/><br/><br/><br/>
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
  			{{HTML::link('#','Generar documento',array('data-role'=>'button'))}}
  			{{HTML::link('informe','Regresar',array('data-role'=>'button'))}}
- 		</div>
- 		 		
+ 		</div> 		 		
  	@endif
  @stop

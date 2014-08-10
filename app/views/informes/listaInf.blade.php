@@ -90,7 +90,7 @@
 	 				</div> 				
 	 			</div>
 	 			<div data-role="fieldcontain">
-	 				{{Form::label('tecnico','Técnico;')}}
+	 				{{Form::label('tecnico','Técnico:')}}
 	 				{{Form::select('tecnico',$tecnicos, array('data-mini'=>'true'))}}
 	 			</div>
 	 			<div data-role="controlgroup" data-type="horizontal" align="center">
@@ -142,7 +142,7 @@
 	 			</div> 				
 	 		</div>
 	 		<div data-role="fieldcontain">
-	 			{{Form::label('tecnico','Técnico')}}
+	 			{{Form::label('tecnico','Técnico:')}}
 	 			{{Form::select('tecnico',$tecnicos, array('data-mini'=>'true'))}}
 	 		</div>
 	 		<div data-role="controlgroup" align="center" data-type="horizontal">
@@ -160,5 +160,5 @@
  	{{HTML::script('js/validadores/jqm-datebox-1.4.2.core.js');}}
 	{{HTML::script('js/validadores/jqm-datebox-1.4.2.mode.calbox.js');}}
 	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
-	{{HTML::script('js/validadores/camposInformeIngreso.js');}}	
+	{{HTML::script('js/validadores/camposInformeIngreso.js');}}		
  @stop
