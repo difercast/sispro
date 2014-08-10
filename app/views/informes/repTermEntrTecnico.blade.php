@@ -12,50 +12,57 @@
  @stop
  {{--principal--}}
  @section('todo') 	
- 	@if($inicio && $final && $vend) 
- 		<?php  $emp = Empresa::findOrFail(1); ?>		 		
+ 	@if($inicio && $final && $tec) 
+ 		<?php  $emp = Empresa::findOrFail(1); 
+ 		$totalGeneral = 0;
+ 		?>		 		
  		<h2 align="center">{{$emp->razon_comercial}}</h2>
- 		<h3 align="center">Equipos entregados por vendedor</h3>
+ 		<h3 align="center">Equipos reparados por técnico y entregados</h3>
  		<p align="center">
  			<strong>Período: </strong> 	{{$inicio}} a {{$final}}<br/>
- 			<strong>Técnico: </strong> {{$vend->nombres}} {{$vend->apellidos}}</p>
+ 			<strong>Técnico: </strong> {{$tec->nombres}} {{$tec->apellidos}}</p>
  		@if($ordenes)
- 			<?php $totalGeneral = 0; ?>
+
  			<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" >
 	 			<thead>
 	 				<tr>
-	 					<th>Nro de orden</th>
-						<th>Sucursal</th>
-						<th>cliente</th>
+	 					<th>Nro de orden</th>											
+						<th>Cliente</th>						
 						<th>Equipo</th>
-						<th>Fecha de entrega</th>					
-						<th>Informe</th>
-						<th>Total</th>	 					
+						<th>Detalle de reparación</th>
+						<th>Fecha terminado</th>
+						<th>Fecha entregado</th>
+						<th>Presupuesto</th>
+						<th>Vendedor</th>	 					
 	 				</tr>
 	 			</thead>
 	 			<tbody>
 	 				@foreach($ordenes as $orden)
 	 				<tr>	 					 		
-	 					<td>{{$orden->id}}</td>	
-	 					<?php $suc = Sucursal::findOrFail($orden->Sucursal_id) ?> 
-	 					<td>{{$suc->nombre}}</td> 					
+	 					<td>{{$orden->id}}</td>	 					
 	 					<?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
-	 					<td>{{$cliente->nombres}}</td>	 					
+	 					<td>{{$cliente->nombres}}</td>
+	 					<?php $suc = Sucursal::findOrFail($orden->Sucursal_id) ?> 
+	 					<td>{{$suc->nombre}}</td>
 	 					<?php $equipo = Equipo::findOrFail($orden->equipo_id); ?>	 					 
 	 					<td>{{$equipo->tipo}} {{$equipo->marca}} {{$equipo->modelo}}</td>
-	 					<td>{{$orden->fecha_entregado}}</td>
 	 					<td>{{$orden->informe}}</td>
-	 					<td>$ {{$orden->total}}</td> 					
+	 					<td>{{$orden->fecha_terminado}}</td>
+	 					<td>{{$orden->fecha_entregado}}</td>	 						 					
+	 					<?php $vendedor = User::findOrFail($orden->vendedor_id) ?>
+	 					<td>$ {{$orden->total}}</td>
+	 					<td>{{$vendedor->nombres}} {{$vendedor->apellidos}}</td> 	 					
 	 				</tr>
 	 				<?php $totalGeneral += $orden->total; ?>
 	 				@endforeach
 	 			</tbody>
 	 		</table><br/>
 	 		<div align="center">
-	 			{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'vendedor'=>$vendedor))->links()}}<br/><br/>	 			
+	 			{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'tecnico'=>$tecnico))->links()}}<br/><br/>
 	 		</div>
 	 		<p><strong>Número de órdenes:</strong> {{count($ordenes)}}<br/><br/>
-				<strong>Total presupuestado:</strong> ${{ $totalGeneral}} </p>
+			<strong>Total presupuestado:</strong> ${{ $totalGeneral}} </p>	 		 		
+
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
  			{{HTML::link('#','Generar documento',array('data-role'=>'button'))}}

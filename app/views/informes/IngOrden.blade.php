@@ -19,12 +19,13 @@
  		<p align="center">
  			<strong>Período: </strong> 	{{$inicio}} a {{$final}}<br/>
  			<strong>Sucursal: </strong> {{$local}}</p>
- 		@if($ordenes)
+ 		@if($ordenes && $ordenes2)
  			<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" >
 	 			<thead>
 	 				<tr>
 	 					<th>Nro de orden</th>
 	 					<th>Fecha de ingreso</th>
+	 					<th>Usuario</th>
 	 					<th>Cliente</th> 					
 	 					<th>Equipo</th>
 	 					<th>Estado</th>
@@ -35,8 +36,10 @@
 	 			<tbody>
 	 				@foreach($ordenes as $orden)
 	 				<tr>	 					 		
-	 					<td>{{$orden->id}}</td>
+	 					<td align="center">{{$orden->id}}</td>
 	 					<td>{{$orden->fecha_ingreso}}</td>
+	 					<?php $user = User::findOrFail($orden->user_id) ?>
+	 					<td>{{$user->username}}</td>
 	 					<?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
 	 					<td>{{$cliente->nombres}}</td>
 	 					<?php $equipo = Equipo::findOrFail($orden->equipo_id); ?>	 					 
@@ -51,9 +54,9 @@
 	 						<td>Dado de baja</td>
 	 					@endif
 	 					@if($orden->entregado == '0')
-	 						<td>No</td>
+	 						<td align="center">No</td>
 	 					@else
-	 						<td>Si</td>
+	 						<td align="center">Si</td>
 	 					@endif
 	 					<?php $tec = User::findOrFail($orden->tecnico) ?>
 	 					<td>{{$tec->nombres}}</td>
@@ -61,7 +64,8 @@
 	 				@endforeach
 	 			</tbody>
 	 		</table><br/>
-	 		{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'sucursal'=>$sucursal))->links()}}<br/><br/> 	
+	 		{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'sucursal'=>$sucursal))->links()}}<br/><br/>
+	 		<p>Número de órdenes de trabajo: {{count($ordenes2)}}</p>
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
  			{{HTML::link('#','Generar documento',array('data-role'=>'button'))}}

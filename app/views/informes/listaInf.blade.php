@@ -23,7 +23,7 @@
 	@endif
  	<ul data-role="listview" class="ui-listview-outer" data-inset="true">
  		{{--Ordenes ingresadas en una sucursal--}}
- 		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false">
+ 		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false" data-corners="false">
  			<h2>Ordenes de trabajo ingresadas a la empresa</h2> 			
  			{{ Form::open(array('url' => 'informe/ingreso', 'method' => 'GET', 'id' => 'FormIngreso')) }}
  			<div class="ui-grid-a ui-responsive">
@@ -48,7 +48,7 @@
  			{{Form::close()}}
  		</li>
  		{{--Ordenes ingresadas por usuario--}}		
- 		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false">
+ 		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false" data-corners="false">
  			<h2>Ordenes de trabajo ingresadas a la empresa por un usuario</h2>
  			{{ Form::open(array('url' => 'informe/ingresoUser', 'method' => 'GET', 'id' => 'FormIngresoUser')) }}
  			<div class="ui-grid-a ui-responsive">
@@ -74,7 +74,7 @@
  		</li>
 
  		{{--Ordenes de trabajo terminadas por técnico--}}
- 		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false">
+ 		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false" data-corners="false">
  			<h2>Ordenes de trabajo terminadas</h2>
  			{{Form::open(array('url'=>'informe/repTerminadas', 'method' => 'GET', 'id' => 'FormRepTerminadas'))}}
  				<div class="ui-grid-a ui-responsive">
@@ -100,7 +100,7 @@
  		</li>
 
  		{{--Ordenes de trabajo entregados por un  vendedor--}}
- 		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false">
+ 		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false" data-corners="false">
  			<h2>Ordenes de trabajo entregados por un vendedor</h2>
  			{{Form::open(array('url'=>'informe/ordenEntreg','method'=>'GET','id'=>'formOrndenEntgd'))}}
  				<div class="ui-grid-a ui-responsive">
@@ -123,6 +123,32 @@
 	 				{{Form::submit('Consultar')}}
 	 			</div>
  			{{Form::close()}}
+ 		</li>
+
+ 		{{--Ordenes de trabajo reparados poe un técnico y entregados--}}
+ 		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false" data-corners="false">
+ 			<h2>Equipos reparados por un técnico y entregados</h2>
+ 			{{Form::open(array('url'=>'informe/ordenEntTecnico','method'=>'GET','id'=>'OnderRepEntregada'))}}
+ 			<div class="ui-grid-a ui-responsive">
+	 			<div class="ui-block-a bloque"> 					 					
+	 				{{Form::label('fechaInicio','Fecha de inicio:')}}
+	 				<input name="fechaInicio" id="fechaInicio" type="date" class="required" data-role="datebox"
+	   					data-options='{"mode": "calbox","overrideDateFormat":"%Y-%m-%d","useNewStyle":true}'/>
+	 			</div>
+	 			<div class="ui-block-b bloque">
+	 				{{Form::label('fechaFinal','Fecha de término:')}}
+	 				<input name="fechaFinal" id="fechaFinal" type="date" data-role="datebox" class="required" 
+	   					data-options='{"mode": "calbox","overrideDateFormat":"%Y-%m-%d","useNewStyle":true}'/>
+	 			</div> 				
+	 		</div>
+	 		<div data-role="fieldcontain">
+	 			{{Form::label('tecnico','Técnico')}}
+	 			{{Form::select('tecnico',$tecnicos, array('data-mini'=>'true'))}}
+	 		</div>
+	 		<div data-role="controlgroup" align="center" data-type="horizontal">
+	 			{{Form::submit('Consultar')}}
+	 		</div>
+	 		{{Form::close()}}
  		</li>
  	</ul>
  @endif

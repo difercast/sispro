@@ -119,7 +119,7 @@ Route::group(array('prefix'=>'informe'),function()
 	Route::get('ingresoUser', 'InformeController@ingresoUser');
 	Route::get('repTerminadas', 'InformeController@RepTerminadas');
 	Route::get('ordenEntreg', 'InformeController@ordenesEntregadas');
-
+	Route::get('ordenEntTecnico','InformeController@OnderRepEntTecnico');
 	Route::post('ingresoEquiposUser','InformeController@ingresoUsers');
 	Route::post('reparadosTecnico','InformeController@reparadosTecnico');
 	Route::post('sinRevisar','InformeController@ordenesSinRevisar');

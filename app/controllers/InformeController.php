@@ -38,16 +38,20 @@ class InformeController extends BaseController
 		$validador = Validator::make(Input::all(),$reglas);
 		if($validador->passes() && self::validaFechas($fechaInicio,$fechaFinal)){
 			if($sucursal == '0'){
-				$ordenes = Orden::whereBetween('fecha_ingreso',array($fechaInicio,$fechaFinal))->paginate(15);			
+				$ordenes = Orden::whereBetween('fecha_ingreso',array($fechaInicio,$fechaFinal))
+				->orderBy('id','desc')->paginate(15);
+				$ordenes2 = Orden::whereBetween('fecha_ingreso',array($fechaInicio,$fechaFinal))->get();
 				return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'local'=>'Todos los locales',
-					'inicio'=>$fechaInicio,'final'=>$fechaFinal,'sucursal'=>$sucursal));			
+					'inicio'=>$fechaInicio,'final'=>$fechaFinal,'sucursal'=>$sucursal,'ordenes2'=>$ordenes2));			
 			}else{
 				$ordenes = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))			
-				->where('Sucursal_id','=',$sucursal)
+				->where('Sucursal_id','=',$sucursal)->orderBy('id','desc')
 				->paginate(15);
+				$ordenes2 = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))			
+				->where('Sucursal_id','=',$sucursal)->get();
 				$suc = Sucursal::findOrFail($sucursal);			
 				return View::make('informes.IngOrden')->with(array('ordenes'=>$ordenes,'local'=>$suc->nombre,
-					'inicio'=>$fechaInicio,'final'=>$fechaFinal,'sucursal'=>$sucursal));
+					'inicio'=>$fechaInicio,'final'=>$fechaFinal,'sucursal'=>$sucursal,'ordenes2'=>$ordenes2));
 			}
 		}else{
 			return Redirect::route('informes')->with('status','error');			
@@ -133,6 +137,34 @@ class InformeController extends BaseController
 		}
 		else{
 			return Redirect::route('informes')->with('status','error');	
+		}
+	}
+
+	/** 
+	* Informe de órdenes de trabajo terminadas por un técnico
+	* y estragadas al usuario
+	*
+	* @param
+	* @return Response
+	**/
+	public function OnderRepEntTecnico()
+	{		
+		$tecnico = Input::get('tecnico');
+		$fechaInicio = Input::get('fechaInicio');
+		$fechaFinal = Input::get('fechaFinal');
+		$reglas = array('tecnico'=>'required',
+			'fechaInicio'=>'required',
+			'fechaFinal'=>'required');
+		$validador = Validator::make(Input::all(),$reglas);
+		if($validador->passes() && self::validaFechas($fechaInicio, $fechaFinal)){
+			$ordenes = Orden::whereBetween('fecha_terminado',array($fechaInicio,$fechaFinal))
+			->whereRaw('entregado = ? and tecnico = ?',array('1',$tecnico))
+			->paginate(15);
+			$tec = User::findOrFail($tecnico);			
+			return View::make('informes.repTermEntrTecnico')->with(array('tecnico'=>$tecnico,'inicio'=>$fechaInicio,'final'=>$fechaFinal,
+				'ordenes'=>$ordenes,'tec'=>$tec));
+		}else{
+			return Redirect::route('informes')->with('status','error'); 
 		}
 	}
 
