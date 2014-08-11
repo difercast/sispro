@@ -15,7 +15,7 @@
  	@if($inicio && $final && $tec) 
  		<?php  $emp = Empresa::findOrFail(1); ?>		 		
  		<h2 align="center">{{$emp->razon_comercial}}</h2>
- 		<h3 align="center">Equipos reparados por técnico</h3>
+ 		<h3 align="center">Ordenes de trabajo terminados un por técnico</h3>
  		<p align="center">
  			<strong>Período: </strong> 	{{$inicio}} a {{$final}}<br/>
  			<strong>Técnico: </strong> {{$tec->nombres}} {{$tec->apellidos}}</p>
@@ -65,7 +65,7 @@
  			<br/><br/><br/><br/>
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
- 			{{HTML::link('#','Generar documento',array('data-role'=>'button'))}}
+ 			{{HTML::link('ordenTerminadaTecnicoPDF/'.$inicio.'/'.$final.'/'.$tecnico,'Generar documento',array('data-role'=>'button'))}}
  			{{HTML::link('informe','Regresar',array('data-role'=>'button'))}}
  		</div>
  		 		

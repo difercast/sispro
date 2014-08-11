@@ -45,7 +45,84 @@ Route::get('ingOrden/{numOrden}', function($numOrden){
 	$html = View::make('imprimir.ingresoOrdenImp')->with(array('sucursal'=>$sucursal,'empresa'=>$empresa,'orden'=>$orden,
 		'cliente'=>$cliente,'equipo'=>$equipo,'usuario'=>$userRecep,'tecnico'=>$tecnico));	
 	return PDF::load($html, 'A4', 'portrait')->show();					    	
+});
+//imprimir Informe de ingreso de órdenes de trabajo a la empresa
+Route::get('ingresoPDF/{inicio}/{final}/{sucursal}', function($inicio,$final,$sucursal){
+	if(isset($inicio) && isset($final) && isset($sucursal)){
+		if($sucursal == '0'){
+			$ordenes = Orden::whereBetween('fecha_ingreso',array($inicio,$final))
+			->orderBy('id','desc')->get();				
+			$html =  View::make('imprimir.infIngresos')->with(array('ordenes'=>$ordenes,'local'=>'Todos los locales',
+				'inicio'=>$inicio,'final'=>$final));
+			return PDF::load($html, 'A4', 'portrait')->show();
+		}else{
+			$ordenes = Orden::whereBetween('fecha_ingreso', array($inicio, $final))			
+				->where('Sucursal_id','=',$sucursal)->orderBy('id','desc')
+				->get();
+			$sucur = Sucursal::findOrFail($sucursal);
+			$html =  View::make('imprimir.infIngresos')->with(array('ordenes'=>$ordenes,'local'=>$sucur->nombre,
+				'inicio'=>$inicio,'final'=>$final));
+			return PDF::load($html, 'A4', 'portrait')->show();
+		}
+	}else{
+		return Redirect::route('informes')->with('status','error');
+	}					    	
+});
+//imprimir Informe de órdenes de trabajo ingresadas a la empresa por un usuario
+Route::get('ingresoUserPDF/{inicio}/{final}/{user}',function($inicio,$final,$user){
+	if(isset($inicio) && isset($final) && isset($user)){
+		$ordenes = Orden::whereBetween('fecha_ingreso', array($inicio, $final))			
+		->where('user_id','=',$user)->get();
+		$usuario = User::findOrFail($user);
+		$html = View::make('imprimir.infIngresoUser')->with(array('inicio'=>$inicio,'final'=>$final,'ordenes'=>$ordenes,
+			'usuario'=>$usuario));		
+		return PDF::load($html, 'A4', 'portrait')->show();
+	}else{
+		return Redirect::route('informes')->with('status','error');
+	}
+});
 
+//Imprimir informe de órdenes de trabajo temrinadas por un técnico
+Route::get('ordenTerminadaTecnicoPDF/{inicio}/{final}/{tecnico}',function($inicio,$final,$tecnico){
+	if(isset($inicio) && isset($final) && isset($tecnico)){
+		$ordenes = Orden::whereBetween('fecha_terminado',array($inicio,$final))
+		->orderBy('id','desc')->get();			
+		$tec = User::findOrFail($tecnico);
+		$html = View::make('imprimir.infRepTerminada')->with(array('inicio'=>$inicio,'final'=>$final,
+				'ordenes'=>$ordenes,'tecnico'=>$tec));
+		return PDF::load($html,'A4','portrait')->show();
+	}else{
+		return Redirect::route('informes')->with('status','error');
+	}
+});
+
+//Imprimir informe de órdenes de trabajo entregadas por un vendedor
+Route::get('ordenEntregadaPDF/{inicio}/{final}/{vendedor}',function($inicio,$final,$vendedor){
+	if(isset($inicio) && isset($final) && isset($vendedor)){
+		$ordenes = Orden::whereRaw('entregado = ? and vendedor_id = ?', array('1',$vendedor))
+		->orderBy('id','desc')->get();			
+		$vend = User::findOrFail($vendedor);		
+		$html = View::make('imprimir.infOrdenEntregada')->with(array('ordenes'=>$ordenes,'inicio'=>$inicio,'final'=>$final,
+			'vendedor'=>$vend));
+		return PDF::load($html, 'A4', 'portrait')->show();
+	}else{
+		return Redirect::route('informes')->with('status','error');
+	}
+});
+
+//Imprimir informe de órdenes de trabajo terminadas por un técnico y entregadas a l cliente
+Route::get('ordenRepEntregadaPDF/{inicio}/{final}/{tecnico}',function($inicio,$final,$tecnico){
+	if(isset($inicio) && isset($final) && isset($tecnico)){
+		$ordenes = Orden::whereBetween('fecha_terminado',array($inicio,$final))
+		->whereRaw('entregado = ? and tecnico = ?',array('1',$tecnico))
+		->orderBy('id','desc')->get();
+		$tec = User::findOrFail($tecnico);			
+		$html = View::make('imprimir.infOrdenTermEntregada')->with(array('tecnico'=>$tec,'inicio'=>$inicio,'final'=>$final,
+			'ordenes'=>$ordenes));
+		return PDF::load($html,'A4','portrait')->show();
+	}else{
+		return Redirect::route('informes')->with('status','error');
+	}
 });
 
 //Equipos ingresados
@@ -120,6 +197,8 @@ Route::group(array('prefix'=>'informe'),function()
 	Route::get('repTerminadas', 'InformeController@RepTerminadas');
 	Route::get('ordenEntreg', 'InformeController@ordenesEntregadas');
 	Route::get('ordenEntTecnico','InformeController@OnderRepEntTecnico');
+	//Imprimir informes
+	//Route::get('ingresoPDF','InformeController@ingresoPDF');
 	
 	Route::post('ingresoEquiposUser','InformeController@ingresoUsers');
 	Route::post('reparadosTecnico','InformeController@reparadosTecnico');

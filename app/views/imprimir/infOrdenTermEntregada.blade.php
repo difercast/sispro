@@ -11,48 +11,54 @@
 	{{HTML::style('css/sispro/jquery.mobile.icons.min.css');}}
 </head>
 <body>
-	@if($inicio && $final && $local && $ordenes)
+	@if($inicio && $final && $tecnico && $ordenes)
 	<div data-role="page">
 		<div data-role="header">
 			<?php  $emp = Empresa::findOrFail(1); ?>
 		</div>
 		<div data-role="content">							 	
  		<h2 align="center">{{$emp->razon_comercial}}</h2>
- 		<h3 align="center">Ordenes de trabajo ingresadas a la empresa</h3>
+ 		<h3 align="center">Ordenes de trabajo terminadas por un t&eacute;cnico y entregadas al cliente</h3>
  		<p align="center">
  			<strong>Per&iacute;odo: </strong> 	{{$inicio}} a {{$final}}<br/>
- 			<strong>Sucursal: </strong> {{$local}}</p>
+ 			<strong>T&eacute;cnico: </strong> {{$tecnico->nombres }} {{$tecnico->apellidos}}</p>
  		<p>
  			<strong>N&uacute;mero de &oacute;rdenes de trabajo: </strong>{{count($ordenes)}} 			
  		</p>
+ 		<?php $totalGeneral = 0; ?>
  		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" >
 	 			<thead>
 	 				<tr>
-	 					<th>Orden</th>
-	 					<th>Ingreso</th>
-	 					<th>Usuario</th>
-	 					<th>Cliente</th> 					
-	 					<th>Equipo</th>	 					
-	 					<th>T&eacute;cnico</th>
+	 					<th>Orden</th>											
+						<th>Cliente</th>											
+						<th>Equipo</th>
+						<th>Detalle de reparaci&oacute;n</th>
+						<th>Fecha terminado</th>
+						<th>Fecha entregado</th>
+						<th>Presupuesto</th>
+						<th>Vendedor</th>	 					
 	 				</tr>
 	 			</thead>
 	 			<tbody>
 	 				@foreach($ordenes as $orden)
 	 				<tr>	 					 		
-	 					<td align="center">{{$orden->id}}</td>
-	 					<td>{{$orden->fecha_ingreso}}</td>
-	 					<?php $user = User::findOrFail($orden->user_id) ?>
-	 					<td align="center">{{$user->username}}</td>
+	 					<td>{{$orden->id}}</td>	 					
 	 					<?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
-	 					<td>{{$cliente->nombres}}</td>
+	 					<td>{{$cliente->nombres}}</td>	 					
 	 					<?php $equipo = Equipo::findOrFail($orden->equipo_id); ?>	 					 
-	 					<td>{{$equipo->tipo}} {{$equipo->marca}} {{$equipo->modelo}}</td>	 					
-	 					<?php $tec = User::findOrFail($orden->tecnico) ?>
-	 					<td align="center">{{$tec->nombres}}</td>
+	 					<td>{{$equipo->tipo}} {{$equipo->marca}} {{$equipo->modelo}}</td>
+	 					<td>{{$orden->informe}}</td>
+	 					<td>{{$orden->fecha_terminado}}</td>
+	 					<td>{{$orden->fecha_entregado}}</td>	 						 					
+	 					<?php $vendedor = User::findOrFail($orden->vendedor_id) ?>
+	 					<td>$ {{$orden->total}}</td>
+	 					<td>{{$vendedor->nombres}} {{$vendedor->apellidos}}</td> 	 					
 	 				</tr>
+	 				<?php $totalGeneral += $orden->total; ?>
 	 				@endforeach
 	 			</tbody>
 	 		</table><br/>
+	 		<p><strong>Total presupuestado: </strong> {{$totalGeneral}}</p>
 		</div>
 	</div>
 	@endif
@@ -60,4 +66,3 @@
 </html>
 {{HTML::script('js/jquery.js');}}
 {{HTML::script('js/jquery.mobile-1.4.2.js')}}
-

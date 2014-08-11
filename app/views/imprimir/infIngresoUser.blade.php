@@ -11,17 +11,17 @@
 	{{HTML::style('css/sispro/jquery.mobile.icons.min.css');}}
 </head>
 <body>
-	@if($inicio && $final && $local && $ordenes)
+	@if($inicio && $final && $usuario && $ordenes)
 	<div data-role="page">
 		<div data-role="header">
 			<?php  $emp = Empresa::findOrFail(1); ?>
 		</div>
 		<div data-role="content">							 	
  		<h2 align="center">{{$emp->razon_comercial}}</h2>
- 		<h3 align="center">Ordenes de trabajo ingresadas a la empresa</h3>
+ 		<h3 align="center">Ordenes de trabajo ingresadas a la empresa por un usuario</h3>
  		<p align="center">
  			<strong>Per&iacute;odo: </strong> 	{{$inicio}} a {{$final}}<br/>
- 			<strong>Sucursal: </strong> {{$local}}</p>
+ 			<strong>Usuario: </strong> {{$usuario->nombres }} {{$usuario->apellidos}}</p>
  		<p>
  			<strong>N&uacute;mero de &oacute;rdenes de trabajo: </strong>{{count($ordenes)}} 			
  		</p>
@@ -60,4 +60,3 @@
 </html>
 {{HTML::script('js/jquery.js');}}
 {{HTML::script('js/jquery.mobile-1.4.2.js')}}
-

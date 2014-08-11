@@ -17,17 +17,17 @@
  		$totalGeneral = 0;
  		?>		 		
  		<h2 align="center">{{$emp->razon_comercial}}</h2>
- 		<h3 align="center">Equipos reparados por técnico y entregados</h3>
+ 		<h3 align="center">Ordenes de trabajo terminadas por un técnico y entregados al cliente</h3>
  		<p align="center">
  			<strong>Período: </strong> 	{{$inicio}} a {{$final}}<br/>
  			<strong>Técnico: </strong> {{$tec->nombres}} {{$tec->apellidos}}</p>
  		@if($ordenes)
-
  			<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" >
 	 			<thead>
 	 				<tr>
 	 					<th>Nro de orden</th>											
-						<th>Cliente</th>						
+						<th>Cliente</th>
+						<th>Sucursal</th>						
 						<th>Equipo</th>
 						<th>Detalle de reparación</th>
 						<th>Fecha terminado</th>
@@ -65,7 +65,8 @@
 
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
- 			{{HTML::link('#','Generar documento',array('data-role'=>'button'))}}
+ 			{{HTML::link('ordenRepEntregadaPDF/'.$inicio.'/'.$final.'/'.$tecnico,'Generar documento',array('target'=>'_blank',
+ 			'data-role'=>'button'))}}
  			{{HTML::link('informe','Regresar',array('data-role'=>'button'))}}
  		</div>
  		 		

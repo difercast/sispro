@@ -66,7 +66,7 @@
  			<br/><br/><br/><br/>
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
- 			{{HTML::link('#','Generar documento',array('data-role'=>'button'))}}
+ 			{{HTML::link('ingresoUserPDF/'.$inicio.'/'.$final.'/'.$user,'Generar documento',array('target'=>'_blank','data-role'=>'button'))}}
  			{{HTML::link('informe','Regresar',array('data-role'=>'button'))}}
  		</div>
  		 		

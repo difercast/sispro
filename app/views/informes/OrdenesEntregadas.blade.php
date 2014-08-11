@@ -15,7 +15,7 @@
  	@if($inicio && $final && $vend) 
  		<?php  $emp = Empresa::findOrFail(1); ?>		 		
  		<h2 align="center">{{$emp->razon_comercial}}</h2>
- 		<h3 align="center">Equipos entregados por vendedor</h3>
+ 		<h3 align="center">Ordenes de trabajo entregados por un vendedor</h3>
  		<p align="center">
  			<strong>Período: </strong> 	{{$inicio}} a {{$final}}<br/>
  			<strong>Técnico: </strong> {{$vend->nombres}} {{$vend->apellidos}}</p>
@@ -60,7 +60,8 @@
  			<br/><br/><br/><br/>
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
- 			{{HTML::link('#','Generar documento',array('data-role'=>'button'))}}
+ 			{{HTML::link('ordenEntregadaPDF/'.$inicio.'/'.$final.'/'.$vendedor,'Generar documento',array('target'=>'_blank',
+ 			'data-role'=>'button'))}}
  			{{HTML::link('informe','Regresar',array('data-role'=>'button'))}}
  		</div>
  		 		

@@ -163,7 +163,7 @@ class InformeController extends BaseController
 		if($validador->passes() && self::validaFechas($fechaInicio, $fechaFinal)){
 			$ordenes = Orden::whereBetween('fecha_terminado',array($fechaInicio,$fechaFinal))
 			->whereRaw('entregado = ? and tecnico = ?',array('1',$tecnico))
-			->paginate(15);
+			->orderBy('id','desc')->paginate(15);
 			$tec = User::findOrFail($tecnico);			
 			return View::make('informes.repTermEntrTecnico')->with(array('tecnico'=>$tecnico,'inicio'=>$fechaInicio,'final'=>$fechaFinal,
 				'ordenes'=>$ordenes,'tec'=>$tec));
