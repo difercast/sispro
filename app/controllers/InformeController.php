@@ -146,7 +146,7 @@ class InformeController extends BaseController
 
 	/** 
 	* Informe de órdenes de trabajo terminadas por un técnico
-	* y estragadas al usuario
+	* y estregadas al usuario
 	*
 	* @param
 	* @return Response
@@ -161,7 +161,7 @@ class InformeController extends BaseController
 			'fechaFinal'=>'required');
 		$validador = Validator::make(Input::all(),$reglas);
 		if($validador->passes() && self::validaFechas($fechaInicio, $fechaFinal)){
-			$ordenes = Orden::whereBetween('fecha_terminado',array($fechaInicio,$fechaFinal))
+			$ordenes = Orden::whereBetween('fecha_entregado',array($fechaInicio,$fechaFinal))
 			->whereRaw('entregado = ? and tecnico = ?',array('1',$tecnico))
 			->orderBy('id','desc')->paginate(15);
 			$tec = User::findOrFail($tecnico);			
@@ -170,6 +170,45 @@ class InformeController extends BaseController
 		}else{
 			return Redirect::route('informes')->with('status','error'); 
 		}
+	}
+
+	/** 
+	* Informe de órdenes de trabajo terminadas y entregadas en una usucursal
+	*
+	* @param
+	* @return Response
+	**/
+	public function entregadoSuc()
+	{
+		$sucursal = Input::get('sucursal');
+		$fechaInicio = date(Input::get('fechaInicio'));
+		$fechaFinal = date(Input::get('fechaFinal'));
+		$reglas = array(
+			'sucursal' => 'required',
+			'fechaInicio' => 'required',
+			'fechaFinal' => 'required');
+		$validador = Validator::make(Input::all(),$reglas);
+		if($validador->passes() && self::validaFechas($fechaInicio,$fechaFinal)){
+			if($sucursal == '0'){
+				$ordenes = Orden::whereBetween('fecha_entregado',array($fechaInicio,$fechaFinal))
+				->where('entregado','=','1')
+				->orderBy('id','desc')->paginate(15);
+				$ordenes2 = Orden::whereBetween('fecha_entregado',array($fechaInicio,$fechaFinal))
+				->where('entregado','=','1')->get();
+				return View::make('informes.ordenEntregadaSuc')->with(array('suc'=>'Todos los locales','inicio'=>$fechaInicio,
+					'final'=>$fechaFinal, 'ordenes'=>$ordenes,'ordenes2'=>$ordenes2,'sucursal'=>$sucursal));
+				//return View::make('hello');
+			}else{
+				$ordenes = Orden::whereBetween('fecha_entregado',array($fechaInicio,$fechaFinal))
+				->whereRaw('entregado = ? and Sucursal_id = ?',array('1',$sucursal))				
+				->orderBy('id','desc')->paginate(15);
+				$ordenes2 = Orden::whereBetween('fecha_entregado',array($fechaInicio,$fechaFinal))
+				->whereRaw('entregado = ? and Sucursal_id = ?',array('1',$sucursal))->get();
+				$suc = Sucursal::findOrFail($sucursal);
+				return View::make('informes.ordenEntregadaSuc')->with(array('suc'=>$suc->nombre,'inicio'=>$fechaInicio,
+					'final'=>$fechaFinal,'ordenes'=>$ordenes,'ordenes2'=>$ordenes2,'sucursal'=>$sucursal));
+			}
+		}	
 	}
 
 	/** 

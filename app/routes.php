@@ -125,11 +125,37 @@ Route::get('ordenRepEntregadaPDF/{inicio}/{final}/{tecnico}',function($inicio,$f
 	}
 });
 
+//Imprimir informe de órdenes de trabajo entregadas en una sucursal
+Route::get('ordenEntregadaSucPDF/{inicio}/{final}/{sucursal}',function($inicio,$final,$sucursal){
+	if(isset($inicio) && isset($final) && isset($sucursal)){
+		if($sucursal == '0'){
+			$ordenes = Orden::whereBetween('fecha_entregado',array($inicio,$final))
+			->where('entregado','=','1')->orderBy('id','desc')->get();						
+			$html = View::make('imprimir.infOrdenEntregadaSuc')->with(array('sucursal'=>'Todos los locales','inicio'=>$inicio,
+				'final'=>$final,'ordenes'=>$ordenes));
+			return PDF::load($html,'A4','portrait')->show();	
+		}else{
+			$ordenes = Orden::whereBetween('fecha_entregado',array($inicio,$final))
+			->whereRaw('entregado = ? and Sucursal_id = ?',array('1',$sucursal))
+			->orderBy('id','desc')->get();
+			$suc = Sucursal::findOrFail($sucursal);
+			$html = View::make('imprimir.infOrdenEntregadaSuc')->with(array('sucursal'=>$suc->nombre,'inicio'=>$inicio,
+				'final'=>$final,'ordenes'=>$ordenes));
+			return PDF::load($html,'A4','portrait')->show();	
+		}
+	}else{
+		return Redirect::route('informes')->with('status','error');
+	}
+});
+
 //Equipos ingresados
 Route::get('infIngresoOrden/{sucursal}/{inicio},{final}', function($sucursal, $inicio, $orden){
 	$suc = Sucursal::findOrFail(User::findOrFail(Auth::user()->sucursal_id));
 	$empresa = Empresa::findOrFail($suc->empresa_id);
 });
+
+
+
 /**
 * Rutas para las pantallas de inicio de sesión de los usuarios
 * según el nivel al que pertenescan
@@ -197,14 +223,7 @@ Route::group(array('prefix'=>'informe'),function()
 	Route::get('repTerminadas', 'InformeController@RepTerminadas');
 	Route::get('ordenEntreg', 'InformeController@ordenesEntregadas');
 	Route::get('ordenEntTecnico','InformeController@OnderRepEntTecnico');
-	//Imprimir informes
-	//Route::get('ingresoPDF','InformeController@ingresoPDF');
-	
-	Route::post('ingresoEquiposUser','InformeController@ingresoUsers');
-	Route::post('reparadosTecnico','InformeController@reparadosTecnico');
-	Route::post('sinRevisar','InformeController@ordenesSinRevisar');
-	Route::post('entregadosPorVendedor', 'InformeController@entregadosVendedor');
-	Route::post('repTecnicoEntr', 'InformeController@repTecnicoEntregados');
+	Route::get('entregadoSuc','InformeController@entregadoSuc');
 });
 
 
