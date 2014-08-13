@@ -64,4 +64,15 @@ $(document).on('pageinit',function(){
 			fechaFinal:{required:'Campo requerido'}
 		}
 	});
+
+	$('#formOrdenEntgdSuc').validate({		
+		rules:{
+			fechaInicio: {required: true},
+			fechaFinal: {required: true}
+		},
+		messages:{
+			fechaInicio:{required:'Campo requerido'},
+			fechaFinal:{required:'Campo requerido'}
+		}
+	});	
 });
