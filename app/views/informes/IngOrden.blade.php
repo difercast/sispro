@@ -28,6 +28,9 @@
 	 					<th>Usuario</th>
 	 					<th>Cliente</th> 					
 	 					<th>Equipo</th>
+	 					@if($local == 'Todos los locales')
+	 						<th>Sucursal</th>
+	 					@endif
 	 					<th>Estado</th>
 	 					<th>Entregado</th>
 	 					<th>Técnico</th>
@@ -44,6 +47,10 @@
 	 					<td>{{$cliente->nombres}}</td>
 	 					<?php $equipo = Equipo::findOrFail($orden->equipo_id); ?>	 					 
 	 					<td>{{$equipo->tipo}} {{$equipo->marca}} {{$equipo->modelo}}</td>
+	 					@if($local == 'Todos los locales')
+	 						<?php $sucur = Sucursal::findOrFail($orden->Sucursal_id) ?>
+	 						<td>{{$sucur->nombre}}</td>
+	 					@endif
 	 					@if($orden->estado == '0')
 	 						<td>Sin revisar</td>
 	 					@elseif($orden->estado == '1')
