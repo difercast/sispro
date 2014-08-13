@@ -75,7 +75,7 @@
 
  		{{--Ordenes de trabajo terminadas por técnico--}}
  		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false" data-corners="false">
- 			<h2>Ordenes de trabajo terminadas</h2>
+ 			<h2>Ordenes de trabajo terminadas por un técnico</h2>
  			{{Form::open(array('url'=>'informe/repTerminadas', 'method' => 'GET', 'id' => 'FormRepTerminadas'))}}
  				<div class="ui-grid-a ui-responsive">
 	 				<div class="ui-block-a bloque"> 					 					

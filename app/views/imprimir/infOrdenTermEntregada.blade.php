@@ -16,7 +16,7 @@
 		<div data-role="header">
 			<?php  $emp = Empresa::findOrFail(1); ?>
 		</div>
-		<div data-role="content">							 	
+		<div data-role="content" style="font-size: 75%;">							 	
  		<h2 align="center">{{$emp->razon_comercial}}</h2>
  		<h3 align="center">Ordenes de trabajo terminadas por un t&eacute;cnico y entregadas al cliente</h3>
  		<p align="center">
@@ -26,7 +26,7 @@
  			<strong>N&uacute;mero de &oacute;rdenes de trabajo: </strong>{{count($ordenes)}} 			
  		</p>
  		<?php $totalGeneral = 0; ?>
- 		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" >
+ 		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center">
 	 			<thead>
 	 				<tr>
 	 					<th>Orden</th>											
@@ -61,6 +61,10 @@
 	 		<p><strong>Total presupuestado: </strong> {{$totalGeneral}}</p>
 		</div>
 	</div>
+	@else
+ 		<br/>
+ 		<p><strong>No existen registros para mostrar</strong></p>
+ 		<br/>
 	@endif
 </body>
 </html>

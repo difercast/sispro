@@ -24,27 +24,27 @@
  			<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" >
 	 			<thead>
 	 				<tr>
-	 					<th>Nro de orden</th>
-						<th>Sucursal</th>
+	 					<th>Nro de orden</th>						
 						<th>cliente</th>
 						<th>Equipo</th>
 						<th>Fecha de entrega</th>					
 						<th>Informe</th>
+						<th>Técnico</th>
 						<th>Total</th>	 					
 	 				</tr>
 	 			</thead>
 	 			<tbody>
 	 				@foreach($ordenes as $orden)
 	 				<tr>	 					 		
-	 					<td>{{$orden->id}}</td>	
-	 					<?php $suc = Sucursal::findOrFail($orden->Sucursal_id) ?> 
-	 					<td>{{$suc->nombre}}</td> 					
+	 					<td align="center">{{$orden->id}}</td>		 									
 	 					<?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
 	 					<td>{{$cliente->nombres}}</td>	 					
 	 					<?php $equipo = Equipo::findOrFail($orden->equipo_id); ?>	 					 
 	 					<td>{{$equipo->tipo}} {{$equipo->marca}} {{$equipo->modelo}}</td>
-	 					<td>{{$orden->fecha_entregado}}</td>
+	 					<td align="center">{{$orden->fecha_entregado}}</td>
 	 					<td>{{$orden->informe}}</td>
+	 					<?php $tecn = User::findOrFail($orden->tecnico) ?>
+	 					<td>{{$tecn->nombres}}</td>
 	 					<td>$ {{$orden->total}}</td> 					
 	 				</tr>
 	 				<?php $totalGeneral += $orden->total; ?>
@@ -55,9 +55,9 @@
 	 		<p><strong>Número de órdenes:</strong> {{count($ordenes2)}}<br/><br/>
 				<strong>Total presupuestado:</strong> ${{ $totalGeneral}} </p>
  		@else
- 			<br/><br/><br/><br/>
- 			<p align="center"><strong>No existen registros para mostrar</strong></p>
- 			<br/><br/><br/><br/>
+ 			<br/>
+ 			<p><strong>No existen registros para mostrar</strong></p>
+ 			<br/>
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
  			{{HTML::link('ordenEntregadaPDF/'.$inicio.'/'.$final.'/'.$vendedor,'Generar documento',array('target'=>'_blank',

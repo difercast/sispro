@@ -25,27 +25,37 @@
 		 			<thead>
 		 				<tr>
 		 					<th>Nro de orden</th>
-							<th>Sucursal</th>
+		 					@if($suc == 'Todos los locales')
+		 						<th>Sucursal</th>
+		 					@endif							
 							<th>cliente</th>
 							<th>Equipo</th>
+							<th>Técnico</th>
 							<th>Fecha de entrega</th>					
 							<th>Informe</th>
+							<th>Vendedor</th>
 							<th>Total</th>	 					
 		 				</tr>
 		 			</thead>
 		 			<tbody>
 		 				@foreach($ordenes as $orden)
 		 				<tr>	 					 		
-		 					<td>{{$orden->id}}</td>	
-		 					<?php $suc = Sucursal::findOrFail($orden->Sucursal_id) ?> 
-		 					<td>{{$suc->nombre}}</td> 					
+		 					<td align="center">{{$orden->id}}</td>
+		 					@if($suc == 'Todos los locales')
+		 						<?php $sucur = Sucursal::findOrFail($orden->Sucursal_id) ?> 
+		 						<td align="center">{{$sucur->nombre}}</td> 					
+		 					@endif			 					
 		 					<?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
 		 					<td>{{$cliente->nombres}}</td>	 					
 		 					<?php $equipo = Equipo::findOrFail($orden->equipo_id); ?>	 					 
 		 					<td>{{$equipo->tipo}} {{$equipo->marca}} {{$equipo->modelo}}</td>
+		 					<?php $tecnic = User::findOrFail($orden->tecnico) ?>
+		 					<td>{{$tecnic->nombres}}</td>
 		 					<td>{{$orden->fecha_entregado}}</td>
 		 					<td>{{$orden->informe}}</td>
-		 					<td>$ {{$orden->total}}</td> 					
+		 					<?php $vend = User::findOrFail($orden->vendedor_id) ?>
+		 					<td align="center">{{$vend->nombres}}</td>
+		 					<td align="center">$ {{$orden->total}}</td> 					
 		 				</tr>
 		 				<?php $totalGeneral += $orden->total; ?>
 		 				@endforeach
@@ -55,9 +65,9 @@
 	 		<p><strong>Número de órdenes:</strong> {{count($ordenes2)}}<br/><br/>
 				<strong>Total presupuestado:</strong> ${{ $totalGeneral}} </p>
  		@else
- 			<br/><br/><br/><br/>
- 			<p align="center"><strong>No existen registros para mostrar</strong></p>
- 			<br/><br/><br/><br/>
+ 			<br/>
+ 			<p><strong>No existen registros para mostrar</strong></p>
+ 			<br/>
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
  			{{HTML::link('ordenEntregadaSucPDF/'.$inicio.'/'.$final.'/'.$sucursal,'Generar documento',array('target'=>'_blank','data-role'=>'button'))}} 			

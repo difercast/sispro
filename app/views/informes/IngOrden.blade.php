@@ -74,9 +74,9 @@
 	 		{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'sucursal'=>$sucursal))->links()}}<br/><br/>
 	 		<p>Número de órdenes de trabajo: {{count($ordenes2)}}</p>
  		@else
- 			<br/><br/><br/><br/>
- 			<p align="center"><strong>No existen registros para mostrar</strong></p>
- 			<br/><br/><br/><br/>
+ 			<br/>
+ 			<p><strong>No existen registros para mostrar</strong></p>
+ 			<br/>
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
  			{{HTML::link('ingresoPDF/'.$inicio.'/'.$final.'/'.$sucursal,'Generar documento',array('target'=>'_blank','data-role'=>'button'))}}

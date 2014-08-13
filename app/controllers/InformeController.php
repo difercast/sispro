@@ -45,8 +45,8 @@ class InformeController extends BaseController
 					'inicio'=>$fechaInicio,'final'=>$fechaFinal,'sucursal'=>$sucursal,'ordenes2'=>$ordenes2));			
 			}else{
 				$ordenes = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))			
-				->where('Sucursal_id','=',$sucursal)->orderBy('id','desc')
-				->paginate(15);
+				->where('Sucursal_id','=',$sucursal)
+				->orderBy('id','desc')->paginate(15);
 				$ordenes2 = Orden::whereBetween('fecha_ingreso', array($fechaInicio, $fechaFinal))			
 				->where('Sucursal_id','=',$sucursal)->get();
 				$suc = Sucursal::findOrFail($sucursal);			
@@ -104,9 +104,11 @@ class InformeController extends BaseController
 			'fechaFinal'=>'required');
 		$validador = Validator::make(Input::all(), $reglas);
 		if($validador->passes() && self::validaFechas($fechaInicio, $fechaFinal)){
-			$ordenes = Orden::whereRaw('entregado = ? and vendedor_id = ?', array('1',$vendedor))
+			$ordenes = Orden::whereBetween('fecha_entregado', array($fechaInicio, $fechaFinal))
+			->whereRaw('entregado = ? and vendedor_id = ?', array('1',$vendedor))
 			->orderBy('id','desc')->paginate(15);
-			$ordenes2 = Orden::whereRaw('entregado = ? and vendedor_id = ?', array('1',$vendedor))->get();
+			$ordenes = Orden::whereBetween('fecha_entregado', array($fechaInicio, $fechaFinal))
+			->whereRaw('entregado = ? and vendedor_id = ?', array('1',$vendedor))->get();
 			$vend = User::findOrFail($vendedor);
 			return View::make('informes.OrdenesEntregadas')->with(array('ordenes'=>$ordenes,'inicio'=>$fechaInicio,
 				'final'=>$fechaFinal,'vend'=>$vend, 'vendedor'=>$vendedor,'ordenes2'=>$ordenes2));			
@@ -128,13 +130,14 @@ class InformeController extends BaseController
 		$fechaInicio = Input::get('fechaInicio');
 		$fechaFinal = Input::get('fechaFinal');
 		$reglas = array('tecnico'=>'required',
-			'fechaInicio'=>'required',
 			'fechaFinal'=>'required');
 		$validador = Validator::make(Input::all(),$reglas);
 		if($validador->passes() && self::validaFechas($fechaInicio,$fechaFinal)){
 			$ordenes = Orden::whereBetween('fecha_terminado',array($fechaInicio,$fechaFinal))
+			->whereRaw('estado = ? and tecnico = ?',array('2',$tecnico))			
 			->orderBy('id','desc')->paginate(15);
-			$ordenes2 = Orden::whereBetween('fecha_terminado',array($fechaInicio,$fechaFinal))->get();
+			$ordenes2 = Orden::whereBetween('fecha_terminado',array($fechaInicio,$fechaFinal))
+			->whereRaw('estado = ? and tecnico = ?',array('2',$tecnico))->get();
 			$tec = User::findOrFail($tecnico);
 			return View::make('informes.repTerminadas')->with(array('tecnico'=>$tecnico,'inicio'=>$fechaInicio,'final'=>$fechaFinal,
 				'ordenes'=>$ordenes,'tec'=>$tec,'ordenes2'=>$ordenes2));			
@@ -164,9 +167,11 @@ class InformeController extends BaseController
 			$ordenes = Orden::whereBetween('fecha_entregado',array($fechaInicio,$fechaFinal))
 			->whereRaw('entregado = ? and tecnico = ?',array('1',$tecnico))
 			->orderBy('id','desc')->paginate(15);
+			$ordenes2 = Orden::whereBetween('fecha_entregado',array($fechaInicio,$fechaFinal))
+			->whereRaw('entregado = ? and tecnico = ?',array('1',$tecnico))->get();
 			$tec = User::findOrFail($tecnico);			
 			return View::make('informes.repTermEntrTecnico')->with(array('tecnico'=>$tecnico,'inicio'=>$fechaInicio,'final'=>$fechaFinal,
-				'ordenes'=>$ordenes,'tec'=>$tec));
+				'ordenes'=>$ordenes,'tec'=>$tec,'ordenes2'=>$ordenes2));
 		}else{
 			return Redirect::route('informes')->with('status','error'); 
 		}

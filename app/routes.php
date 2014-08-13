@@ -72,7 +72,8 @@ Route::get('ingresoPDF/{inicio}/{final}/{sucursal}', function($inicio,$final,$su
 Route::get('ingresoUserPDF/{inicio}/{final}/{user}',function($inicio,$final,$user){
 	if(isset($inicio) && isset($final) && isset($user)){
 		$ordenes = Orden::whereBetween('fecha_ingreso', array($inicio, $final))			
-		->where('user_id','=',$user)->get();
+		->where('user_id','=',$user)
+		->orderBy('id','desc')->get();
 		$usuario = User::findOrFail($user);
 		$html = View::make('imprimir.infIngresoUser')->with(array('inicio'=>$inicio,'final'=>$final,'ordenes'=>$ordenes,
 			'usuario'=>$usuario));		
@@ -82,10 +83,11 @@ Route::get('ingresoUserPDF/{inicio}/{final}/{user}',function($inicio,$final,$use
 	}
 });
 
-//Imprimir informe de órdenes de trabajo temrinadas por un técnico
+//Imprimir informe de órdenes de trabajo terminadas por un técnico
 Route::get('ordenTerminadaTecnicoPDF/{inicio}/{final}/{tecnico}',function($inicio,$final,$tecnico){
 	if(isset($inicio) && isset($final) && isset($tecnico)){
 		$ordenes = Orden::whereBetween('fecha_terminado',array($inicio,$final))
+		->whereRaw('estado = ? and tecnico = ?',array('2',$tecnico))						
 		->orderBy('id','desc')->get();			
 		$tec = User::findOrFail($tecnico);
 		$html = View::make('imprimir.infRepTerminada')->with(array('inicio'=>$inicio,'final'=>$final,
@@ -99,7 +101,8 @@ Route::get('ordenTerminadaTecnicoPDF/{inicio}/{final}/{tecnico}',function($inici
 //Imprimir informe de órdenes de trabajo entregadas por un vendedor
 Route::get('ordenEntregadaPDF/{inicio}/{final}/{vendedor}',function($inicio,$final,$vendedor){
 	if(isset($inicio) && isset($final) && isset($vendedor)){
-		$ordenes = Orden::whereRaw('entregado = ? and vendedor_id = ?', array('1',$vendedor))
+		$ordenes = Orden::whereBetween('fecha_entregado',array($fechaInicio,$fechaFinal))
+		->whereRaw('entregado = ? and vendedor_id = ?', array('1',$vendedor))
 		->orderBy('id','desc')->get();			
 		$vend = User::findOrFail($vendedor);		
 		$html = View::make('imprimir.infOrdenEntregada')->with(array('ordenes'=>$ordenes,'inicio'=>$inicio,'final'=>$final,
@@ -110,10 +113,10 @@ Route::get('ordenEntregadaPDF/{inicio}/{final}/{vendedor}',function($inicio,$fin
 	}
 });
 
-//Imprimir informe de órdenes de trabajo terminadas por un técnico y entregadas a l cliente
+//Imprimir informe de órdenes de trabajo terminadas por un técnico y entregadas al cliente
 Route::get('ordenRepEntregadaPDF/{inicio}/{final}/{tecnico}',function($inicio,$final,$tecnico){
 	if(isset($inicio) && isset($final) && isset($tecnico)){
-		$ordenes = Orden::whereBetween('fecha_terminado',array($inicio,$final))
+		$ordenes = Orden::whereBetween('fecha_entregado',array($inicio,$final))
 		->whereRaw('entregado = ? and tecnico = ?',array('1',$tecnico))
 		->orderBy('id','desc')->get();
 		$tec = User::findOrFail($tecnico);			

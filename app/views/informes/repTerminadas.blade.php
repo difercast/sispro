@@ -15,7 +15,7 @@
  	@if($inicio && $final && $tec) 
  		<?php  $emp = Empresa::findOrFail(1); ?>		 		
  		<h2 align="center">{{$emp->razon_comercial}}</h2>
- 		<h3 align="center">Ordenes de trabajo terminados un por técnico</h3>
+ 		<h3 align="center">Ordenes de trabajo terminados por un técnico</h3>
  		<p align="center">
  			<strong>Período: </strong> 	{{$inicio}} a {{$final}}<br/>
  			<strong>Técnico: </strong> {{$tec->nombres}} {{$tec->apellidos}}</p>
@@ -25,8 +25,7 @@
 	 				<tr>
 	 					<th>Nro de orden</th>					
 						<th>Fecha de ingreso</th>
-						<th>Cliente</th>
-						<th>Sucursal</th>						
+						<th>Cliente</th>											
 						<th>Equipo</th>
 						<th>Detalle de reparación</th>
 						<th>Fecha terminado</th>
@@ -36,20 +35,18 @@
 	 			<tbody>
 	 				@foreach($ordenes as $orden)
 	 				<tr>	 					 		
-	 					<td>{{$orden->id}}</td>
+	 					<td align="center">{{$orden->id}}</td>
 	 					<td>{{$orden->fecha_ingreso}}</td>
 	 					<?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
-	 					<td>{{$cliente->nombres}}</td>
-	 					<?php $suc = Sucursal::findOrFail($orden->Sucursal_id) ?> 
-	 					<td>{{$suc->nombre}}</td>
+	 					<td>{{$cliente->nombres}}</td>	 					
 	 					<?php $equipo = Equipo::findOrFail($orden->equipo_id); ?>	 					 
 	 					<td>{{$equipo->tipo}} {{$equipo->marca}} {{$equipo->modelo}}</td>
 	 					<td>{{$orden->informe}}</td>
 	 					<td>{{$orden->fecha_terminado}}</td>	 						 					
 	 					@if($orden->entregado == '0')
-	 						<td>No</td>
+	 						<td align="center">No</td>
 	 					@else
-	 						<td>Si</td>
+	 						<td align="center">Si</td>
 	 					@endif	 					
 	 				</tr>
 	 				@endforeach
@@ -60,12 +57,12 @@
 	 		</div>
 	 		<p><strong>Número de órdenes:</strong> {{count($ordenes2)}}<br/><br/>
  		@else
- 			<br/><br/><br/><br/>
- 			<p align="center"><strong>No existen registros para mostrar</strong></p>
- 			<br/><br/><br/><br/>
+ 			<br/>
+ 			<p><strong>No existen registros para mostrar</strong></p>
+ 			<br/>
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
- 			{{HTML::link('ordenTerminadaTecnicoPDF/'.$inicio.'/'.$final.'/'.$tecnico,'Generar documento',array('data-role'=>'button'))}}
+ 			{{HTML::link('ordenTerminadaTecnicoPDF/'.$inicio.'/'.$final.'/'.$tecnico,'Generar documento',array('data-role'=>'button','target'=>'_blank'))}}
  			{{HTML::link('informe','Regresar',array('data-role'=>'button'))}}
  		</div>
  		 		

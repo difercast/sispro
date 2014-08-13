@@ -11,7 +11,7 @@
  	{{ HTML::link('informe','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
  @stop
  {{--principal--}}
- @section('principal') 	
+ @section('todo') 	
  	@if($nombres && $inicio && $final && $apellidos) 
  		<?php  $emp = Empresa::findOrFail(1); ?>		 		
  		<h2 align="center">{{$emp->razon_comercial}}</h2>
@@ -27,6 +27,7 @@
 	 					<th>Fecha de ingreso</th>
 	 					<th>Cliente</th> 					
 	 					<th>Equipo</th>
+	 					<th>Técnico</th>
 	 					<th>Estado</th>
 	 					<th>Entregado</th>	 					
 	 				</tr>
@@ -34,12 +35,14 @@
 	 			<tbody>
 	 				@foreach($ordenes as $orden)
 	 				<tr>	 					 		
-	 					<td>{{$orden->id}}</td>
-	 					<td>{{$orden->fecha_ingreso}}</td>
+	 					<td align="center">{{$orden->id}}</td>
+	 					<td align="center">{{$orden->fecha_ingreso}}</td>
 	 					<?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
 	 					<td>{{$cliente->nombres}}</td>
 	 					<?php $equipo = Equipo::findOrFail($orden->equipo_id); ?>	 					 
 	 					<td>{{$equipo->tipo}} {{$equipo->marca}} {{$equipo->modelo}}</td>
+	 					<?php $tecnic = User::findOrFail($orden->tecnico) ?>
+	 					<td>{{$tecnic->nombres}}</td>
 	 					@if($orden->estado == '0')
 	 						<td>Sin revisar</td>
 	 					@elseif($orden->estado == '1')
@@ -50,9 +53,9 @@
 	 						<td>Dado de baja</td>
 	 					@endif
 	 					@if($orden->entregado == '0')
-	 						<td>No</td>
+	 						<td align="center">No</td>
 	 					@else
-	 						<td>Si</td>
+	 						<td align="center">Si</td>
 	 					@endif	 					
 	 				</tr>
 	 				@endforeach
@@ -61,9 +64,9 @@
 	 			{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'user'=>$user))->links()}}<br/><br/>
 	 			<p><strong>Número de órdenes de trabajo: </strong>{{count($ordenes2)}}</p>		
  		@else
- 			<br/><br/><br/><br/>
- 			<p align="center"><strong>No existen registros para mostrar</strong></p>
- 			<br/><br/><br/><br/>
+ 			<br/>
+ 			<p><strong>No existen registros para mostrar</strong></p>
+ 			<br/>
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
  			{{HTML::link('ingresoUserPDF/'.$inicio.'/'.$final.'/'.$user,'Generar documento',array('target'=>'_blank','data-role'=>'button'))}}

@@ -21,13 +21,12 @@
  		<p align="center">
  			<strong>Período: </strong> 	{{$inicio}} a {{$final}}<br/>
  			<strong>Técnico: </strong> {{$tec->nombres}} {{$tec->apellidos}}</p>
- 		@if($ordenes)
+ 		@if($ordenes && $ordenes2 && count($ordenes2)!=0)
  			<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" >
 	 			<thead>
 	 				<tr>
 	 					<th>Nro de orden</th>											
-						<th>Cliente</th>
-						<th>Sucursal</th>						
+						<th>Cliente</th>						
 						<th>Equipo</th>
 						<th>Detalle de reparación</th>
 						<th>Fecha terminado</th>
@@ -39,18 +38,16 @@
 	 			<tbody>
 	 				@foreach($ordenes as $orden)
 	 				<tr>	 					 		
-	 					<td>{{$orden->id}}</td>	 					
+	 					<td align="center">{{$orden->id}}</td>	 					
 	 					<?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
-	 					<td>{{$cliente->nombres}}</td>
-	 					<?php $suc = Sucursal::findOrFail($orden->Sucursal_id) ?> 
-	 					<td>{{$suc->nombre}}</td>
+	 					<td>{{$cliente->nombres}}</td>	 					
 	 					<?php $equipo = Equipo::findOrFail($orden->equipo_id); ?>	 					 
 	 					<td>{{$equipo->tipo}} {{$equipo->marca}} {{$equipo->modelo}}</td>
 	 					<td>{{$orden->informe}}</td>
 	 					<td>{{$orden->fecha_terminado}}</td>
 	 					<td>{{$orden->fecha_entregado}}</td>	 						 					
 	 					<?php $vendedor = User::findOrFail($orden->vendedor_id) ?>
-	 					<td>$ {{$orden->total}}</td>
+	 					<td align="center">$ {{$orden->total}}</td>
 	 					<td>{{$vendedor->nombres}} {{$vendedor->apellidos}}</td> 	 					
 	 				</tr>
 	 				<?php $totalGeneral += $orden->total; ?>
@@ -60,9 +57,12 @@
 	 		<div align="center">
 	 			{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'tecnico'=>$tecnico))->links()}}<br/><br/>
 	 		</div>
-	 		<p><strong>Número de órdenes:</strong> {{count($ordenes)}}<br/><br/>
+	 		<p><strong>Número de órdenes:</strong> {{count($ordenes2)}}<br/><br/>
 			<strong>Total presupuestado:</strong> ${{ $totalGeneral}} </p>	 		 		
-
+		@else
+ 			<br/>
+ 			<p><strong>No existen registros para mostrar</strong></p>
+ 			<br/>
  		@endif
  		<div  data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
  			{{HTML::link('ordenRepEntregadaPDF/'.$inicio.'/'.$final.'/'.$tecnico,'Generar documento',array('target'=>'_blank',
