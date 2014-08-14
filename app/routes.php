@@ -229,7 +229,8 @@ Route::get('listaOrdenes',function(){
 	$cedula = Input::get('cedula');
 	$clientes = Cliente::where('cedula','=',$cedula)->get();
 	$cliente = $clientes[0];
-	$ordenes = Orden::where('cliente_id','=',$cliente->id)->get();		
+	$ordenes = Orden::where('cliente_id','=',$cliente->id)
+	->where('entregado','=','0')->get();		
 	return View::make('consulta.lista')->with('ordenes',$ordenes);
 });
 Route::get('consultaOrden/{orden}',function($orden){
