@@ -59,8 +59,6 @@
 		@else
 			<span>Las opciones para moficicar la información de la orden de trabajo no están disponibles porque la misma fue ingresada en otra sucursal</span>
 		@endif
-
-		
 		{{Form::open(array('id'=>'ordenForm'))}}
 			{{--Fecha de ingreso y usuario que ingresó el equipo--}}
 			<div class="ui-grid-a ui-responsive">

@@ -12,11 +12,8 @@
 @section('primario')
 	<div class="log">
         <h1 align="center">Ingreso clientes</h3>    
-        {{ Form::open(array('url'=>'logCliente')) }}            
+        {{ Form::open(array('url'=>'listaOrdenes', 'method'=>'GET')) }}            
             <div class="avatar" align="center"><img src="images/avatar.png"></div>            
-            @if(Session::has('login_errors'))
-                <p style="color: #FB1D1D" align="center"> El número de cédula ingresado no es correcto </p>
-            @endif
             {{Form::text('cedula','',array('data-mini'=>'true','placeholder'=>'Número de cédula'))}}            
             <div data-role="controlgroup" data-type="horizontal" align="center">            
                     {{ Form::submit('Ingresar')}}

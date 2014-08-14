@@ -206,17 +206,7 @@ Route::group(array('prefix'=>'informe'),function()
 
 		$vendedor = User::where('rol','=','vendedor');
 		$vendedores = $vendedor->lists('nombres','id');
-		//todos los usuarios
-		/*$users = User::all();
-		$user = $users->lists('nombres','id');
-		//Usuarios con rol Técnico
-		$tec = User::where('rol','=','tecnico')->get();
-		$tecnico = $tec->lists('nombres','id');
-		//Usuarios con rol vendedor
-		$ven = User::where('rol','=','vendedor')->get();
-		$vendedor = array(0 => 'Todos')+$ven->lists('nombres','id');
-		return View::make('informes.listaInformes')->with(array('sucursal'=>$select,'user'=>$user,'tecnicos'=>$tecnico,
-			'vendedores'=>$vendedor));*/				
+				
 		return View::make('informes.listaInf')->with(array('sucursal'=>$select,'user'=>$user,'tecnicos'=>$listaTecnicos,
 			'vendedores'=>$vendedores));
 	}));
@@ -229,6 +219,30 @@ Route::group(array('prefix'=>'informe'),function()
 	Route::get('entregadoSuc','InformeController@entregadoSuc');
 });
 
+
+/**
+* Consulta de estado de servicios de mantenimiento técnico
+* por parte de los clientes
+**/
+//Route::get('listaOrdenes','ConsultaController@buscarOrdenes');
+Route::get('listaOrdenes',function(){
+	$cedula = Input::get('cedula');
+	$clientes = Cliente::where('cedula','=',$cedula)->get();
+	$cliente = $clientes[0];
+	$ordenes = Orden::where('cliente_id','=',$cliente->id)->get();		
+	return View::make('consulta.lista')->with('ordenes',$ordenes);
+});
+Route::get('consultaOrden/{orden}',function($orden){
+	if(isset($orden)){
+		$ordenTrabajo = Orden::findOrFail($orden);
+		return View::make('consulta.detalleConsulta')->with('orden',$ordenTrabajo);
+	}else{
+		return Redirect::route('informes')->with('status','error');
+	}
+});
+
+
+//Route::get('consultaOrden','ConsultaController@consultaOrden');
 
 /**
 * Carga los datos del cliente en el formulario de ingreso de una
