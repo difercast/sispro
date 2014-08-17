@@ -15,24 +15,22 @@ Route::get('/',array('as'=>'index', function()
 {
 	return View::make('login');	
 }));
-route::get('ejemplo',function(){
-	$orden = Orden::findOrFail(20);
-	$html = View::make('imprimir.impOrden')->with('orden',$orden->id);
-	return PDF::load($html, 'A4', 'portrait')->show();					    	
-});
+
 /**
 * Rutas de inicio y cierre de sesión
 **/
+//Ruta de ingreso de usuarios del sistema
 Route::post('log','UserLogin@user');
 //Ruta de ingreso de clientes
 Route::get('logCliente',function(){
 	return View::make('loginCliente');	
 });
+//Ruta de cierre de sesión
 Route::get('logout', 'UserLogin@out');
 
-
-
-/*Rutas para generar documentos PDF*/
+/**
+* Rutas para generar documentos PDF
+**/
 //Ingreso orden 
 Route::get('ingOrden/{numOrden}', function($numOrden){
 	$orden = Orden::findOrFail($numOrden);
