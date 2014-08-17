@@ -10,6 +10,7 @@
 @stop
 {{--Primario--}}
 @section('principal')
+    @if($orden)
         <h3 align="center">Orden de trabajo Nro {{$orden->id}}</h3>      
         {{--Opción de la orden de trabajo--}}
         {{Form::open(array('id'=>'ordenForm'))}}
@@ -131,9 +132,12 @@
             @endif                                  
         {{Form::close()}}   
         <div data-role="controlgroup" data-type="horizontal" align="center">
-            {{HTML::link('logCliente','Aceptar',array('data-role'=>'button'))}}
+            {{HTML::link('logCliente','Principal',array('data-role'=>'button','data-mini'=>'true'))}}
         </div>
-    @stop
+    @else
+        <p>La orden de trabajo solicitada no se encuentra disponible</p> 
+    @endif
+@stop
 {{--Secundario--}}
 @section('secundario')
 	

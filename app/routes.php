@@ -34,6 +34,8 @@ Route::get('logout', 'UserLogin@out');
 //Ingreso orden 
 Route::get('ingOrden/{numOrden}', function($numOrden){
 	$orden = Orden::findOrFail($numOrden);
+	$html = View::make('imprimir.impOrden')->with('orden',$orden);	
+	/*
 	$userRecep = User::findOrFail($orden->user_id);
 	$sucursal = Sucursal::findOrFail($userRecep->sucursal_id);
 	$empresa = Empresa::findOrFail($sucursal->empresa_id);
@@ -41,7 +43,8 @@ Route::get('ingOrden/{numOrden}', function($numOrden){
 	$equipo = Equipo::findOrFail($orden->equipo_id);
 	$tecnico = User::findOrFail($orden->tecnico);	
 	$html = View::make('imprimir.ingresoOrdenImp')->with(array('sucursal'=>$sucursal,'empresa'=>$empresa,'orden'=>$orden,
-		'cliente'=>$cliente,'equipo'=>$equipo,'usuario'=>$userRecep,'tecnico'=>$tecnico));	
+		'cliente'=>$cliente,'equipo'=>$equipo,'usuario'=>$userRecep,'tecnico'=>$tecnico));
+*/
 	return PDF::load($html, 'A4', 'portrait')->show();					    	
 });
 //imprimir Informe de ingreso de órdenes de trabajo a la empresa
@@ -229,7 +232,7 @@ Route::get('listaOrdenes',function(){
 	$cliente = $clientes[0];
 	$ordenes = Orden::where('cliente_id','=',$cliente->id)
 	->where('entregado','=','0')->get();		
-	return View::make('consulta.lista')->with('ordenes',$ordenes);
+	return View::make('consulta.lista')->with(array('ordenes'=>$ordenes,'cliente'=>$cliente));
 });
 Route::get('consultaOrden/{orden}',function($orden){
 	if(isset($orden)){

@@ -18,7 +18,12 @@
 		<span>Bienvenido al sistema de gestión de reparaciones de equipos informáticos, para emprezar por favor elija una opción</span>
 		{{--Mensajes de error--}}
 		<?php $status=Session::get('status') ?>
-		@if($status == "errorDatos")
+		@if($status == "ordenCreada")
+			<div  class="mensajeOrdenCreada" id="mensajeOrdenCreada" align="center">
+				<p>Orden de trabajo N° {{Session::get('orden')}} ingresada correctamente				
+				 {{ HTML::link('ingOrden/'.Session::get('orden'), 'Generar documento',array('target'=>'_blank','data-role'=>'button','data-mini'=>'true','data-inline'=>'true')); }}</p>
+		</div>
+		@elseif($status == "errorDatos")
 			<div id="errorDatos"  align="center">
 				<p>Error al ingresar la información del cliente, verifica los datos e intenta de nuevo </p>
 			</div>

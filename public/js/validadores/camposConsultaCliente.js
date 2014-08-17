@@ -6,7 +6,6 @@ $(document).on('pageinit', function(event) {
 		var coeficientes = [2,1,2,1,2,1,2,1,2];
 		var total = 0;
 		var ultimoDigito = val.charAt(9);
-
 		if(val.length == 10){
 			if( (digitoRegion >= 1 && digitoRegion <= 24) && tercerDigito <= 6){
 				for( i=0; i<coeficientes.length; i++ ){
@@ -27,7 +26,6 @@ $(document).on('pageinit', function(event) {
 		}else return false;
 
 	});
-
 	$('#formLogCliente').validate({
 		rules: {
 			cedula: {

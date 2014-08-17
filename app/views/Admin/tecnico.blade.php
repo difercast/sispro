@@ -21,8 +21,7 @@
 			<div  class="mensajeOrdenCreada" id="mensajeOrdenCreada" align="center">
 				<p>Orden de trabajo N° {{Session::get('orden')}} ingresada correctamente				
 				 {{ HTML::link('ingOrden/'.Session::get('orden'), 'Generar documento',array('target'=>'_blank','data-role'=>'button','data-mini'=>'true','data-inline'=>'true')); }}</p>
-			</div>
-			
+		</div>	
 		@elseif($status == "errorEquipo")
 			<div id="error"  align="center">
 				<p>¡Error!, el equipo ya se encuenta ingresado a la empresa</p>
