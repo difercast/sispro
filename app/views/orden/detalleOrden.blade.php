@@ -30,29 +30,34 @@
 					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 						{{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
 						{{ HTML::link("#", 'Detalle del presupuesto',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
-						{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}
+						{{ HTML::link('DetalleOrden/'.$orden->id, 'Generar documento',array('data-role'=>'button','target'
+						=>'_blank')); }}
 					</div>					
 				@elseif($orden->entregado == '0' && $orden->estado == '2' && $orden->presupuestado == '0')
 					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 						{{ HTML::link( '#','Administrar orden',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
 						{{ HTML::link("#detallePresupuesto", 'Detalle del presupuesto',array('class'=>'ui-btn')); }}
-						{{ HTML::link('#', 'Generar documento',array('class'=>'ui-btn')); }}
+						{{ HTML::link('DetalleOrden/'.$orden->id, 'Generar documento',array('data-role'=>'button','target'
+						=>'_blank')); }}
 					</div>					
 				@elseif($orden->entregado == '1' || $orden->presupuestado == '1')					
 					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-						{{ HTML::link('#', 'Generar documento',array('data-role'=>'button')); }}
+						{{ HTML::link('DetalleOrden/'.$orden->id, 'Generar documento',array('data-role'=>'button','target'
+						=>'_blank')); }}
 					</div>					
 				@endif
 			@elseif (Auth::user()->rol == 'vendedor')
 				@if($orden->presupuestado == '1' && $orden->entregado == '0')
 					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 						{{ HTML::link('#panelEntrega', 'Entregar',array('data-role'=>'button')); }}
-						{{ HTML::link('#', 'Generar documento',array('data-role'=>'button')); }}
+						{{ HTML::link('DetalleOrden/'.$orden->id, 'Generar documento',array('data-role'=>'button','target'
+						=>'_blank')); }}
 					</div>
 				@else
 					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 						{{ HTML::link('#panelEntrega', 'Entregar',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
-						{{ HTML::link('#', 'Generar documento',array('data-role'=>'button')); }}
+						{{ HTML::link('DetalleOrden/'.$orden->id, 'Generar documento',array('data-role'=>'button','target'
+						=>'_blank')); }}
 					</div>
 				@endif
 			@endif

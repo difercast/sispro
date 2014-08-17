@@ -34,19 +34,16 @@ Route::get('logout', 'UserLogin@out');
 //Ingreso orden 
 Route::get('ingOrden/{numOrden}', function($numOrden){
 	$orden = Orden::findOrFail($numOrden);
-	$html = View::make('imprimir.impOrden')->with('orden',$orden);	
-	/*
-	$userRecep = User::findOrFail($orden->user_id);
-	$sucursal = Sucursal::findOrFail($userRecep->sucursal_id);
-	$empresa = Empresa::findOrFail($sucursal->empresa_id);
-	$cliente = Cliente::findOrFail($orden->cliente_id);
-	$equipo = Equipo::findOrFail($orden->equipo_id);
-	$tecnico = User::findOrFail($orden->tecnico);	
-	$html = View::make('imprimir.ingresoOrdenImp')->with(array('sucursal'=>$sucursal,'empresa'=>$empresa,'orden'=>$orden,
-		'cliente'=>$cliente,'equipo'=>$equipo,'usuario'=>$userRecep,'tecnico'=>$tecnico));
-*/
+	$html = View::make('imprimir.impOrden')->with('orden',$orden);		
 	return PDF::load($html, 'A4', 'portrait')->show();					    	
 });
+//Detalle de orden
+Route::get('DetalleOrden/{orden}', function($orden){
+	$ordenTrabajo = Orden::findOrFail($orden);
+	$html = View::make('imprimir.detalleOrden')->with('orden',$ordenTrabajo);
+	return PDF::load($html, 'A4', 'portrait')->show();
+});
+
 //imprimir Informe de ingreso de órdenes de trabajo a la empresa
 Route::get('ingresoPDF/{inicio}/{final}/{sucursal}', function($inicio,$final,$sucursal){
 	if(isset($inicio) && isset($final) && isset($sucursal)){
