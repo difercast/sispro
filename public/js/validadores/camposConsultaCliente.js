@@ -24,7 +24,6 @@ $(document).on('pageinit', function(event) {
 				}else return false;
 			}else return false;
 		}else return false;
-
 	});
 	$('#formLogCliente').validate({
 		rules: {

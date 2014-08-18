@@ -9,11 +9,9 @@
 
 class EmpresaController extends BaseController
 {
-
 	public $restful = true;
 	
 	//Constructor de la clase
-
 	public function __construct()
 	{
 		$this -> beforeFilter('auth');
@@ -66,9 +64,9 @@ class EmpresaController extends BaseController
 			'razon_social' => 'required',
 			'razon_comercial' => 'required',
 			'actividad' => 'required|numeric'
-			);
+		);
 		$validador = Validator::make(Input::all(),$reglas);
-		if($validador->passes() && $empresa->validarRuc(Input::get('ruc'))){
+		if($validador->passes() && $empresa->validarRuc(Input::get('ruc')) && $empresa->validaActividad(Input::get('actividad'))){
 			$empresa->ruc = Input::get('ruc');
 			$empresa->razon_social = Input::get('razon_social');
 			$empresa->razon_comercial = Input::get('razon_comercial');

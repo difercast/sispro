@@ -24,7 +24,7 @@
 			</div>
 			@yield('header')									
 		</div>
-		<div data-role="content">
+		<div data-role="content" style="font-size: 85%;">
 			<div class="principal">
 				@yield('principal')
 			</div>
