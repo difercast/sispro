@@ -145,10 +145,11 @@
 		@endif
 		<div data-role="controlgroup" data-type="horizontal" align="center">
 			{{ Form::submit('Guardar')}}
+			{{HTML::link('sucursal','Regresar',array('data-role'=>'button'))}}
 		</div>
 	@else
 		<div data-role="controlgroup" data-type="horizontal" align="center">
-			{{ HTML::link('sucursal','Aceptar',array('data-role'=>'button'))}}
+			{{ HTML::link('sucursal','Regresar',array('data-role'=>'button'))}}
 		</div>
 	@endif	
 	{{ Form::close() }}

@@ -17,15 +17,15 @@
 	<?php $status=Session::get('status') ?>
 	@if($status == 'error')
 		<div id="error" align="center">
-			<p>!Error!, por favor verifica la información </p>
+			<p>!Error!, por favor verifica la información ingresada</p>
 		</div>
 	@elseif($status == 'okCreado')
 		<div id="mensajeCrear" align="center">
-			<p>Información almacenada con éxito</p>
+			<p>Información de la sucursal almacenada con éxito</p>
 		</div>
 	@elseif($status == 'okEditado')
 		<div id="mensajeEditar" align="center">
-			<p>La información se editó con éxito</p>			
+			<p>La información de la sucursal se editó con éxito</p>			
 		</div>
 	@elseif($status == 'okInactivo') 
 		<div id="mensajeEstado" align="center">
@@ -43,6 +43,7 @@
 	<table data-role="table" id="movie-table-custom" data-mode="reflow" class="movie-list ui-responsive">
 		<thead>
 				<tr>
+					<th>Nro</th>
 					<th>Nombre</th>
 					<th>Provincia</th>
 					<th>Ciudad</th>
@@ -54,13 +55,14 @@
 			</thead>
 			<tbody>
 				@foreach($sucursal as $sucursal)
-				<tr>										
-					<td>{{ $sucursal -> nombre}}</td>
-					<td>{{ $sucursal -> provincia}}</td>
-					<td>{{ $sucursal -> ciudad}}</td>
-					<td>{{ $sucursal -> direccion}}</td>
-					<td>{{ $sucursal -> telefono}}</td>					
-					@if($sucursal -> estado == '1')					
+				<tr>
+					<td>{{$sucursal->id}}</td>										
+					<td>{{ $sucursal->nombre}}</td>
+					<td>{{ $sucursal->provincia}}</td>
+					<td>{{ $sucursal->ciudad}}</td>
+					<td>{{ $sucursal->direccion}}</td>
+					<td>{{ $sucursal->telefono}}</td>					
+					@if($sucursal->estado == '1')					
 						<td>Activo</td>
 					@else
 						<td>Inactivo</td>
@@ -90,12 +92,12 @@
 		<li data-role="list-divider">Opciones</li>
 		<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
 		<li data-icon="false" class="fondo">Sucursales</li>		
-		<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>
-		<li data-icon="false">{{ HTML::link('informe','Informes')}}</li>
+		<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>			
 		<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 		<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>
-		<li data-icon="false"><a href="#">Cambiar contrase&ntildea </a></li>
-		<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>		
+		<li data-icon="false">{{ HTML::link('presupuesto', 'Presupuestos'); }}</li>		
+		<li data-icon="false">{{ HTML::link('informe', 'Informes'); }}</li>					
+		<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>		
 	</ul>
 @stop
 {{--Scripts--}}

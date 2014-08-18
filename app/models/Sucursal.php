@@ -1,8 +1,7 @@
 <?php
-
 /** 
 *
-* Sistema de gestión de reparaciones de equipos informáticos de la empresa Sisprocompu
+* @Sistema de administración y control de servicios de mantenimiento técnico
 * @version 1.0      @modificado: 07 de marzo del 2014
 * @author Diego Castillo.
 *
@@ -13,9 +12,9 @@ class Sucursal extends Eloquent
 	protected $table = 'sucursales';
 
 	/**
-   * Determinar la relación con la empresas
+   * Relación entre Sucursal y Empresa
    * 
-   * 
+   * @param 
    * @return 
    **/
 	public function empresa()
@@ -24,20 +23,18 @@ class Sucursal extends Eloquent
     }
 
   /**
-   * Función para validar campos de teléfono y celular ingresados
+   * Validar campos de teléfono y celular ingresados
    * 
    * @param string telefono, string celular
-   * @return boolean true si el teléfono y celular son correctos
+   * @return boolean 
    **/  
   public function validarTelefonos($telefono, $celular)
   {
-    if(is_numeric($telefono) && is_numeric($celular) && substr($celular, 0,2) == '09' && strlen($telefono) == '7' &&  strlen($celular) == '10')
-    {
+    if(is_numeric($telefono) && is_numeric($celular) && substr($celular, 0,2) == '09' && strlen($telefono) == '7' 
+      &&  strlen($celular) == '10'){
         return true;        
-      
-    }else {
+    }else{
       return false;
     }
-    
   }
 }

@@ -4,15 +4,11 @@
 	<title>Editar empresa</title>
 	@show
 @stop
-{{--Sección head--}}
-@section('head')
-		
-@stop
 {{--Sección header--}}
 @section('header')
 	{{ HTML::link('empresa','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
-{{--Sección primario--}}
+{{--Sección principal--}}
 @section('principal')		
 	<h1 align="center">Modificar datos de la empresa</h1>
 	<p><strong>Por favor, ingrese la nueva información de la empresa</strong></p>
@@ -37,6 +33,7 @@
 		{{ Form::hidden('id',$empresa->id)}}
 		<div data-role="controlgroup" data-type="horizontal" align="center">
 			{{ Form::submit('Editar')}}
+			{{HTML::link('empresa','Regresar',array('data-role'=>'button'))}}
 		</div>
 	{{ Form::close() }}
 @stop
@@ -46,9 +43,3 @@
 	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
 	{{HTML::script('js/validadores/camposEmpresa.js');}}
 @stop
-
-
-
-
-
-

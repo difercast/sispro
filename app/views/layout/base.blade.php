@@ -20,11 +20,11 @@
 	<div data-role="page" id="pag">
 		<div data-role="header">
 			<div class="titular">
-					<h1 class="titulo">Sistema de gestión de reparaciones</h1>
+					<h1 class="titulo">Sistema de administración y control de servicios de mantenimiento técnico</h1>
 			</div>
 			@yield('header')									
 		</div>
-		<div data-role="content" style="font-size: 85%;">
+		<div data-role="content" id="contenido" style="font-size: 90%;">
 			<div class="principal">
 				@yield('principal')
 			</div>

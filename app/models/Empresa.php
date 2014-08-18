@@ -1,8 +1,7 @@
 <?php
-
 /** 
 *
-* @Sistema de gestión de reparaciones de equipos informáticos de la empresa Sisprocompu
+* @Sistema administración y control de servicios de mantenimiento técnico
 * @version: 1.0      @modificado: 23 de marzo del 2014
 * @author: Diego Castillo.
 *
@@ -15,7 +14,7 @@ class Empresa extends Eloquent
    /**
    * Validar el RUC ingresado
    * 
-   * @param id ruc
+   * @param int strRuc
    * @return boolean
    **/
    public function validarRuc($strRuc)
@@ -70,14 +69,15 @@ class Empresa extends Eloquent
    }
 
    /**
-   * El número 
+   * Validar el número de actividad ingresado
    * 
-   * @param id ruc
+   * @param int act
    * @return boolean
    **/
    public function validaActividad($act)
    {
-      if(substr($act,0,2) == '00' ){
+      $ultDigito = (int)substr($act, 2,1);
+      if(substr($act,0,2) == '00' && is_int($ultDigito)){
          return true;
       }else return false;
    }

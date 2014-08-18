@@ -1,6 +1,6 @@
 <?php
 /** 
-* @Sistema de gestión de reparaciones de equipos informáticos de la empresa Sisprocompu
+* @Sistema de administración y control de servicios de mantenimiento técnico
 * @version 1.0      @modificado:07 de abril del 2014
 * @author Diego Castillo.
 *
@@ -8,7 +8,7 @@
 
 class SucursalController extends BaseController
 {
-	//Constructor de la clase
+	//Constructor
 	public function __construct()
 	{
 		$this -> beforeFilter('auth');
@@ -98,21 +98,17 @@ class SucursalController extends BaseController
 	/**
 	* Muestra el formulario para editar sucursales
 	* 
-	* @param int $id
+	* @param int id
 	* @return Response
 	**/	
 	public function getModificar($id)
 	{
-		$sucursal = Sucursal::find($id);
-		if(is_null($sucursal))
-		{
-			return App::abort(404);
-		}
+		$sucursal = Sucursal::findOrFail($id);		
 		return View::make('sucursal.form')->with(array('sucursal'=>$sucursal,'status'=>'modificar'));
 	}
 
 	/**
-	* Función para modificar lalinformación de la sucursal seleccionada
+	* Modificar la información de la sucursal seleccionada
 	* 
 	* @param 
 	* @return Response
@@ -148,17 +144,14 @@ class SucursalController extends BaseController
 	/**
 	* Inactivar una sucursal
 	* 
-	* @param int id de la sucursal
+	* @param int id
 	* @return Response
 	**/
 	public function getInactivar($id)
 	{
 		$sucursal = Sucursal::findOrFail($id);
-		if(is_null($sucursal)){
-			return App::abort(404);
-		}
-		$sucursal -> estado = '0';
-		$sucursal -> save();
+		$sucursal->estado = '0';
+		$sucursal->save();
 		return Redirect::to('sucursal')->with('status','okInactivo');
 	}
 

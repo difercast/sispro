@@ -1,7 +1,7 @@
 <?php
 
 /** 
-* @Sistema de gestión de reparaciones de equipos informáticos de la empresa Sisprocompu
+* @Sistema de administración y control de servicios de mantenimiento técnico
 * @version: 1.0      @modificado: 23 de marzo del 2014
 * @author: Diego Castillo.
 *
@@ -38,11 +38,7 @@ class EmpresaController extends BaseController
 	**/
 	public function getModificar($id)
 	{
-		$empresa = Empresa::find($id);
-		if(is_null($empresa))
-		{
-			return App::abort(404);
-		}
+		$empresa = Empresa::findOrFail($id);		
 		return View::make('empresa.editar')->with('empresa',$empresa);
 	}
 	
@@ -55,10 +51,7 @@ class EmpresaController extends BaseController
 	public function postEditar()
 	{
 		$id=Input::get('id');
-		$empresa = Empresa::find($id);
-		if(is_null($empresa)){
-			return App::abort(404);
-		}
+		$empresa = Empresa::findOrFail($id);		
 		$reglas = array(
 			'ruc' => 'required|max:13',
 			'razon_social' => 'required',
@@ -73,8 +66,7 @@ class EmpresaController extends BaseController
 			$empresa->actividad = Input::get('actividad');
 			$empresa->save();
 			return Redirect::to('empresa')->with('status','okEditado');
-		}
-		else{
+		}else{
 			return  Redirect::to('empresa')->with('status','error');
 		}
 	}

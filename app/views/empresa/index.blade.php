@@ -38,15 +38,17 @@
 			<tbody>
 				<tr>
 					@foreach($empresa as $empresa)
-						<td>{{ $empresa -> razon_comercial }}</td>
-						<td>{{ $empresa -> razon_social }}</td>
-						<td>{{ $empresa -> ruc }}</td>
-						<td>{{ $empresa -> actividad }}</td>						
-						<td>{{ HTML::link( 'empresa/modificar/'.$empresa->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-ajax'=>'true')) }}</td>
+						<td>{{ $empresa->razon_comercial }}</td>
+						<td>{{ $empresa->razon_social }}</td>
+						<td>{{ $empresa->ruc }}</td>
+						<td>{{ $empresa->actividad }}</td>						
+						<td>{{ HTML::link( 'empresa/modificar/'.$empresa->id,'Editar', array('data-role'=>'button','data-mini'=>'true')) }}</td>
 					@endforeach
 				</tr>
 			</tbody>
 		</table>
+	@else
+		<p>No hay datos que mostrar</p>
 	@endif
 		
 @stop
@@ -61,8 +63,9 @@
 		<li data-icon="false" >{{ HTML::link('informe', 'Informes'); }}</li>
 		<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 		<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>
-		<li data-icon="false"><a href="#">Cambiar contrase&ntildea </a></li>
-		<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
+		<li data-icon="false">{{ HTML::link('presupuesto', 'Presupuestos'); }}</li>		
+		<li data-icon="false">{{ HTML::link('informe', 'Informes'); }}</li>					
+		<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>
 	</ul>
 @stop
 {{--Scripts--}}

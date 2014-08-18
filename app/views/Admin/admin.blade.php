@@ -12,7 +12,7 @@
 	{{--Sección primario--}}
 	@section('primario')
 		<h1>Sisprocompu</h1>
-		<span>Bienvenido al sistema de gestión de reparaciones de equipos informáticos, para emprezar por favor eliga una opción</span>
+		<p>Bienvenido al sistema de administración y control de servicios de mantenimiento técnico, para empezar por favor eliga una opción</p>
 	@stop
 	{{--Sección secundario--}}
 	@section('secundario')
@@ -24,10 +24,9 @@
 			<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>			
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>
-			<li data-icon="false">{{ HTML::link('presupuesto', 'Presupuesto'); }}</li>		
-			<li data-icon="false">{{ HTML::link('informe', 'Informes'); }}</li>		
-			<li data-icon="false"><a href="#">Cambiar contrase&ntildea</a></li>
-			<li data-icon="false"><a href="logout">Salir</a></li>
+			<li data-icon="false">{{ HTML::link('presupuesto', 'Presupuestos'); }}</li>		
+			<li data-icon="false">{{ HTML::link('informe', 'Informes'); }}</li>					
+			<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>					
 		</ul>	
 	@stop
 @else

@@ -14,7 +14,7 @@
 /* Font
 -----------------------------------------------------------------------------------------------------------*/
 html {
-	font-size: 100%;
+	/* font-size: 100%; */
 }
 body,
 input,
@@ -320,7 +320,6 @@ html .ui-alt-icon .ui-radio-off:after {
 		display: none;
 	}
 }
-
 /* Swatches */
 /* A
 -----------------------------------------------------------------------------------------------------------*/
@@ -485,7 +484,6 @@ html head + body .ui-body-a.ui-focus {
 	box-shadow: 0 0 12px #044658 /*{a-active-background-color}*/;
 }
 /*Mensajes al usuario y listas anidadas */
-
 #mensajeEditar {
 	text-align:center;
 	height:25px;
@@ -559,9 +557,6 @@ html head + body .ui-body-a.ui-focus {
     font-family: Verdana, Arial, Sans-Serif;
     color: #f7f8f7;
 }
-
-
-
 
 /*Log*/
 @media screen and (min-width:768px){
