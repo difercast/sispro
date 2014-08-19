@@ -13,7 +13,7 @@
 {{--Sección principal--}}
 @section('principal')
 	@if($user)
-	<h3>Información del usuario</h3>
+	<h2 align="center">Información del usuario</h2><br/>
 	{{ Form::open()}}
 		<div data-role="fieldcontain">
 			{{Form::label('apellidos','Apellidos:')}}		
@@ -64,9 +64,9 @@
 				{{ Form::text('rol', 'Vendedor',array('readonly'=>'true'))}}
 			@endif		
 		</div>
-		{{--Aceptar--}}
+		{{--Regresar--}}
 		<div data-role="controlgroup" data-type="horizontal" align="center">
-			{{HTML::link('user','Aceptar',array('data-role'=>'button'))}}
+			{{HTML::link('user','Regresar',array('data-role'=>'button'))}}
 		</div>
 	{{Form::close()}}
 	@endif

@@ -89,7 +89,7 @@
 						@else
 						{{ HTML::link( 'user/activar/'.$user->id,'Activar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
 						@endif
-					@endif										
+					@endif						
 				</td>				
 			</tr>
 			@endforeach
@@ -104,11 +104,11 @@
 		<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
 		<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>		
 		<li data-icon="false" class="fondo">Usuarios</li>
-		<li data-icon="false"><a href="#">Informes</a></li>
 		<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 		<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>
-		<li data-icon="false"><a href="#">Cambiar contrase&ntildea </a></li>
-		<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
+		<li data-icon="false">{{ HTML::link('presupuesto', 'Presupuestos'); }}</li>		
+		<li data-icon="false">{{ HTML::link('informe', 'Informes'); }}</li>					
+		<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>
 	</ul>
 @stop
 {{--Scripts--}}

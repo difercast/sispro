@@ -144,6 +144,39 @@ class UserController extends BaseController
 	}
 
 	/**
+	* Presentar una vista para cambiar la contraseña de los usuarios
+	* 
+	* @param int id
+	* @return Response
+	**/
+	public function getCambiar($id)
+	{
+		$user = User::findOrFail($id);
+		return View::make('user.cambiarPass')->with('user',$user);
+	}
+
+	/**
+	* Cambiar la constraseña de un usuario
+	* 
+	* @param
+	* @return Response
+	**/
+	public function postCambiar()
+	{
+		$user = User::findOrFail(Input::get('user'));
+		$reglas = array(
+			'password' => array('required','alpha_num'),
+			'password2' => array('required','alpha_num'));
+		$validador = Validator::make(Input::all(),$reglas);
+		if($validador->passes() && (Input::get('password') == Input::get('password2'))){
+			$user->password = Hash::make(Input::get('password'));
+			$user->save();
+			return Redirect::to('user')->with('status','okEditado');
+		}else{
+			return Redirect::to('user')->with('status','error');
+		}
+	}
+	/**
 	* Inactivar un usuario
 	* 
 	* @param int id del usuario

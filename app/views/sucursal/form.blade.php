@@ -31,7 +31,7 @@
 	@if($status == "ver")
 		<h2 align="center">Información de {{ $sucursal->nombre}}</h2><br>
 	@else
-		<h3>Por favor, ingrese la información de la sucursal</h3>
+		<h3>Por favor, ingrese la información de la sucursal.</h3>
 		<span style="color: red;">* elementos requeridos</span>
 		{{ Form::open($form) }}
 	@endif

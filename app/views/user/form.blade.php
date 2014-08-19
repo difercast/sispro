@@ -8,7 +8,7 @@
 		$form = array('url'=>'user/ingresar','id'=>'formUser');
 	endif;		
 ?>
-{{--Sección t´titulo--}}
+{{--Sección título--}}
 @section('titulo')
 	<title> {{ $accion }} usuario</title>
 @stop
@@ -22,8 +22,8 @@
 {{--Sección principal--}}
 @section('principal')
 	<h1 align="center">{{$accion }} usuario</h1>
-	<p><strong>Por favor, ingrese la información del usuario</strong></p>
-	<span style="color: red;">* Elementos requeridos</span>
+	<h3>Por favor, ingrese la información del usuario.</h3>
+	<span style="color: red;">* elementos requeridos</span>
 	<br><br>
 	{{ Form::open($form)}}
 		<div data-role="fieldcontain">
@@ -102,9 +102,9 @@
 		<div data-role="fieldcontain">
 			{{Form::label('username','* Nombre de usuario:')}}
 			@if(isset($user))		
-			{{ Form::text('username', $user->username,array('id'=>'username','class'=>'required'))}}
+				{{ Form::text('username', $user->username,array('id'=>'username','class'=>'required'))}}
 			@else
-			{{ Form::text('username','',array('id'=>'username','class'=>'required')) }}
+				{{ Form::text('username','',array('id'=>'username','class'=>'required')) }}
 			@endif	
 		</div>
 		{{--Rol--}}
@@ -125,8 +125,9 @@
 				))}}
 			@endif			
 		</div>
+		<br/>		
 		{{--contraseña--}}
-		@if(isset($user))
+		@if(isset($user))			
 		@else
 			<div data-role="fieldcontain">
 			{{Form::label('password','* Contraseña:')}}
@@ -134,7 +135,7 @@
 			</div>
 		@endif
 		{{--Confirmar contraseña--}}
-		@if(isset($user))
+		@if(isset($user))			
 		@else
 			<div data-role="fieldcontain">
 			{{Form::label('password2','* Repita la contraseña:')}}
@@ -146,7 +147,10 @@
 			{{Form::hidden('id',$user->id)}}		
 		@endif					
 		<div data-role="controlgroup" data-type="horizontal" align="center">			
-			{{ Form::submit('Guardar')}}			
+			{{ Form::submit('Guardar')}}
+			@if($user)			
+				{{HTMl::link('user/cambiar/'.$user->id,'Cambiar clave',array('data-role'=>'button'))}}
+			@endif
 		</div>
 	{{Form::close()}}
 @stop
