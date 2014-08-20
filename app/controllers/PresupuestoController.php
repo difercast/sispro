@@ -25,7 +25,7 @@ class PresupuestoController extends BaseController
 	**/
 	public function getIndex()
 	{
-		$prep = DB::table('presupuestos')->get();
+		$prep = DB::table('presupuestos')->orderBy('id','asc')->paginate(15);
 		return View::make('presupuesto.index')->with('presupuesto',$prep);
 	}
 
@@ -52,7 +52,7 @@ class PresupuestoController extends BaseController
 		$data = Input::all();
 		$reglas = array(
 			'detalle' => 'required',
-			'valor' => 'required|numeric');
+			'valor' => array('required','numeric'));
 		$validador = Validator::make($data, $reglas);
 		if($validador->passes()){
 			$presupuesto->detalle = Input::get('detalle');
@@ -88,7 +88,7 @@ class PresupuestoController extends BaseController
 		$data = Input::all();
 		$reglas = array(
 			'detalle'=>'required',
-			'valor'=>'required|numeric',
+			'valor'=> array('required','numeric'),
 			'id'=>'required');
 		$validador = Validator::make($data,$reglas);
 		if($validador->passes()){

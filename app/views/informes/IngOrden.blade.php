@@ -23,8 +23,8 @@
  			<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" >
 	 			<thead>
 	 				<tr>
-	 					<th>Nro de orden</th>
-	 					<th>Fecha de ingreso</th>
+	 					<th>Orden</th>
+	 					<th>Ingreso</th>
 	 					<th>Usuario</th>
 	 					<th>Cliente</th> 					
 	 					<th>Equipo</th>
@@ -72,7 +72,7 @@
 	 			</tbody>
 	 		</table><br/>
 	 		{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'sucursal'=>$sucursal))->links()}}<br/><br/>
-	 		<p>Número de órdenes de trabajo: {{count($ordenes2)}}</p>
+	 		<p><strong>Número de órdenes de trabajo:</strong> {{count($ordenes2)}}</p>
  		@else
  			<br/>
  			<p><strong>No existen registros para mostrar</strong></p>

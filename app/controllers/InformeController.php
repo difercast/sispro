@@ -17,9 +17,7 @@ class InformeController extends BaseController
 		$this->beforeFilter('auth');
 		$this->beforeFilter('autenticacion');
 	}
-
 	
-
 	/** 
 	* Informe de órdenes de trabajo ingresadas a la empresa por sucursal
 	*
@@ -107,7 +105,7 @@ class InformeController extends BaseController
 			$ordenes = Orden::whereBetween('fecha_entregado', array($fechaInicio, $fechaFinal))
 			->whereRaw('entregado = ? and vendedor_id = ?', array('1',$vendedor))
 			->orderBy('id','desc')->paginate(15);
-			$ordenes = Orden::whereBetween('fecha_entregado', array($fechaInicio, $fechaFinal))
+			$ordenes2 = Orden::whereBetween('fecha_entregado', array($fechaInicio, $fechaFinal))
 			->whereRaw('entregado = ? and vendedor_id = ?', array('1',$vendedor))->get();
 			$vend = User::findOrFail($vendedor);
 			return View::make('informes.OrdenesEntregadas')->with(array('ordenes'=>$ordenes,'inicio'=>$fechaInicio,

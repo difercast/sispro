@@ -1,15 +1,12 @@
 $(document).on('pageinit',function(){
-	console.log('éxito');
-	$.validator.addMethod('validaFechas', function(value, element) {
-		var startDate = $('#fechaInicio').val();
-		return Date.parse(value) >= Date.parse(startDate);				
-	});
+	console.log('exito');
+	$.validator.addMethod('validaFechas',function(value,element) {
+		var start = $('#fechaInicio').val();
+		console.log(start);
+		console.log(value);
+		return Date.parse(value) >= Date.parse(start);
+	})
 
-	$.validator.addMethod('validarFecha', function(value, element) {
-		var startDate = $('#fechaInicio').val();
-		return Date.parse(value) <= Date.parse(startDate);				
-	});
-		
 	$('#FormIngreso').validate({
 		rules:{			
 			fechaInicio: {required:true},
@@ -20,59 +17,88 @@ $(document).on('pageinit',function(){
 			fechaFinal:{validaFechas:  "Por favor, verifica las fechas", required: 'Campo requerido'}			
 		}
 	});
-
-	$('#FormIngresoUser').validate({		
-		rules:{
-			fechaInicio: {required: true},
-			fechaFinal: {required: true}
+	$.validator.addMethod('validarFechas',function(value,element) {
+		var start = $('#fechaInicio1').val();
+		console.log(start);
+		console.log(value);
+		return Date.parse(value) >= Date.parse(start);
+	});
+	$('#FormIngresoUser').validate({
+		rules:{			
+			fechaInicio1: {required:true},
+			fechaFinal: {validarFechas: true, required:true}
 		},
 		messages:{
-			fechaInicio:{required:'Campo requerido'},
-			fechaFinal:{required:'Campo requerido'}
-		}
-	}); 
-	
-	$('#FormRepTerminadas').validate({		
-		rules:{
-			fechaInicio: {required: true},
-			fechaFinal: {required: true}
-		},
-		messages:{
-			fechaInicio:{required:'Campo requerido'},
-			fechaFinal:{required:'Campo requerido'}
-		}
-	});	
-
-	$('#formOrndenEntgd').validate({		
-		rules:{
-			fechaInicio: {required: true},
-			fechaFinal: {required: true}
-		},
-		messages:{
-			fechaInicio:{required:'Campo requerido'},
-			fechaFinal:{required:'Campo requerido'}
-		}
-	}); 
-
-	$('#OnderRepEntregada').validate({		
-		rules:{
-			fechaInicio: {required: true},
-			fechaFinal: {required: true}
-		},
-		messages:{
-			fechaInicio:{required:'Campo requerido'},
-			fechaFinal:{required:'Campo requerido'}
+			fechaInicio1:{required: 'Campo requerido'},
+			fechaFinal:{validarFechas:  "Por favor, verifica las fechas", required: 'Campo requerido'}			
 		}
 	});
 
-	$('#formOrdenEntgdSuc').validate({		
-		rules:{
-			fechaInicio: {required: true},
-			fechaFinal: {required: true}
+	$.validator.addMethod('validacionFechas',function(value,element) {
+		var start = $('#fechaInicio2').val();
+		console.log(start);
+		console.log(value);
+		return Date.parse(value) >= Date.parse(start);
+	});
+	$('#FormRepTerminadas').validate({
+		rules:{			
+			fechaInicio2: {required:true},
+			fechaFinal: {validacionFechas: true, required:true}
 		},
 		messages:{
-			fechaInicio:{required:'Campo requerido'},
-			fechaFinal:{required:'Campo requerido'}
+			fechaInicio2:{required: 'Campo requerido'},
+			fechaFinal:{validacionFechas:  "Por favor, verifica las fechas", required: 'Campo requerido'}			
 		}
-	});	
+	});
+
+	$.validator.addMethod('verificacionFechas',function(value,element) {
+		var start = $('#fechaInicio3').val();
+		console.log(start);
+		console.log(value);
+		return Date.parse(value) >= Date.parse(start);
+	});
+	$('#formOrndenEntgd').validate({
+		rules:{			
+			fechaInicio3: {required:true},
+			fechaFinal: {verificacionFechas: true, required:true}
+		},
+		messages:{
+			fechaInicio3:{required: 'Campo requerido'},
+			fechaFinal:{verificacionFechas:  "Por favor, verifica las fechas", required: 'Campo requerido'}			
+		}
+	});
+
+	$.validator.addMethod('verificaFechas',function(value,element) {
+		var start = $('#fechaInicio4').val();
+		console.log(start);
+		console.log(value);
+		return Date.parse(value) >= Date.parse(start);
+	});
+	$('#formOrdenEntgdSuc').validate({
+		rules:{			
+			fechaInicio4: {required:true},
+			fechaFinal: {verificaFechas: true, required:true}
+		},
+		messages:{
+			fechaInicio4:{required: 'Campo requerido'},
+			fechaFinal:{verificaFechas:  "Por favor, verifica las fechas", required: 'Campo requerido'}			
+		}
+	});
+
+	$.validator.addMethod('verifFechas',function(value,element) {
+		var start = $('#fechaInicio5').val();
+		console.log(start);
+		console.log(value);
+		return Date.parse(value) >= Date.parse(start);
+	});
+	$('#OrdenRepEntregadaTec').validate({
+		rules:{			
+			fechaInicio5: {required:true},
+			fechaFinal: {verifFechas: true, required:true}
+		},
+		messages:{
+			fechaInicio5:{required: 'Campo requerido'},
+			fechaFinal:{verifFechas:  "Por favor, verifica las fechas", required: 'Campo requerido'}			
+		}
+	});
 });

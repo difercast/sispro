@@ -12,6 +12,12 @@ class Presupuesto extends Eloquent
 {
 	protected $table = "presupuestos";
 
+	/**
+	* Relación con el modelo Orden
+	* 
+	* @param int id
+	* @return Response
+	**/
 	public function ordenes()
 	{
 		return $this->belongsToMany('Orden');

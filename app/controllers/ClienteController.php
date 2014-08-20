@@ -21,13 +21,13 @@ class ClienteController extends BaseController{
 	**/
 	public function getIndex()
 	{				
-		$cliente = Cliente::paginate(15);		
+		$cliente = Cliente::orderBy('nombres','asc')->paginate(15);		
 		return View::make('cliente.index')->with('clientes',$cliente);
 	}
 	/**
 	* Crea la vista Editar y envía datos de un cliente específico
 	* 
-	* @param int $id
+	* @param int id
 	* @return Response
 	**/
 	public function getModificar($id)
@@ -38,7 +38,7 @@ class ClienteController extends BaseController{
 	/**
 	* Crea la vista Ver y envía los datos del cliente
 	* 
-	* @param int $id
+	* @param int id
 	* @return Response
 	**/
 	public function getVer($id)
@@ -55,17 +55,18 @@ class ClienteController extends BaseController{
 	**/
 	public function postEditar()
 	{
+		$ci = Input::get('cedula');
+		$tel = Input::get('telefono');
+		$cel = Input::get('celular');
 		$reglas = array(
 			'nombres'=>'required',
 			'cedula'=>'required',
 			'email'=>'email'
 			);
 		$validador = Validator::make(Input::all(),$reglas);
-		if($validador->passes())
-		{
+		if($validador->passes()){
 			$cliente = Cliente::findOrFail(Input::get('id'));
-			if(self::validarCI(Input::get('cedula')) && self::validarTelefono(Input::get('telefono')) && self::validarCelular(Input::get('celular')))
-			{
+			if($cliente->validarCI($ci) && $cliente->validarTelefono($tel) && $cliente->validarCelular($cel)){
 				$cliente->nombres = Input::get('nombres');
 				$cliente->cedula = Input::get('cedula');
 				$cliente->direccion = Input::get('direccion');
@@ -75,71 +76,13 @@ class ClienteController extends BaseController{
 				$cliente->observaciones = Input::get('observaciones');
 				$cliente->save();
 				return Redirect::to('cliente')->with('status','okEditado');
-			}
-			else
-			{
+			}else{
 				return Redirect::to('cliente')->with('status','error');				
 			}			
-		}
-		else
-		{
+		}else{
 			return Redirect::to('cliente')->with('status','error');	
 		}
 	}
 
-   /** 
-   *  Verifica si un número de CI es correcto
-   * o si no se ha ingresado ningún valor
-   * @param int $cedula
-   *  @return boolean
-   **/
-  public static function validarCI($cedula)
-  {
-    $cliente = new Cliente;
-    if($cedula != "")
-    {
-      if($cliente->validarCI($cedula))
-      {
-        return true;
-      }else return false;
-    }else return true;
-  }
-
-  /** 
-   * Verifica si un número de teléfono es correcto o si no 
-   * se ha ingresado ningún valor
-   *
-   * @param int $telefono
-   * @return boolean
-   **/
-  public static function validarTelefono($telefono)
-  {
-    $cliente = new Cliente;
-    if($telefono != "")
-    {
-      if($cliente->validarTelefono($telefono))
-      {
-        return true;
-      }else return false;
-    }else return true;
-  }
-
-  /** 
-   * Verifica si un número de celular es correcto o si
-   * no se ha ingresado ningún valor
-   *
-   * @param int $celular
-   * @return boolean
-   **/
-  public static function validarCelular($celular)
-  {
-    $cliente = new Cliente;
-    if($celular != "")
-    {
-      if($cliente->validarCelular($celular))
-      {
-        return true;        
-      }else return false;
-    }else return true;
-  }
+  
 }

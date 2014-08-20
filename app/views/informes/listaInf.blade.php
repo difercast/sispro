@@ -54,7 +54,7 @@
  			<div class="ui-grid-a ui-responsive">
  				<div class="ui-block-a bloque"> 					 					
  					{{Form::label('fechaInicio','Fecha de inicio:')}}
- 					<input name="fechaInicio" id="fechaInicio" type="date" class="required" data-role="datebox"
+ 					<input name="fechaInicio" id="fechaInicio1" type="date" class="required" data-role="datebox"
    						data-options='{"mode": "calbox","overrideDateFormat":"%Y-%m-%d","useNewStyle":true}'/>
  				</div>
  				<div class="ui-block-b bloque">
@@ -80,7 +80,7 @@
  				<div class="ui-grid-a ui-responsive">
 	 				<div class="ui-block-a bloque"> 					 					
 	 					{{Form::label('fechaInicio','Fecha de inicio:')}}
-	 					<input name="fechaInicio" id="fechaInicio" type="date" class="required" data-role="datebox"
+	 					<input name="fechaInicio" id="fechaInicio2" type="date" class="required" data-role="datebox"
 	   						data-options='{"mode": "calbox","overrideDateFormat":"%Y-%m-%d","useNewStyle":true}'/>
 	 				</div>
 	 				<div class="ui-block-b bloque">
@@ -106,7 +106,7 @@
  				<div class="ui-grid-a ui-responsive">
 	 				<div class="ui-block-a bloque"> 					 					
 	 					{{Form::label('fechaInicio','Fecha de inicio:')}}
-	 					<input name="fechaInicio" id="fechaInicio" type="date" class="required" data-role="datebox"
+	 					<input name="fechaInicio" id="fechaInicio3" type="date" class="required" data-role="datebox"
 	   						data-options='{"mode": "calbox","overrideDateFormat":"%Y-%m-%d","useNewStyle":true}'/>
 	 				</div>
 	 				<div class="ui-block-b bloque">
@@ -132,7 +132,7 @@
  				<div class="ui-grid-a ui-responsive">
 	 				<div class="ui-block-a bloque"> 					 					
 	 					{{Form::label('fechaInicio','Fecha de inicio:')}}
-	 					<input name="fechaInicio" id="fechaInicio" type="date" class="required" data-role="datebox"
+	 					<input name="fechaInicio" id="fechaInicio4" type="date" class="required" data-role="datebox"
 	   						data-options='{"mode": "calbox","overrideDateFormat":"%Y-%m-%d","useNewStyle":true}'/>
 	 				</div>
 	 				<div class="ui-block-b bloque">
@@ -154,11 +154,11 @@
  		{{--Ordenes de trabajo reparados poe un técnico y entregados--}}
  		<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-in set="false" data-corners="false">
  			<h2>Equipos reparados por un técnico y entregados</h2>
- 			{{Form::open(array('url'=>'informe/ordenEntTecnico','method'=>'GET','id'=>'OnderRepEntregada'))}}
+ 			{{Form::open(array('url'=>'informe/ordenEntTecnico','method'=>'GET','id'=>'OrdenRepEntregadaTec'))}}
  			<div class="ui-grid-a ui-responsive">
 	 			<div class="ui-block-a bloque"> 					 					
 	 				{{Form::label('fechaInicio','Fecha de inicio:')}}
-	 				<input name="fechaInicio" id="fechaInicio" type="date" class="required" data-role="datebox"
+	 				<input name="fechaInicio" id="fechaInicio5" type="date" class="required" data-role="datebox"
 	   					data-options='{"mode": "calbox","overrideDateFormat":"%Y-%m-%d","useNewStyle":true}'/>
 	 			</div>
 	 			<div class="ui-block-b bloque">
@@ -180,11 +180,28 @@
  @endif
  @stop
 
+ {{--sección secundario--}}
+ @section('secundario')
+ 	<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
+	<ul data-role="listview" class="ui-listview-outer" data-inset="true">
+		<li data-role="list-divider">Opciones</li>
+		<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
+		<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>
+		<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>			
+		<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
+		<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>
+		<li data-icon="false">{{ HTML::link('presupuesto', 'Presupuestos'); }}</li>		
+		<li data-icon="false" class ="fondo">Informes</li>					
+		<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>					
+	</ul>	
+ @stop
+
  {{--scripts--}}
  @section('scripts')
  	{{HTML::script('js/mensajes.js')}}
  	{{HTML::script('js/validadores/jqm-datebox-1.4.2.core.js');}}
 	{{HTML::script('js/validadores/jqm-datebox-1.4.2.mode.calbox.js');}}
 	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
-	{{HTML::script('js/validadores/camposInformeIngreso.js');}}		
+
+	{{HTML::script('js/validadores/camposInformeIngreso.js');}}
  @stop

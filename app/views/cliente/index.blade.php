@@ -17,50 +17,54 @@
 		{{ HTML::link('vendedor','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@endif
 @stop
-@if($clientes)
 {{--Sección primario--}}
-	@section('primario')
-	<h1>Clientes</h1><br/>
-	<?php $status=Session::get('status') ?>
-	@if($status == 'error')
-		<div id="error" align="center">
-			<p>¡Error!, por favor verifica la información ingresada</p>
-		</div>
-	@elseif($status == 'okEditado')
-		<div id="mensajeEditar" align="center">
-			<p>La información del equipo se editó con éxito</p>			
-		</div>
+@section('primario')
+	@if($clientes)
+		<h1>Clientes</h1>
+		<?php $status=Session::get('status') ?>
+		@if($status == 'error')
+			<div id="error" align="center">
+				<p>¡Error!, por favor verifica la información ingresada</p>
+			</div>
+		@elseif($status == 'okEditado')
+			<div id="mensajeEditar" align="center">
+				<p>La información del cliente se editó con éxito</p>			
+			</div>
+		@endif
+		{{Form::open()}}
+			<input id="filterTable-input" data-type="search" placeholder="Buscar cliente"/>
+		{{Form::close()}}
+		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" data-filter="true" data-input="#filterTable-input">
+			<thead>
+				<tr>
+					<th>CI</th>					
+					<th>Nombres</th>					
+					<th>Dirección</th>
+					<th>Teléfono</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach($clientes as $cliente)
+				<tr>
+					<td>{{$cliente->cedula}}</td>
+					<td>{{$cliente->nombres}}</td>					
+					<td>{{$cliente->direccion}}</td>
+					<td>{{ $cliente->telefono}}</td>
+					<td>					
+						{{ HTML::link( 'cliente/modificar/'.$cliente->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}					
+						{{ HTML::link( 'cliente/ver/'.$cliente->id,'Ver', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}										
+					</td>
+				</tr>
+				@endforeach			
+			</tbody>
+		</table>
+		<br>
+		{{$clientes->links()}}
+		<br><br>
+	@else
+		<span>No hay registros que mostrar</span>
 	@endif
-	<br/>
-	{{Form::open()}}
-		<input id="filterTable-input" data-type="search" placeholder="Buscar cliente"/>
-	{{Form::close()}}
-	<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" data-filter="true" data-input="#filterTable-input">
-		<thead>
-			<tr>
-				<th>Nombres</th>
-				<th>Dirección</th>
-				<th>Teléfono</th>
-				<th>Acciones</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($clientes as $cliente)
-			<tr>
-				<td>{{ $cliente -> nombres}}</td>
-				<td>{{ $cliente -> direccion}}</td>
-				<td>{{ $cliente -> telefono}}</td>
-				<td>					
-					{{ HTML::link( 'cliente/modificar/'.$cliente->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}					
-					{{ HTML::link( 'cliente/ver/'.$cliente->id,'Ver', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}										
-				</td>
-			</tr>
-			@endforeach			
-		</tbody>
-	</table>
-	<br>
-	{{$clientes->links()}}
-	<br><br>
 @stop
 {{--Sección secundario--}}
 @section('secundario')
@@ -71,11 +75,11 @@
 			<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
 			<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>			
 			<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>
-			<li data-icon="false"><a href="#">Informes</a></li>
 			<li data-icon="false" class="fondo">Clientes</li>
 			<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>
-			<li data-icon="false"><a href="#">Cambiar contrase&ntildea </a></li>
-			<li data-icon="false"><a href="logout">Salir</a></li>
+			<li data-icon="false">{{ HTML::link('presupuesto', 'Presupuestos'); }}</li>		
+			<li data-icon="false">{{ HTML::link('informe', 'Informes'); }}</li>					
+			<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>	
 		</ul>
 	@elseif(Auth::user()->rol == 'tecnico')
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
@@ -101,6 +105,4 @@
 @section('scripts')
 	{{ HTML::script('js/mensajes.js'); }}
 @stop
-
-@endif
 

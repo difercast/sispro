@@ -20,7 +20,7 @@
 @if($equipos)
 	{{--Sección primario--}}
 @section('primario')
-	<h1>Equipos</h1><br>
+	<h1>Equipos</h1>
 	<?php $status=Session::get('status') ?>
 	@if($status == 'error')
 		<div id="error" align="center">
@@ -38,6 +38,7 @@
 	<table data-role="table" data-mode="reflow" data-filter="true" data-input="#filterTable-input" class="movie-list ui-responsive" align="center">
 		<thead>
 			<tr>
+				<th>Nro</th>
 				<th>Tipo de equipo</th>
 				<th>Marca</th>
 				<th>Modelo</th>
@@ -48,17 +49,18 @@
 		<tbody>
 			@foreach($equipos as $equipo)
 			<tr>
-				<td>{{ $equipo -> tipo}}</td>
-				<td>{{ $equipo -> marca}}</td>
-				<td>{{ $equipo -> modelo}}</td>
-				<td>{{ $equipo -> serie}}</td>
+				<td>{{$equipo->id}}</td>
+				<td>{{$equipo->tipo}}</td>
+				<td>{{$equipo->marca}}</td>
+				<td>{{$equipo->modelo}}</td>
+				<td>{{$equipo->serie}}</td>
 				<td>{{ HTML::link( 'equipo/modificar/'.$equipo->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}</td>
 			</tr>
 			@endforeach			
 		</tbody>		
 	</table>
 	<br/>
-	{{$equipos->links()}}
+		{{$equipos->links()}}
 	<br/><br>	
 @stop
 @endif
@@ -68,13 +70,13 @@
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">
 			<li data-role="list-divider">Opciones</li>
 			<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
-			<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>			
-			<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>
-			<li data-icon="false"><a href="#">Informes</a></li>
+			<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>
+			<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>			
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
-			<li data-icon="false" class="fondo">Equipos</li>
-			<li data-icon="false"><a href="#">Cambiar contrase&ntildea </a></li>
-			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
+			<li data-icon="false" class="fondo">Clientes</li>
+			<li data-icon="false">{{ HTML::link('presupuesto', 'Presupuestos'); }}</li>		
+			<li data-icon="false">{{ HTML::link('informe', 'Informes'); }}</li>					
+			<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>	
 		</ul>
 	@elseif(Auth::user()->rol == 'tecnico')
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		

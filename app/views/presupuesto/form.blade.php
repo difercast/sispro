@@ -23,6 +23,7 @@
 @stop
 {{--Sección principal--}}
 @section('principal')
+	<h1 align="center">{{$accion }} presupuesto</h1>
 	@if($accion == 'Editar')
 		<h3>Por favor, ingrese los nuevos datos del presupuesto</h3>
 		<span style="color:red">* Campos obligatorios</span>

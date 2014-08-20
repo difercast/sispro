@@ -64,11 +64,26 @@
 			@endforeach
 		</tbody>
 	</table><br/>	
-	<p>NOTA: La moneda por defectos es el dólar de Estados Unidos y el valor del IVA está fijado en 12%.<br/>
-		Los valores no incluyes el valor del IVA</p>
+	{{$presupuesto->links()}}<br/><br/>
+	<p><strong>NOTA:</strong><br/> 
+		La moneda por defectos es el dólar de Estados Unidos y el valor del IVA está fijado en 12%.<br/>
+		Los valores no incluyes el valor del IVA <br/>
+		Los valores descritos no cubren materiales, sólo mano de obra</p>
 @stop
 {{--Sección secundario--}}
 @section('secundario')
+	<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
+	<ul data-role="listview" class="ui-listview-outer" data-inset="true">
+		<li data-role="list-divider">Opciones</li>
+		<li data-icon="false">{{ HTML::link('empresa', 'Empresa'); }}</li>
+		<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>
+		<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>			
+		<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
+		<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>
+		<li data-icon="false" class="fondo">Presupuestos</li>		
+		<li data-icon="false">{{ HTML::link('informe', 'Informes'); }}</li>					
+		<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>					
+	</ul>	
 @stop
 {{--Sección scripts--}}
 @section('scripts')

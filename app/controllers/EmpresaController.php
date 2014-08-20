@@ -53,10 +53,10 @@ class EmpresaController extends BaseController
 		$id=Input::get('id');
 		$empresa = Empresa::findOrFail($id);		
 		$reglas = array(
-			'ruc' => 'required|max:13',
+			'ruc' => array('required','max:13'),
 			'razon_social' => 'required',
 			'razon_comercial' => 'required',
-			'actividad' => 'required|numeric'
+			'actividad' => array('required','numeric')
 		);
 		$validador = Validator::make(Input::all(),$reglas);
 		if($validador->passes() && $empresa->validarRuc(Input::get('ruc')) && $empresa->validaActividad(Input::get('actividad'))){

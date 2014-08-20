@@ -61,10 +61,13 @@ class UserController extends BaseController
 			'password2'=>'required',
 			'sucursal'=>'required',
 			'rol'=>'required',
-			'username' => array('required','unique:users,username')
+			'username' => array('required','unique:users,username'),
+			'telefono'=> 'numeric',
+			'celular' => 'numeric',
 			);
 		$validador = Validator::make(Input::all(),$reglas);		
-		if($validador->passes() && $user->validarCI(Input::get('cedula'))){
+		if($validador->passes() && $user->validarCI(Input::get('cedula')) && $user->validaTel(Input::get('telefono'))
+			&& $user->validaCel(Input::get('celular'))){
 			if(Input::get('password') == Input::get('password2')){
 				if(Input::get('sucursal')!= '0'){
 					$user->apellidos = Input::get('apellidos');
@@ -123,10 +126,13 @@ class UserController extends BaseController
 			'cedula'=>'required',
 			'direccion'=>'required',
 			'email'=>'required|email',						
-			'username'=>'required'
+			'username'=>'required',
+			'telefono'=> 'numeric',
+			'celular' => 'numeric',
 			);
 		$validador = Validator::make(Input::all(),$reglas);
-		if($validador->passes() && $user->validarCI(Input::get('cedula'))){
+		if($validador->passes() && $user->validarCI(Input::get('cedula')) && $user->validaTel(Input::get('telefono'))
+			&& $user->validaCel(Input::get('celular'))){
 			$user -> apellidos = Input::get('apellidos');
 			$user -> nombres = Input::get('nombres');
 			$user -> cedula = Input::get('cedula');

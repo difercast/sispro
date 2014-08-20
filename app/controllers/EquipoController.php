@@ -26,7 +26,7 @@ class EquipoController extends BaseController
 	**/
 	public function getIndex()
 	{				
-		$equipo = Equipo::paginate(15);
+		$equipo = Equipo::orderBy('id','asc')->paginate(15);
 		return View::make('equipo.index')->with('equipos',$equipo);
 	}
 
@@ -54,7 +54,7 @@ class EquipoController extends BaseController
 			'tipo'=>'required',
 			'marca'=>'required',
 			'modelo'=>'required',
-			'serie'=>'required'
+			'serie'=>array('alpha_num','required')
 			);
 		$validador = Validator::make(Input::all(),$reglas);
 		if($validador->passes())

@@ -67,9 +67,9 @@ class SucursalController extends BaseController
 			'provincia' => 'required',
 			'ciudad' => 'required',
 			'direccion' => 'required',
-			'telefono' => 'required',
-			'celular' => 'required',
-			'email' => 'required|email'
+			'telefono' => array('required','numeric'),
+			'celular' => array('required','numeric'),
+			'email' => array('required','email')
 			);
 		$validador = Validator::make(Input::all(), $reglas);		
 		if($validador->passes() && $sucursal->validarTelefonos(Input::get('telefono'),Input::get('celular'))){
@@ -121,9 +121,9 @@ class SucursalController extends BaseController
 			'provincia' => 'required',
 			'ciudad' => 'required',
 			'direccion' => 'required',
-			'telefono' => 'required',
-			'celular' => 'required',
-			'email' => 'required|email'
+			'telefono' => array('required','numeric'),
+			'celular' => array('required','numeric'),
+			'email' => array('required','email')
 			);
 		$validador = Validator::make(Input::all(), $reglas);
 		if($validador->passes() && $sucursal->validarTelefonos(Input::get('telefono'),Input::get('celular'))){

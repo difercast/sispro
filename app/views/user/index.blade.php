@@ -13,6 +13,7 @@
 @stop
 {{--Sección primario--}}
 @section('primario')
+	@if($user)
 	<h1>Usuarios</h1>
 	<?php $status=Session::get('status') ?>
 	@if($status == 'error')
@@ -95,6 +96,9 @@
 			@endforeach
 		</tbody>
 	</table>
+	@else
+		<span>No hay registros que mostrar</span>
+	@endif
 @stop
 {{--Sección secundario--}}
 @section('secundario')

@@ -24,7 +24,7 @@
 @stop
 {{--Sección principal--}}
 @section('principal')
-	<h1 align="center">{{$accion}}</h1><br/>	
+	<h1 align="center">{{$accion}}</h1>
 	<p><strong>{{ $detalle}}</strong></p>
 	@if($estado == 'editar')
 		<span style="color: red;">* Elementos requeridos</span>
@@ -60,17 +60,17 @@
 		<div data-role="fieldcontain">
 			{{Form::label('telefono','Teléfono:')}}
 			@if($estado == "editar")
-				{{Form::text('telefono',$cliente->telefono,array('data-mini'=>'true','id'=>'telefono'))}}
+				{{Form::text('telefono',$cliente->telefono,array('data-mini'=>'true','id'=>'telefono','maxlength'=>'7'))}}
 			@else
-				{{Form::text('telefono',$cliente->telefono,array('data-mini'=>'true','readonly'=>'true','maxlength'=>'7'))}}
+				{{Form::text('telefono',$cliente->telefono,array('data-mini'=>'true','readonly'=>'true'))}}
 			@endif
 		</div>
 		<div data-role="fieldcontain">
 			{{Form::label('celular','Celular:')}}
 			@if($estado == "editar")
-				{{Form::text('celular',$cliente->celular,array('data-mini'=>'true','id'=>'celular'))}}
+				{{Form::text('celular',$cliente->celular,array('data-mini'=>'true','id'=>'celular','maxlength'=>'10'))}}
 			@else
-				{{Form::text('celular',$cliente->celular,array('data-mini'=>'true','readonly'=>'true','maxlength'=>'10'))}}
+				{{Form::text('celular',$cliente->celular,array('data-mini'=>'true','readonly'=>'true'))}}
 			@endif
 		</div>
 		<div data-role="fieldcontain">
@@ -90,10 +90,15 @@
 			@endif
 		</div>
 		@if($estado == "editar")
-				{{Form::hidden('id',$cliente->id)}}
-				<div data-role="controlgroup" data-type="horizontal" align="center">
-					{{Form::submit('Guardar')}}
-				</div>
+			{{Form::hidden('id',$cliente->id)}}
+			<div data-role="controlgroup" data-type="horizontal" align="center">
+				{{Form::submit('Editar')}}
+				{{HTML::link('cliente','Regresar',array('data-role'=>'button'))}}
+			</div>
+		@else
+			<div data-role="controlgroup" data-type="horizontal" align="center">
+				{{HTML::link('cliente','Regresar',array('data-role'=>'button'))}}
+			</div>
 		@endif
 	{{Form::close()}}
 @stop

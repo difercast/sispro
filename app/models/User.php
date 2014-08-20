@@ -109,19 +109,39 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }else return false;
 	}
 
-	/**
-   * Validar campos de teléfono y celular ingresados
-   * 
-   * @param string telefono, string celular
-   * @return boolean 
-   **/  
-  public function validarTelefonos($telefono, $celular)
+	/** 
+   * Verifica si un número de teléfono es correcto o si no 
+   * se ha ingresado ningún valor
+   *
+   * @param int tel
+   * @return boolean
+   **/
+  public function validaTel($tel)
   {
-    if(is_numeric($telefono) && is_numeric($celular) && substr($celular, 0,2) == '09' && strlen($telefono) == '7' 
-      &&  strlen($celular) == '10'){
-        return true;        
+    if(is_null($tel) || $tel == ''){
+      return true;
     }else{
-      return false;
+      if(is_numeric($tel) && (strlen($tel) == 7)){
+        return true;
+      }else return false;
+    }
+  }
+
+  /** 
+   * Verifica si un número de celular es correcto o si
+   * no se ha ingresado ningún valor
+   *
+   * @param int cel
+   * @return boolean
+   **/
+  public function validaCel($cel)
+  {
+    if(is_null($cel) || $cel == ''){
+      return true;
+    }else{
+      if(is_numeric($cel) && (strlen($cel) == 10) && (substr($cel,0,2) == '09')){
+        return true;
+      }else return false;
     }
   }
 
