@@ -46,7 +46,7 @@
 					@else
 						<td>No entregado</td>
 					@endif
-					<td>{{Form::open(array('url'=>'ordenTrabajo/mostrar'))}}
+					<td>{{Form::open(array('url'=>'ordenTrabajo/mostrar', 'method' => 'GET'))}}
 							{{Form::hidden('NumOrden',$orden->id)}}
 							{{Form::submit('Ver orden')}}
 						{{form::close()}}

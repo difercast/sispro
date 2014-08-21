@@ -108,7 +108,7 @@
 							@endif
 						</td>
 						<td>
-							{{Form::open(array('url'=>'ordenTrabajo/mostrar'))}}
+							{{Form::open(array('url'=>'ordenTrabajo/mostrar', 'method' => 'GET'))}}
 								{{Form::hidden('NumOrden',$orden->id)}}
 								{{Form::submit('Ver')}}			
 							{{Form::close()}}

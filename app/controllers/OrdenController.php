@@ -80,7 +80,7 @@ class OrdenController extends BaseController
 	 * @param
 	 * @return Response
 	 **/
-	public function postMostrar()
+	public function getMostrar()
 	{
 		if(Input::get('tipo') == 'gestion')
 		{

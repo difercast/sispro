@@ -67,7 +67,7 @@
 		<div data-role="popup" id="popupNumOrden">
 			<div style="padding:10px 20px;">
 				<p>por favor, ingrese el número de orden de trabajo</p>
-				{{Form::open(array('url'=>'ordenTrabajo/mostrar'))}}
+				{{Form::open(array('url'=>'ordenTrabajo/mostrar', 'method' => 'GET'))}}
 					{{Form::text('NumOrden')}}
 					{{Form::submit('Buscar')}}			
 				{{Form::close()}}

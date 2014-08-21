@@ -228,7 +228,7 @@
 		{{--Panel de administración de la orden de trabajo--}}
 		<div data-role="panel" id="AdminOrden" data-display="overlay">
 			<h3 align="center">Administrar orden de trabajo</h3>			
-			{{ Form::open(array('url' => 'ordenTrabajo/mostrar')) }}				
+			{{ Form::open(array('url' => 'ordenTrabajo/mostrar', 'method' => 'GET')) }}				
 				{{--Errores al presentar radio buttons con sintaxis de laravel, por eso escribimos con sitaxis html--}}
 				@if($orden->estado == '0')
 					{{Form::label('detalle','Detalle de la reparación')}}
