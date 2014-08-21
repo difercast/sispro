@@ -13,7 +13,7 @@
 	@stop
 	{{--Sección primario--}}
 	@section('primario')		
-		<h2>Sisprocompu</h2>
+		<h1>Sisprocompu</h1>
 		<span>Bienvenido al sistema de gestión de reparaciones de equipos informáticos, para emprezar por favor elija una opción</span>
 		{{--Mensajes de errores--}}
 		<?php $status=Session::get('status') ?>
@@ -37,10 +37,9 @@
 		@endif					
 	@stop
 	{{--Sección secundario--}}	
-	@section('secundario')
+	@section('secundario')		
 		<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
-			<li data-role="list-divider">Opciones</li>
 			<li data-icon="false">{{ HTML::link('ordenTrabajo', 'Ingresar orden de trabajo'); }}</li>
 			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado/1', 'Lista órdenes de trabajo'); }}</li>		
 			<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-inset="false">
@@ -49,10 +48,10 @@
 					<li data-icon="false">{{ HTML::link('#popupNumOrden', 'Por número de orden',array('data-rel'=>'popup')); }}</li>
 					<li data-icon="false">{{ HTML::link('#popupCliente', 'Por cliente',array('data-rel'=>'popup')); }}</li>
 				</ul>
-			</li> 
+			</li> 		
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>		
-			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
+			<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>
 		</ul>
 		{{--Popups para la búsqueda de órdenes de trabajo--}}
 		<div data-role="popup" id="popupCliente" align="center">			

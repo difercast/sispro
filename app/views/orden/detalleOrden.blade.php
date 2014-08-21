@@ -24,9 +24,7 @@
 		{{--Opción de la orden de trabajo--}}
 		@if($orden->getSucursal($orden->id) == Auth::user()->sucursal_id)
 			@if(Auth::user()->rol == 'tecnico')
-				@if($orden->estado == '3')
-					<p>La orden se ha dado de baja</p>
-				@elseif($orden->entregado != '1' && ($orden->estado != '2') && $orden->presupuestado == '0')
+				@if($orden->entregado != '1' && ($orden->estado != '2') && $orden->presupuestado == '0')
 					<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 						{{ HTML::link( '#AdminOrden','Administrar orden',array('class'=>'ui-btn')); }}
 						{{ HTML::link("#", 'Detalle del presupuesto',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
@@ -62,7 +60,7 @@
 				@endif
 			@endif
 		@else
-			<span>Las opciones para moficicar la información de la orden de trabajo no están disponibles porque la misma fue ingresada en otra sucursal</span>
+			<span style="color:red;">Las opciones para moficicar la información de la orden de trabajo no están disponibles porque la misma fue ingresada en otra sucursal</span><br/>
 		@endif
 		{{Form::open(array('id'=>'ordenForm'))}}
 			{{--Fecha de ingreso y usuario que ingresó el equipo--}}
@@ -296,7 +294,7 @@
 						@foreach($presupuesto as $presupuesto)
 						<tr>						
 							<td>{{ Form::checkbox('presupuesto[]', $presupuesto->id, false) }}</td>
-							<td>{{$presupuesto->detalle}}</td>													
+							<td>{{$presupuesto->detalle}}</td>							
 						</tr>
 						@endforeach
 					</tbody>

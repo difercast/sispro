@@ -16,8 +16,8 @@
 	@endif
 @stop
 @if($ordenes)
-	{{--Sección principal--}}
-	@section('principal')
+	{{--Sección todo--}}
+	@section('todo')
 		<h2 align="center">Listado de órdenes de trabajo</h2>
 		<div class="listas">
 			<?php $status=Session::get('estado') ?>
@@ -57,14 +57,15 @@
 		</div>				
 		{{Form::open()}}
 			<br>
-			<h3 align="center">Lista de órdenes de trabajo</h3>			
+					
 			<input id="buscar" data-type="search" placeholder="Buscar orden de trabajo"/>
 		{{Form::close()}}
 		<br>
 		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" data-filter="true" data-input="#buscar">
 			<thead>
 				<tr>
-					<th>Número</th>
+					<th>Orden</th>
+					<th>Sucursal</th>
 					<th>Cliente</th>
 					<th>Tipo</th>
 					<th>Problema</th>
@@ -76,7 +77,11 @@
 			<tbody>
 				@foreach($ordenes as $orden)
 					<tr>
-						<td>{{$orden->id}}</td>
+						<td>{{$orden->id}}</td>						
+						<td>
+							<?php $suc = Sucursal::findOrFail($orden->Sucursal_id) ?>
+							{{$suc->nombre}}
+						</td>
 						<td>
 							<?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
 							 {{$cliente->nombres}}
