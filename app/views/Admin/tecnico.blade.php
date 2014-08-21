@@ -34,6 +34,11 @@
 			<div id="error"  align="center">
 				<p>Error al ingresar la información del cliente, verifica los datos e intenta de nuevo </p>
 			</div>
+		@elseif($status == "errorGestion")
+			<div id="error"  align="center">
+				<p>Error al procesar la gestión de la orden de trabajo, revisa la información ingresada e inténtalo de nuevo
+				</p>
+			</div>
 		@endif					
 	@stop
 	{{--Sección secundario--}}	

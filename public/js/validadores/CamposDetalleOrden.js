@@ -44,7 +44,7 @@ $( document ).on( "pageinit", function( event ) {
 		var primerDigito = val.substring(0,2);
 		console.log(primerDigito);
 		return primerDigito == '09';
-	});
+	})
 	$('#formIngresarOrden').validate({
 		rules:{
 			nombres: { required: true, letters: '[a-zA-Z]+'},

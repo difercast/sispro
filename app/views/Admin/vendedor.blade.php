@@ -34,7 +34,7 @@
 		@elseif($status == "error")
 			<div id="error"  align="center">
 				<p>Error al ingresar la orden de trabajo, por favor verifique los datos ingresados</p>
-			</div>		
+			</div>			
 		@endif
 	@stop
 	{{--Sección secundario--}}
