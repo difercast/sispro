@@ -25,16 +25,16 @@
 			@yield('header')									
 		</div>
 		<div data-role="content" id="contenido">
-			<div class="principal" style="font-size: 90%;">
+			<div class="principal">
 				@yield('principal')
 			</div>
-			<div class="primario" style="font-size: 90%;">
+			<div class="primario" >
 				@yield('primario')
 			</div>
-			<div class="secundario" style="font-size: 90%;">
+			<div class="secundario">
 				@yield('secundario')
 			</div>
-			<div class="todo" style="font-size: 90%;">
+			<div class="todo">
 				@yield('todo')
 			</div>
 		</div>		

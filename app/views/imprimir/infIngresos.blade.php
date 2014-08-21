@@ -11,6 +11,13 @@
 	{{HTML::style('css/sispro/jquery.mobile.icons.min.css');}}
 </head>
 <body>
+		<script type="text/php">
+        if ( isset($pdf) ) {
+            $font = Font_Metrics::get_font("helvetica", "bold");
+            $pdf->page_text(72, 18, "{PAGE_NUM} of {PAGE_COUNT}", $font, 6, array(255,0,0));
+        }
+    </script> 
+    </script>
 	@if($inicio && $final && $local && $ordenes)
 	<div data-role="page">
 		<div data-role="header">
@@ -70,4 +77,5 @@
 </html>
 {{HTML::script('js/jquery.js');}}
 {{HTML::script('js/jquery.mobile-1.4.2.js')}}
+
 

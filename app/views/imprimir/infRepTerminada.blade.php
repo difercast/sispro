@@ -11,6 +11,12 @@
 	{{HTML::style('css/sispro/jquery.mobile.icons.min.css');}}
 </head>
 <body>
+	<?php
+		if ( isset($pdf) ) {
+    		$font = Font_Metrics::get_font("verdana", "bold");
+    		$pdf->page_text(72, 18, "Header: {PAGE_NUM}", $font, 6, array(0,0,0));
+  		}
+	?>
 	@if($inicio && $final && $tecnico && $ordenes)
 	<div data-role="page">
 		<div data-role="header">

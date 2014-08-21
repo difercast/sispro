@@ -11,6 +11,15 @@
 	{{HTML::style('css/sispro/jquery.mobile.icons.min.css');}}
 </head>
 <body>
+	<script type='text/php'>
+      if ( isset($pdf) ) { 
+        $font = Font_Metrics::get_font('helvetica', 'normal');
+        $size = 9;
+        $y = $pdf->get_height() - 24;
+        $x = $pdf->get_width() - 15 - Font_Metrics::get_text_width('1/1', $font, $size);
+        $pdf->page_text($x, $y, '{PAGE_NUM}/{PAGE_COUNT}', $font, $size);
+      } 
+    </script>
 	@if($inicio && $final && $usuario && $ordenes)
 	<div data-role="page">
 		<div data-role="header">
@@ -67,7 +76,14 @@
 		 		</tbody>
 		 	</table><br/>
 		</div>
-	</div>
+		<div data-role="footer">
+
+			<?php
+			if(isset($pdf)){
+				echo PAGE_NUM; 
+			}
+			?>
+		</div>
 	@endif
 </body>
 </html>
