@@ -2,7 +2,7 @@
 
 /** 
 *
-* Sistema de gestión de reparaciones de equipos informáticos de la empresa Sisprocompu
+* @Sistema de administración y control de servicios de mantenimiento técnico
 * @version 1.0      @modificado: 15 de abril del 2014
 * @author Diego Castillo.
 *
@@ -82,8 +82,7 @@ class OrdenController extends BaseController
 	 **/
 	public function getMostrar()
 	{
-		if(Input::get('tipo') == 'gestion')
-		{
+		if(Input::get('tipo') == 'gestion'){
 			$pres = Presupuesto::all();
 			$numOrden = Input::get('orden');
 			if(Input::get('orden') == '2' && (Input::get('detalle') == '' || Input::get('informe') == '')){
@@ -107,7 +106,6 @@ class OrdenController extends BaseController
 			}else{				
 					return Redirect::to('tecnico')->with('status','errorGestion');				
 			}
-			
 		}else{
 			$pres = Presupuesto::all();
 			$numOrden = Input::get('NumOrden');
@@ -165,34 +163,27 @@ class OrdenController extends BaseController
 					$orden->save();					
 					if(Auth::user()->rol == 'tecnico'){
 						return Redirect::to('tecnico')->with(array('status'=>'ordenCreada','orden'=>$orden->id));
-					}
-					elseif (Auth::user()->rol=='vendedor'){
+					}elseif (Auth::user()->rol=='vendedor'){
 						return Redirect::to('vendedor')->with(array('status'=>'ordenCreada','orden'=>$orden->id));
 					}
-				}
-				else{
+				}else{
 					if(Auth::user()->rol == 'tecnico'){
 						return Redirect::to('tecnico')->with('status','errorDatos');
-					}
-					elseif (Auth::user()->rol=='vendedor'){
+					}elseif (Auth::user()->rol=='vendedor'){
 						return Redirect::to('vendedor')->with('status','errorDatos');	
 					}
 				}
-			}
-			else{
+			}else{
 				if(Auth::user()->rol == 'tecnico'){
 					return Redirect::to('tecnico')->with('status','errorEquipo');
-				}
-				elseif (Auth::user()->rol=='vendedor') {
+				}elseif (Auth::user()->rol=='vendedor') {
 					return Redirect::to('vendedor')->with('status','errorEquipo');	
 				}
 			}						
-		}
-		else{
+		}else{
 			if(Auth::user()->rol == 'tecnico'){
 				return Redirect::to('tecnico')->with('status','error');
-			}
-			elseif(Auth::user()->rol=='vendedor') {
+			}elseif(Auth::user()->rol=='vendedor') {
 				return Redirect::to('vendedor')->with('status','error');	
 			}
 		}		
@@ -297,8 +288,7 @@ class OrdenController extends BaseController
 	      $cliente -> email = $email;
 	      $cliente -> observaciones = $observaciones;
 	      $cliente -> save();
-	    }
-	    else{
+	    }else{
 	      $cliente = Cliente::findOrFail($estado);
 	      $cliente -> nombres = $nombres;
 	      $cliente -> cedula = $cedula;
@@ -320,19 +310,14 @@ class OrdenController extends BaseController
   public static function procesaEquipo($tipo,$marca,$modelo,$serie, $cliente_id)
   {
     $equipo = Equipo::where('serie','=',$serie)->get();   
-    if(isset($equipo->id))
-    {
+    if(isset($equipo->id)){
       $equipo->tipo = $tipo;
       $equipo->marca = $marca;
       $equipo->modelo = $modelo;
       $equipo->serie = $serie;
       $equipo->cliente_id = $cliente_id;
       $equipo->save();
-
-    }
-    else
-    { 
-      
+    }else{ 
       $equipo = new Equipo;
       $equipo->tipo = $tipo;
       $equipo->marca = $marca;
@@ -361,62 +346,12 @@ class OrdenController extends BaseController
         	if ($numOrdenes != 0){
           		return true;
           		break;    
-        	}
-        	else{
+        	}else{
           		return false;
-          	break;            
+          		break;            
         	} 
       	}
-    }
-    else return true; 
+    }else return true; 
   }
-
-  /** 
-   * Verificar si un número teléfono ingresado es correcto
-   * o no tiene ningún valor
-   * @param int cedula
-   * @return boolean
-   **/
-  public static function validarTelefono($telefono)
-  {
-    $cliente = new Cliente;
-    if($telefono != ""){
-      if($cliente->validarTelefono($telefono)){
-        return true;
-      }else return false;
-    }else return true;
-  }
-
-	/** 
-   	* Verificar si un número celular ingresado es correcto
-   	* o no tiene ningún valor
-   	* @param int celular
-   	* @return boolean
-   	**/
-  	public static function validarCelular($celular)
-  	{
-    	$cliente = new Cliente;
-    	if($celular != ""){
-      		if($cliente->validarCelular($celular)){
-        		return true;        
-      		}else return false;
-    	}else return true;
-  	}
-
-    /** 
-   	* Validar si un número de cédula ingresado es correcto
-   	* @param int cedula
-   	* @return boolean
-   	**/
-    public static function validarCI($cedula)
-  	{
-    	$cliente = new Cliente;
-    	if($cedula != ""){
-      		if($cliente->validarCI($cedula)){
-        		return true;
-      		}else return false;
-    	}else return true;
-  	}
-
 
 }
