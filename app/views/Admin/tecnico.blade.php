@@ -64,7 +64,7 @@
 			<h2 align="center">Buscar cliente</h2>
 			@if($cliente)
 				{{Form::open()}}
-					<input id="buscarCliente" data-type="search" placeholder="Buscar equipo">
+					<input id="buscarCliente" data-type="search" placeholder="Buscar cliente">
 				{{Form::close()}}
 				{{Form::open(array('url'=>'ordenTrabajo/porcliente','id'=>'formBuscar'))}}
 					<table data-role="table" data-mode="reflow" data-filter="true" data-input="#buscarCliente" class="movie-list ui-responsive">

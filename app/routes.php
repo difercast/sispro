@@ -190,7 +190,7 @@ Route::get('vendedor', array('before' => 'auth','as'=>'vendedor', function()
 {
 	$cliente = Cliente::all();
 	$select = array(0 => 'Seleccione...')+$cliente->lists('nombres','id');
-	return View::make('Admin.vendedor')->with('cliente',$select);
+	return View::make('Admin.vendedor')->with('cliente',$cliente);
 }));
 
 /*
