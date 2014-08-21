@@ -157,6 +157,7 @@
 	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
 	{{HTML::script('js/validadores/camposIngresoOrden.js');}}
 	{{HTML::script('js/validadores/cargarCliente.js');}}
+	{{HTML::script('js/cargaCliente.js');}}
 	{{HTML::script('js/validadores/jqm-datebox-1.4.2.core.js')}}
 	{{HTML::script('js/validadores/jqm-datebox-1.4.2.mode.calbox.js')}}		
 @stop

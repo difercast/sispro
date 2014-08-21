@@ -1,4 +1,4 @@
-$(document).on('pageinit', function(event){
+$(document).ready(function(){
 	$('#enviar').click(function(){
 	       	console.log('hola k ase');
 	        $.ajax({	        	
@@ -19,4 +19,5 @@ $(document).on('pageinit', function(event){
 	           	}
 	        });
 	    });
+
 });

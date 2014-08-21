@@ -14,8 +14,8 @@
 	@stop
 	{{--Sección primario--}}
 	@section('primario')
-		<h2>Sisprocompu</h2>
-		<span>Bienvenido al sistema de gestión de reparaciones de equipos informáticos, para emprezar por favor elija una opción</span>
+		<h1>Sisprocompu</h1>
+		<p>Bienvenido al sistema de administración y control de servicios de mantenimiento técnico, para empezar por favor eliga una opción</p>
 		{{--Mensajes de error--}}
 		<?php $status=Session::get('status') ?>
 		@if($status == "ordenCreada")
@@ -56,7 +56,7 @@
 			</li> 		
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>		
-			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
+			<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>
 		</ul>
 		{{--Popups para la búsqueda de órdenes de trabajo--}}
 		<div data-role="popup" id="popupCliente" align="center">

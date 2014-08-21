@@ -15,6 +15,9 @@
 	@yield('head')
 	{{HTML::style('css/sispro/jquery.mobile.icons.min.css');}}		
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+	<style type="text/css">
+		html{font-size:90%}
+	</style>
 </head>
 <body>
 	<div data-role="page" id="pag">
