@@ -18,7 +18,7 @@
 @if($ordenes)
 	{{--Sección principal--}}
 	@section('principal')
-		<h1>Órdenes de trabajo</h1>
+		<h2 align="center">Listado de órdenes de trabajo</h2>
 		<div class="listas">
 			<?php $status=Session::get('estado') ?>
 			<p align="center">Filtros de búsqueda</p>
@@ -28,41 +28,29 @@
 						{{ HTML::link( '#','Todos',array('data-role'=>'button','class'=>'ui-state-disabled controlG')); }}
 						{{ HTML::link("ordenTrabajo/listado/2", 'Entregados',array('class'=>'ui-btn controlG')); }}
 						{{ HTML::link('ordenTrabajo/listado/3', 'Reparación terminada',array('class'=>'ui-btn controlG')); }}
-						{{ HTML::link('ordenTrabajo/listado/4', 'Sin revisar',array('class'=>'ui-btn controlG')); }}
-						{{ HTML::link('ordenTrabajo/listado/5', 'Dados de baja',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('ordenTrabajo/listado/4', 'Sin revisar',array('class'=>'ui-btn controlG')); }}		
 					</div>
 				@elseif($estado == 'entregados')
 					<div data-role="controlgroup" data-type="horizontal" data-mini="true" align="center">
 						{{ HTML::link( 'ordenTrabajo/listado/1','Todos',array('class'=>'ui-btn controlG')); }}
 						{{ HTML::link("#", 'Entregados',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
 						{{ HTML::link('ordenTrabajo/listado/3', 'Reparación terminada',array('class'=>'ui-btn controlG')); }}
-						{{ HTML::link('ordenTrabajo/listado/4', 'Sin revisar',array('class'=>'ui-btn controlG')); }}
-						{{ HTML::link('ordenTrabajo/listado/5', 'Dados de baja',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('ordenTrabajo/listado/4', 'Sin revisar',array('class'=>'ui-btn controlG')); }}		
 					</div>
 				@elseif($estado == 'terminado')
 					<div data-role="controlgroup" data-type="horizontal" data-mini="true" align="center">
 						{{ HTML::link( 'ordenTrabajo/listado/1','Todos',array('class'=>'ui-btn controlG')); }}
 						{{ HTML::link("ordenTrabajo/listado/2", 'Entregados',array('class'=>'ui-btn controlG')); }}
 						{{ HTML::link('#', 'Reparación terminada',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
-						{{ HTML::link('ordenTrabajo/listado/4', 'Sin revisar',array('class'=>'ui-btn controlG')); }}
-						{{ HTML::link('ordenTrabajo/listado/5', 'Dados de baja',array('class'=>'ui-btn controlG')); }}
+						{{ HTML::link('ordenTrabajo/listado/4', 'Sin revisar',array('class'=>'ui-btn controlG')); }}		
 					</div>
 				@elseif($estado == 'sinRevisar')
 					<div data-role="controlgroup" data-type="horizontal" data-mini="true" align="center">
 						{{ HTML::link( 'ordenTrabajo/listado/1','Todos',array('class'=>'ui-btn controlG')); }}
 						{{ HTML::link("ordenTrabajo/listado/2", 'Entregados',array('class'=>'ui-btn controlG')); }}
 						{{ HTML::link('ordenTrabajo/listado/3', 'Reparación terminada',array('class'=>'ui-btn controlG')); }}
-						{{ HTML::link('#', 'Sin revisar',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
-						{{ HTML::link('ordenTrabajo/listado/5', 'Dados de baja',array('class'=>'ui-btn controlG')); }}
-					</div>
-				@elseif($estado == 'baja')
-					<div data-role="controlgroup" data-type="horizontal" data-mini="true" align="center">
-						{{ HTML::link( 'ordenTrabajo/listado/1','Todos',array('class'=>'ui-btn controlG')); }}
-						{{ HTML::link("ordenTrabajo/listado/2", 'Entregados',array('class'=>'ui-btn controlG')); }}
-						{{ HTML::link('ordenTrabajo/listado/3', 'Reparación terminada',array('class'=>'ui-btn controlG')); }}
-						{{ HTML::link('ordenTrabajo/listado/4', 'Sin revisar',array('class'=>'ui-btn controlG')); }}
-						{{ HTML::link('#', 'Dados de baja',array('data-role'=>'button','class'=>'ui-state-disabled')); }}
-					</div>
+						{{ HTML::link('#', 'Sin revisar',array('data-role'=>'button','class'=>'ui-state-disabled')); }}		
+					</div>				
 				@endif
 			</div>
 			<br>

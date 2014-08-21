@@ -51,14 +51,14 @@ Route::get('logout', 'UserLogin@out');
 Route::get('ingOrden/{numOrden}', function($numOrden){
 	$orden = Orden::findOrFail($numOrden);
 	$html = View::make('imprimir.impOrden')->with('orden',$orden);		
-	return PDF::load($html, 'A4', 'portrait')->show();					    	
+	return PDF::load(utf8_decode($html), 'A4', 'portrait')->show();					    	
 });
 
 //Detalle de orden
 Route::get('DetalleOrden/{orden}', function($orden){
 	$ordenTrabajo = Orden::findOrFail($orden);
 	$html = View::make('imprimir.detalleOrden')->with('orden',$ordenTrabajo);
-	return PDF::load($html, 'A4', 'portrait')->show();
+	return PDF::load(utf8_decode($html), 'A4', 'portrait')->show();
 });
 
 //imprimir Informe de ingreso de órdenes de trabajo a la empresa

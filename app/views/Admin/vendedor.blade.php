@@ -15,14 +15,14 @@
 	{{--Sección primario--}}
 	@section('primario')
 		<h1>Sisprocompu</h1>
-		<p>Bienvenido al sistema de administración y control de servicios de mantenimiento técnico, para empezar por favor eliga una opción</p>
+		<span style="font-size:100%;">Bienvenido al sistema de administración y control de servicios de mantenimiento técnico, para empezar por favor eliga una opción</span>
 		{{--Mensajes de error--}}
 		<?php $status=Session::get('status') ?>
 		@if($status == "ordenCreada")
-			<div  class="mensajeOrdenCreada" id="mensajeOrdenCreada" align="center">
+			<div data-role="controlgroup" data-type="horizontal"  class="mensajeOrdenCreada" id="mensajeOrdenCreada">
 				<p>Orden de trabajo N° {{Session::get('orden')}} ingresada correctamente				
 				 {{ HTML::link('ingOrden/'.Session::get('orden'), 'Generar documento',array('target'=>'_blank','data-role'=>'button','data-mini'=>'true','data-inline'=>'true')); }}</p>
-		</div>
+			</div>
 		@elseif($status == "errorDatos")
 			<div id="errorDatos"  align="center">
 				<p>Error al ingresar la información del cliente, verifica los datos e intenta de nuevo </p>
@@ -34,11 +34,7 @@
 		@elseif($status == "error")
 			<div id="error"  align="center">
 				<p>Error al ingresar la orden de trabajo, por favor verifique los datos ingresados</p>
-			</div>
-		@elseif($status == "okCreado")
-			<div id="mensajeCrear"  align="center">
-				<p>Orden de trabajo ingresada correctamente</p>
-			</div>
+			</div>		
 		@endif
 	@stop
 	{{--Sección secundario--}}

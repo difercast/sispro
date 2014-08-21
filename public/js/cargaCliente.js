@@ -14,8 +14,7 @@ $(document).ready(function(){
 	           		$('#celular').val(clientes[4]);
 	           		$('#email').val(clientes[5]);
 	           		$('#observaciones').val(clientes[6]);
-	           		$('#id_cliente').val(clientes[7]);           		
-	           		//$('#datosCliente').html(clientes);
+	           		$('#id_cliente').val(clientes[7]);           			           		
 	           	}
 	        });
 	    });
