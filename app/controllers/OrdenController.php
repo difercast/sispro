@@ -62,7 +62,6 @@ class OrdenController extends BaseController
 		return View::make('orden.buscarOrdenPorCliente')->with('cliente',$select);
 	}
 
-
 	/** 
 	 * Presentar una lista de órdenes de trabajo deacuerdo
 	 *  al cliente seleccionado
@@ -137,15 +136,15 @@ class OrdenController extends BaseController
 			'tecnico'=>'required',
 			'email'=>'email'			
 			);
-		$validador = Validator::make(Input::all(),$reglas);	
+		$validador = Validator::make(Input::all(),$reglas);
+		$orden = new Orden;		
 		if($validador->passes()){
 			if(self::verificarEquipo(Input::get('serie'))){
-				if (self::validarCI(Input::get('cedula')) && self::validarTelefono(Input::get('telefono')) && self::validarCelular(Input::get('celular'))) {
+				if ($orden->validarCI(Input::get('cedula')) && $orden->validarTelefono(Input::get('telefono')) && $orden->validarCelular(Input::get('celular'))) {
 					$cliente = self::procesaCliente(Input::get('id_cliente'),Input::get('nombres'),Input::get('cedula'),
 						Input::get('direccion'),Input::get('telefono'),Input::get('celular'),Input::get('email'),Input::get('observaciones'));			
 					$equipo = self::procesaEquipo(Input::get('tipo'),Input::get('marca'),Input::get('modelo'),
-						Input::get('serie'),$cliente->id);
-					$orden = new Orden;							
+						Input::get('serie'),$cliente->id);											
 					$orden->user_id = Auth::user()->id;
 					$orden->cliente_id = $cliente->id;
 					$orden->equipo_id = $equipo->id;

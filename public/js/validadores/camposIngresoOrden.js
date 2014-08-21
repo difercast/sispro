@@ -40,14 +40,19 @@ $( document ).on( "pageinit", function( event ) {
 			}else return false;
 		}else return false;
 	});
+	$.validator.addMethod('validarCel', function(val){
+		var primerDigito = val.substring(0,2);
+		console.log(primerDigito);
+		return primerDigito == '09';
+	})
 	$('#formIngresarOrden').validate({
 		rules:{
 			nombres: { required: true, letters: '[a-zA-Z]+'},
 			cedula:{ required: true, number: true, minlength: 10, maxlength: 10, validaCI: true},
 			direccion:{ required: true},
 			telefono: { number: true, minlength: 7, maxlength: 7 },
-			celular: { number: true, minlength: 10, maxlength: 10 },
-			email: {email: true},
+			celular: { number: true, minlength: 10, maxlength: 10, validarCel: true },
+			email: {email: true}, 
 			tipo: {required:true},
 			marca: {required:true},
 			modelo: {required:true},
@@ -77,7 +82,8 @@ $( document ).on( "pageinit", function( event ) {
 			celular: {
 				number: 'El campo debe contener solo números',
 				minlength: 'El campo debe tener 10 dígitos',
-				maxlength: 'El campo debe tener 10 dígitos'
+				maxlength: 'El campo debe tener 10 dígitos',
+				validarCel: 'El número ingresado es incorrecto'
 			},
 			email: {email: 'Ingrese una dirección de email correcta'},
 			tipo:{required: 'Campo requerido'},

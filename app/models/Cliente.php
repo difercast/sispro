@@ -1,7 +1,7 @@
 <?php
 /** 
 *
-* Sistema de gestión de reparaciones de equipos informáticos de la empresa Sisprocompu
+* @Sistema de administración y control de servicios de mantenimiento técnico
 * @version 1.0      @modificado: 11 de abril del 2014
 * @author Diego Castillo.
 *
