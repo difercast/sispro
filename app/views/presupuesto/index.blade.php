@@ -10,7 +10,7 @@
 {{--Sección header--}}
 @section('header')
 	@if(Auth::user()->rol == 'administrador')
-		{{ HTML::link('admin','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
+		{{ HTML::link('admin','',array('class'=>'ui-btn-left ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@endif
 @stop
 {{--Sección primario--}}

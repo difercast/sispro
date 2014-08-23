@@ -16,7 +16,7 @@
 @stop
 {{--Sección header--}}
 @section('header')	
-	{{ HTML::link($accion,'',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
+	{{ HTML::link($accion,'',array('class'=>'ui-btn-left ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 @stop
 {{--Sección principal--}}
 @section('principal')

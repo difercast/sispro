@@ -1,26 +1,26 @@
 @extends('layout.base')
-
 {{--Título--}}
 @section('titulo')
-    <title>Sistema de gestion de reparaciones de la empresa Sisprocompu</title>
+    <title>Sistema de administración y control de servicios de mantenimiento técnico</title>
 @show
-{{--Header--}}
-@section('header')
-
-@stop
 {{--Sección primario--}}
 @section('primario') 
     <div class="log">
         <h1 align="center">Ingreso usuarios</h3>    
-        {{ Form::open(array('url'=>'log')) }}            
+        {{ Form::open(array('url'=>'log', 'id'=>'formLogin')) }}          
             <div class="avatar" align="center"><img src="images/avatar.png"></div>            
             @if(Session::has('login_errors'))
                 <p style="color: #FB1D1D" align="center"> El nombre de usuario o contraseña no son correctos </p>
             @elseif(Session::has('error'))
                 <p style="color: #FB1D1D" align="center"> Error al ingresar, por favor contáctese con el administrador del sistema </p>
             @endif
-            {{ Form::text('username',Input::old('username'),array('data-mini'=>'true','placeholder'=>'Usuario')) }}
-            {{ Form::password('password',array('data-mini'=>'true','placeholder'=>'Contraseña')) }}
+            <br/> 
+            <div data-role="fieldcontain">
+                {{ Form::text('username',Input::old('username'),array('data-mini'=>'true','placeholder'=>'Usuario','id'=>'username')) }}
+            </div>
+            <div data-role="fieldcontain">
+                {{ Form::password('password',array('data-mini'=>'true','placeholder'=>'Contraseña','id'=>'password')) }}
+            </div>                        
             <div data-role="controlgroup" data-type="horizontal" align="center">            
                     {{ Form::submit('Ingresar')}}
             </div>
@@ -35,4 +35,3 @@
         <li>{{ HTML::link('logCliente', 'Ingreso clientes'); }}</li>              
     </ul>
 @stop
-

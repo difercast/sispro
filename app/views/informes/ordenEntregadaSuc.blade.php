@@ -8,7 +8,7 @@
  @stop
  {{--Header--}}
  @section('header')
- 	{{ HTML::link('informe','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
+ 	{{ HTML::link('informe','',array('class'=>'ui-btn-left ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
  @stop
  {{--principal--}}
  @section('todo') 	

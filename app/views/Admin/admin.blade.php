@@ -1,6 +1,4 @@
 @extends('layout.base')
-@include('includes.styles')
-
 @if(Auth::user()->rol == 'administrador')
 	{{--Header--}}
 	@section('header')	

@@ -9,7 +9,7 @@
 @stop
 {{--Sección header--}}
 @section('header')	
-	{{ HTML::link('/logCliente','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}	
+	{{ HTML::link('/logCliente','',array('class'=>'ui-btn-left ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}	
 @stop
 {{--Sección principal--}}
 @section('primario')

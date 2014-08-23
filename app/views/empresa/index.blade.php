@@ -9,7 +9,7 @@
 	{{ HTML::style('css/mensajes.css'); }}
 @stop
 @section('header')
-	{{ HTML::link('admin','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
+	{{ HTML::link('admin','',array('class'=>'ui-btn-left ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 @stop
 {{--Sección primario--}}
 @section('primario')

@@ -24,8 +24,8 @@
 		<div data-role="header">
 			<div class="titular">
 					<h1 class="titulo">Sistema de administración y control de servicios de mantenimiento técnico</h1>
-			</div>
-			@yield('header')									
+			</div>			
+			@yield('header')			
 		</div>
 		<div data-role="content" id="contenido">
 			<div class="principal">

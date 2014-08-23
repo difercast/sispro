@@ -11,10 +11,10 @@
 	{{--Sección header--}}
 	@section('header')		
 		@if(Auth::user()->rol == 'tecnico')	
-			{{ HTML::link('tecnico','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); 
+			{{ HTML::link('tecnico','',array('class'=>'ui-btn-left ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); 
 		}}
 		@else
-			{{ HTML::link('vendedor','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); 
+			{{ HTML::link('vendedor','',array('class'=>'ui-btn-left ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); 
 			}}
 		@endif	
 	@stop

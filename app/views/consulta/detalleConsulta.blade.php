@@ -7,7 +7,7 @@
 <?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
 {{--Header--}}
 @section('header')
-    {{ HTML::link('/listaOrdenes?cedula='.$cliente->cedula,'',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
+    {{ HTML::link('/listaOrdenes?cedula='.$cliente->cedula,'',array('class'=>'ui-btn-left ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
 {{--Primario--}}
 @section('principal')

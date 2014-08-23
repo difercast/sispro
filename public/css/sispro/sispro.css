@@ -560,7 +560,9 @@ html head + body .ui-body-a.ui-focus {
     font-family: Verdana, Arial, Sans-Serif;
     color: #f7f8f7;
 }
-
+	.link{
+		display: inline-block;
+	}
 /*Log*/
 @media screen and (min-width:768px){
 	.log{
@@ -596,7 +598,12 @@ html head + body .ui-body-a.ui-focus {
 		margin-right: 7%;
 		margin-left: 7%;
 	}
-	
+	.titulo{
+		font-size: 18px;
+		font-weight: normal;			
+		padding: 0;
+		text-align: center;
+	}	
 }
 
 /*Estilos en tablas*/
@@ -643,7 +650,9 @@ html head + body .ui-body-a.ui-focus {
 	color: white !important;	
 	border-left: 2.5px solid #135072;	
 }
-
+.head{
+	display: inline-block;
+}
 label.error { 
 	float: left; 
 	color: red; 
@@ -662,14 +671,15 @@ label.error {
 	margin-left: 2.5%;
 	margin-right:2.5%;
 }
-.titular{		
+.titular{	
+	
 }
 
 .titulo{
 	font-size: 18px;
 	font-weight: normal;			
-	padding: 0;
-	text-align: center;
+	padding: 0;	
+	margin-left: 40px;
 }
 
 

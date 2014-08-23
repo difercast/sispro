@@ -1,12 +1,7 @@
 @extends('layout.base')
 {{--Título--}}
 @section('titulo')
-	<title>Ingreso cliente</title>
-@stop
-{{--Head--}}
-{{--Header--}}
-@section('header')
-
+	<title>Consulta cliente</title>
 @stop
 {{--Primario--}}
 @section('primario')
@@ -27,11 +22,10 @@
 	<br/><br/><br/><br/>
     <ul data-role="listview" class="ui-listview-outer" data-inset="true">
         <li data-role="list-divider">Opciones de ingreso</li>        
-        <li class="fondo">{{HTML::link('/','Ingreso usuarios')}}</li>              
+        <li>{{HTML::link('/','Ingreso usuarios')}}</li>              
         <li class="fondo">Ingreso clientes</li>
     </ul>
 @stop
-
 @section('scripts')
     <!-- scripts -->
     {{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}

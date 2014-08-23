@@ -21,7 +21,7 @@
 @stop
 {{--Sección header--}}
 @section('header')	
-	{{ HTML::link('sucursal','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
+	{{ HTML::link('sucursal','',array('class'=>'ui-btn-left ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
 {{--Sección principal--}}
 @section('principal')
