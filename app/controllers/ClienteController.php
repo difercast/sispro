@@ -35,6 +35,7 @@ class ClienteController extends BaseController{
 		$cliente = Cliente::findOrFail($id);
 		return View::make('cliente.form')->with(array('cliente'=>$cliente,'estado'=>'editar'));
 	}
+
 	/**
 	* Crea la vista Ver y envía los datos del cliente
 	* 
@@ -45,6 +46,20 @@ class ClienteController extends BaseController{
 	{
 		$cliente = Cliente::findOrFail($id);
 		return View::make('cliente.form')->with(array('cliente'=>$cliente,'estado'=>'ver'));
+	}
+
+	/**
+	* Presenta la vista equipos con la lista de equipos traídos a la empresa por un cliente
+	* 
+	* @param int id
+	* @return Response
+	**/
+	public function getEquipos($id)
+	{
+		$cliente = Cliente::findOrFail($id);
+		$equipos = $cliente->equipos()
+		->paginate(15);
+		return View::make('cliente.equipos')->with(array('cliente'=>$cliente,'equipos'=>$equipos));
 	}
 
 	/**

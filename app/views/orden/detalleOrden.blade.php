@@ -228,7 +228,7 @@
 		{{--Panel de administración de la orden de trabajo--}}
 		<div data-role="panel" id="AdminOrden" data-display="overlay">
 			<h3 align="center">Administrar orden de trabajo</h3>			
-			{{ Form::open(array('url' => 'ordenTrabajo/mostrar', 'method' => 'GET')) }}				
+			{{ Form::open(array('url' => 'ordenTrabajo/gestion', 'id'=>'administrarOrden')) }}				
 				{{--Errores al presentar radio buttons con sintaxis de laravel, por eso escribimos con sitaxis html--}}
 				@if($orden->estado == '0')
 					{{Form::label('detalle','Detalle de la reparación')}}
@@ -237,11 +237,11 @@
 					{{Form::textarea('informe',$orden->informe,array('id'=>'informe'))}}
 					{{Form::label('estado','Estado de la reparación')}}
 					<fieldset data-role="controlgroup">					    
-					    <input type="radio" name="estado" id="0" value="0" checked="checked">
+					    <input type="radio" name="estado" id="check0" value="0" checked="checked">
 					    <label for="0">No revisado</label>
-					    <input type="radio" name="estado" id="1" value="1">
+					    <input type="radio" name="estado" id="check1" value="1">
 					    <label for="1">En reparación</label>
-					    <input type="radio" name="estado" id="2" value="2">
+					    <input type="radio" name="estado" id="check2" value="2">
 					    <label for="2">Reparación terminada</label>
 					</fieldset>
 					@elseif($orden->estado == '1')
@@ -251,11 +251,11 @@
 						{{Form::textarea('informe',$orden->informe,array('id'=>'informe'))}}
 						{{Form::label('estado','Estado de la reparación')}}
 						<fieldset data-role="controlgroup">						    
-						        <input type="radio"  id="0" value="0" disabled="disable">
+						        <input type="radio"  id="check0" value="0" disabled="disable">
 						        <label for="0">No revisado</label>
-						        <input type="radio" name="estado" id="1" value="1" checked="checked">
+						        <input type="radio" name="estado" id="check1" value="1" checked="checked">
 						        <label for="1">En reparación</label>
-						        <input type="radio" name="estado" id="2" value="2">
+						        <input type="radio" name="estado" id="check2" value="2">
 						        <label for="2">Reparación terminada</label>
 						</fieldset>
 					@elseif($orden->estado == '2')
@@ -265,11 +265,11 @@
 						{{Form::textarea('informe',$orden->informe,array('id'=>'informe','readonly'=>'true'))}}
 						{{Form::label('estado','Estado de la reparación')}}
 						<fieldset data-role="controlgroup">
-						        <input type="radio" id="0" value="0" disabled="disable">
+						        <input type="radio" id="check0" value="0" disabled="disable">
 						        <label for="0">No revisado</label>
-						        <input type="radio" id="1" value="1" disabled="disable">
+						        <input type="radio" id="check1" value="1" disabled="disable">
 						        <label for="1">En reparación</label>
-						        <input type="radio" name="estado" id="2" value="2" checked="checked">
+						        <input type="radio" name="estado" id="check2" value="2" checked="checked">
 						        <label for="2">Reparación terminada</label>
 						</fieldset>					
 				@endif
@@ -348,8 +348,12 @@
 				{{Form::submit('Entregar')}}
 			{{Form::close()}}
 		</div>
-		
-	@stop		
+	@stop	
+	@section('scripts')
+		<!-- scripts -->
+		{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
+		{{HTML::script('js/validadores/CamposDetalleOrden.js');}}
+	@stop	
 @endif
 
 

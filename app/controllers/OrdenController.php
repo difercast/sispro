@@ -86,6 +86,8 @@ class OrdenController extends BaseController
 			$pres = Presupuesto::all();
 			$numOrden = Input::get('orden');
 			if(Input::get('orden') == '2' && (Input::get('detalle') == '' || Input::get('informe') == '')){
+				return Redirect::to('tecnico')->with('status','errorGestion');
+			}else{													
 				$orden = Orden::find($numOrden);
 				$orden->detalle = Input::get('detalle');
 				$orden->informe = Input::get('informe');
@@ -103,8 +105,6 @@ class OrdenController extends BaseController
 				$sucursal = $suc->nombre;			
 				return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,
 					'equipo'=>$equipo,'presupuesto'=>$pres,'sucursal'=>$sucursal));
-			}else{				
-					return Redirect::to('tecnico')->with('status','errorGestion');				
 			}
 		}else{
 			$pres = Presupuesto::all();
@@ -119,6 +119,33 @@ class OrdenController extends BaseController
 			$sucursal = $suc->nombre;			
 			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo,
 			 'presupuesto'=>$pres,'sucursal'=>$sucursal));
+		}
+	}
+
+	public function postGestion()
+	{
+		$pres = Presupuesto::all();
+		$numOrden = Input::get('orden');
+		if(Input::get('orden') == '2' && (Input::get('detalle') == '' || Input::get('informe') == '')){
+			return Redirect::to('tecnico')->with('status','errorGestion');
+		}else{													
+			$orden = Orden::find($numOrden);
+			$orden->detalle = Input::get('detalle');
+			$orden->informe = Input::get('informe');
+			$orden->estado = Input::get('estado');
+			if(Input::get('estado') == '2'){
+				$orden->fecha_terminado = date('Y-m-d H:i:s', time());
+			}
+			$orden->save();
+			$cliente = Cliente::find($orden->cliente_id);
+			$equipo = Equipo::find($orden->equipo_id);
+			$user = User::find($orden->user_id);
+			$user = $user->nombres;
+			$tecnico = User::find($orden->tecnico);
+			$suc = Sucursal::findOrFail($orden->Sucursal_id);
+			$sucursal = $suc->nombre;			
+			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,
+					'equipo'=>$equipo,'presupuesto'=>$pres,'sucursal'=>$sucursal));
 		}
 	}
 

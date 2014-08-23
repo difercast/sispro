@@ -21,6 +21,17 @@ class Cliente extends Eloquent
     return $this->hasMany('Orden','cliente_id');
   }
 
+  /**
+   * Relación con el modelo Equipo
+   * 
+   * @param
+   * @return Response
+   **/
+  public function equipos()
+  {
+    return $this->hasMany('Equipo','cliente_id');
+  }
+
   /** 
 	* Validar el número de cédula de un cliente.
 	*  @param string ci

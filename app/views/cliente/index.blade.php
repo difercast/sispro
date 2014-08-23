@@ -53,7 +53,10 @@
 					<td>{{ $cliente->telefono}}</td>
 					<td>					
 						{{ HTML::link( 'cliente/modificar/'.$cliente->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}					
-						{{ HTML::link( 'cliente/ver/'.$cliente->id,'Ver', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}										
+						{{ HTML::link( 'cliente/ver/'.$cliente->id,'Ver', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
+						@if(Auth::user()->rol != 'administrador')
+							{{ HTML::link( 'cliente/equipos/'.$cliente->id,'Equipos', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
+						@endif
 					</td>
 				</tr>
 				@endforeach			

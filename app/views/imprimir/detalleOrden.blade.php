@@ -28,8 +28,8 @@
 			@if($orden)
 				<h2 align="center">Orden de trabajo Nro {{$orden->id}}</h2>
 				<table style="font-size: 75%;">
-					<tr>
-						<td style="width: 33%;"><strong>Ingreso: </strong>{{$orden->fecha_ingreso}} a las {{date('h:i a,',strtotime($orden->created_at))}} en {{ $local->nombre}} &nsbp;&nsbp;&nsbp;</td>						
+					<tr  style="font-size: 75%;">
+						<td style="width: 33%;"><strong>Ingreso: </strong>{{$orden->fecha_ingreso}} a las {{date('h:i a,',strtotime($orden->created_at))}} en {{ $local->nombre}}</td>						
 						<td style="width: 33%;" align="right"><strong>Usuario que ingres&oacute; la orden: </strong> {{$user->nombres}}
 							{{$user->apellidos}}</td>
 					</tr>
@@ -72,7 +72,7 @@
 		 			@if($orden->presupuestado == '0')
 		 				Orden de trabajo sin presupuesto
 		 			@else
-		 				<table data-role="table" align="center"  class="movie-list ui-responsive" >
+		 				<table data-role="table" align="center"  class="movie-list ui-responsive"  style="font-size: 75%;" >
 							<thead>
 								<tr>
 									<th>Detalle</th>
