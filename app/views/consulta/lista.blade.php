@@ -1,7 +1,7 @@
 @extends('layout.base')
 {{--Sección título--}}
 @section('titulo')
-	<title>SISPROCOMPU</title>
+	<title>Lista de órdenes activas</title>
 @stop
 {{--Sección head--}}
 @section('head')
@@ -9,12 +9,11 @@
 @stop
 {{--Sección header--}}
 @section('header')	
-	{{ HTML::link('/','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}	
+	{{ HTML::link('/logCliente','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}	
 @stop
 {{--Sección principal--}}
 @section('primario')
-	@if($ordenes)
-		<h2>Sistema de administración y control de servicios de mantenimiento técnico</h2>
+	@if($ordenes)		
 		<p>La siguiente lista presenta las órdenes de trabajo activas...</p>
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">
 			<li data-role="list-divider">Lista de órdenes de trabajo activas</li>

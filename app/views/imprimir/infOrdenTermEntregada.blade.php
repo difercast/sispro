@@ -26,7 +26,7 @@
 	 			<strong>N&uacute;mero de &oacute;rdenes de trabajo: </strong>{{count($ordenes)}} 			
 	 		</p>
 	 		<?php $totalGeneral = 0; ?>
-	 		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center">
+	 		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center" style="font-size:75%;">
 		 		<thead>
 		 			<tr>
 		 				<th>Orden</th>											

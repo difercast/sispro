@@ -4,9 +4,10 @@
 	<title>Detalle de orden de trabajo</title>
 @stop
 {{--Head--}}
+<?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
 {{--Header--}}
 @section('header')
-    {{ HTML::link('logCliente','',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
+    {{ HTML::link('/listaOrdenes?cedula='.$cliente->cedula,'',array('class'=>'ui-btn-right ui-corner-all','data-icon'=>'back','data-iconpos'=>'notext')); }}
 @stop
 {{--Primario--}}
 @section('principal')
@@ -130,9 +131,9 @@
                     </tbody>
                 </table>
             @endif                                  
-        {{Form::close()}}   
+        {{Form::close()}}           
         <div data-role="controlgroup" data-type="horizontal" align="center">
-            {{HTML::link('logCliente','Principal',array('data-role'=>'button','data-mini'=>'true'))}}
+            {{HTML::link('/listaOrdenes?cedula='.$cliente->cedula,'Aceptar',array('data-role'=>'button','data-mini'=>'true'))}}
         </div>
     @else
         <p>La orden de trabajo solicitada no se encuentra disponible</p> 

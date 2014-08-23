@@ -6,7 +6,6 @@ $(document).on('pageinit',function(){
 		console.log(value);
 		return Date.parse(value) >= Date.parse(start);
 	})
-
 	$('#FormIngreso').validate({
 		rules:{			
 			fechaInicio: {required:true},
@@ -17,6 +16,7 @@ $(document).on('pageinit',function(){
 			fechaFinal:{validaFechas:  "Por favor, verifica las fechas", required: 'Campo requerido'}			
 		}
 	});
+	
 	$.validator.addMethod('validarFechas',function(value,element) {
 		var start = $('#fechaInicio1').val();
 		console.log(start);

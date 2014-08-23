@@ -86,21 +86,19 @@
 		</ul>
 	@elseif(Auth::user()->rol == 'tecnico')
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
-			<li data-role="list-divider">Opciones</li>
 			<li data-icon="false">{{ HTML::link('ordenTrabajo', 'Ingresar orden de trabajo'); }}</li>
-			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado', 'Lista órdenes de trabajo'); }}</li>				 	
-			<li data-icon="false" class="fondo">Clientes</li>
+			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado/1', 'Lista órdenes de trabajo'); }}</li>		 		
+			<li data-icon="false">Clientes</li>
 			<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>		
-			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
+			<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>
 		</ul>
 	@elseif(Auth::user()->rol == 'vendedor')
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
-			<li data-role="list-divider">Opciones</li>
 			<li data-icon="false">{{ HTML::link('ordenTrabajo', 'Ingresar orden de trabajo'); }}</li>
-			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado', 'Lista órdenes de trabajo'); }}</li>					
-			<li data-icon="false" class="fondo">Clientes</li>
+			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado/1', 'Lista órdenes de trabajo'); }}</li>		 		
+			<li data-icon="false">Clientes</li>
 			<li data-icon="false">{{ HTML::link('equipo', 'Equipos'); }}</li>		
-			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
+			<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>
 		</ul>
 	@endif
 @stop
