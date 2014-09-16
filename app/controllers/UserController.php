@@ -24,9 +24,10 @@ class UserController extends BaseController
 	**/
 	public function getIndex()
 	{
-		$user = User::all();
+		$user = User::orderBy('id','asc')
+		->paginate(15);
 		$sucursal = Sucursal::all();
-		return View::make('user.index')->with(array('user'=>$user,'sucursal'=>$sucursal));	
+		return View::make('user.index')->with(array('users'=>$user,'sucursal'=>$sucursal));	
 	}
 	
 	/**

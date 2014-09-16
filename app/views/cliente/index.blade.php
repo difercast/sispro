@@ -18,19 +18,19 @@
 	@endif
 @stop
 {{--Sección primario--}}
-@section('primario')
+@section('primario')	
+	<h1>Clientes</h1>
+	<?php $status=Session::get('status') ?>
+	@if($status == 'error')
+		<div id="error" align="center">
+			<p>¡Error!, por favor verifica la información ingresada</p>
+		</div>
+	@elseif($status == 'okEditado')
+		<div id="mensajeEditar" align="center">
+			<p>La información del cliente se editó con éxito</p>			
+		</div>
+	@endif
 	@if($clientes)
-		<h1>Clientes</h1>
-		<?php $status=Session::get('status') ?>
-		@if($status == 'error')
-			<div id="error" align="center">
-				<p>¡Error!, por favor verifica la información ingresada</p>
-			</div>
-		@elseif($status == 'okEditado')
-			<div id="mensajeEditar" align="center">
-				<p>La información del cliente se editó con éxito</p>			
-			</div>
-		@endif
 		{{Form::open()}}
 			<input id="filterTable-input" data-type="search" placeholder="Buscar cliente"/>
 		{{Form::close()}}
@@ -64,7 +64,7 @@
 		</table>
 		<br>
 		{{$clientes->links()}}
-		<br><br>
+		<br/><br><br><br><br>
 	@else
 		<span>No hay registros que mostrar</span>
 	@endif

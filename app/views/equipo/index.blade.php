@@ -17,8 +17,7 @@
 		{{ HTML::link('vendedor','',array('class'=>'ui-btn-left ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@endif
 @stop
-@if($equipos)
-	{{--Sección primario--}}
+{{--Sección primario--}}
 @section('primario')
 	<h1>Equipos</h1>
 	<?php $status=Session::get('status') ?>
@@ -35,35 +34,38 @@
 		<input id="filterTable-input" data-type="search" placeholder="Buscar equipo">
 	{{Form::close()}}
 	<br/>
-	<table data-role="table" data-mode="reflow" data-filter="true" data-input="#filterTable-input" class="movie-list ui-responsive" align="center">
-		<thead>
-			<tr>
-				<th>Nro</th>
-				<th>Tipo de equipo</th>
-				<th>Marca</th>
-				<th>Modelo</th>
-				<th>Número de serie</th>
-				<th>Acciones</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($equipos as $equipo)
-			<tr>
-				<td>{{$equipo->id}}</td>
-				<td>{{$equipo->tipo}}</td>
-				<td>{{$equipo->marca}}</td>
-				<td>{{$equipo->modelo}}</td>
-				<td>{{$equipo->serie}}</td>
-				<td>{{ HTML::link( 'equipo/modificar/'.$equipo->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}</td>
-			</tr>
-			@endforeach			
-		</tbody>		
-	</table>
-	<br/>
-		{{$equipos->links()}}
-	<br/><br>	
+	@if($equipos)
+		<table data-role="table" data-mode="reflow" data-filter="true" data-input="#filterTable-input" class="movie-list ui-responsive" align="center">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Tipo de equipo</th>
+					<th>Marca</th>
+					<th>Modelo</th>
+					<th>Número de serie</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach($equipos as $equipo)
+				<tr>
+					<td>{{$equipo->id}}</td>
+					<td>{{$equipo->tipo}}</td>
+					<td>{{$equipo->marca}}</td>
+					<td>{{$equipo->modelo}}</td>
+					<td>{{$equipo->serie}}</td>
+					<td>{{ HTML::link( 'equipo/modificar/'.$equipo->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}</td>
+				</tr>
+				@endforeach			
+			</tbody>		
+		</table>
+		<br/>
+			{{$equipos->links()}}
+		<br/><br><br><br><br>
+	@else
+		<p>No hay registros que mostrar</p>
+	@endif
 @stop
-@endif
 {{--Sección secundario--}}
 @section('secundario')
 	@if(Auth::user()->rol == 'administrador')

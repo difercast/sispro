@@ -209,6 +209,7 @@ Route::controller('cliente','ClienteController');
 Route::controller('equipo','EquipoController');
 Route::controller('ordenTrabajo','OrdenController');
 Route::controller('presupuesto','PresupuestoController');
+Route::controller('consultaApp','ConsultaController');
 
 /*
 |--------------------------------------------------------------------------
@@ -258,7 +259,8 @@ Route::get('listaOrdenes',function(){
 	$clientes = Cliente::where('cedula','=',$cedula)->get();
 	$cliente = $clientes[0];
 	$ordenes = Orden::where('cliente_id','=',$cliente->id)
-	->where('entregado','=','0')->get();		
+	->where('entregado','=','0')
+	->orderBy('id','desc')->get();		
 	return View::make('consulta.lista')->with(array('ordenes'=>$ordenes,'cliente'=>$cliente));
 });
 //Detalle de la órden de trabajo seleccionada

@@ -13,7 +13,6 @@
 @stop
 {{--Sección primario--}}
 @section('primario')
-	@if($user)
 	<h1>Usuarios</h1>
 	<?php $status=Session::get('status') ?>
 	@if($status == 'error')
@@ -44,61 +43,65 @@
 	<div data-role="controlgroup" data-type="horizontal">
 		{{ HTML::link('user/nuevo', 'Nuevo',array('data-role'=>'button')); }}	
 	</div>
-	<table data-role="table" data-mode="reflow" class="ui-responsive  movie-list " >
-		<thead>
-			<tr>
-				<th>N°</th>
-				<th>Nombres</th>
-				<th>Apellidos</th>
-				<th>Teléfono</th>
-				<th>Rol</th>
-				<th>Estado</th>
-				<th>Sucursal</th>					
-				<th>Acciones</th>					
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($user as $user)				
-			<tr>
-				<td>{{ $user -> id}}</td>
-				<td>{{ $user -> nombres}}</td>
-				<td>{{ $user -> apellidos}}</td>
-				<td>{{ $user -> telefono}}</td>
-				@if($user -> rol == 'tecnico')				
-					<td>Técnico</td>
-				@elseif ($user -> rol == 'vendedor')
-					<td>Vendedor</td>
-				@elseif ($user -> rol == 'administrador')
-					<td>Administrador</td>	
-				@endif			
-				@if($user -> estado == '1')					
-					<td>Activo</td>
-					@else
-					<td>Inactivo</td>
-				@endif
-				<td>
-					<?php $suc = Sucursal::findOrFail($user->sucursal_id); ?>
-					{{ $suc->nombre}}
-				</td>									
-				<td> 
-					{{ HTML::link( 'user/detalle/'.$user->id,'Ver', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
-					{{ HTML::link( 'user/modificar/'.$user->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
-					@if($user->rol == 'administrador')
-					@else
-						@if($user -> estado == '1')
-						{{ HTML::link( 'user/inactivar/'.$user->id,'Inactivar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
+	@if($users)
+		<table data-role="table" data-mode="reflow" class="ui-responsive  movie-list " >
+			<thead>
+				<tr>
+					<th>N°</th>
+					<th>Nombres</th>
+					<th>Apellidos</th>
+					<th>Teléfono</th>
+					<th>Rol</th>
+					<th>Estado</th>
+					<th>Sucursal</th>					
+					<th>Acciones</th>					
+				</tr>
+			</thead>
+			<tbody>
+				@foreach($users as $user)				
+				<tr>
+					<td>{{ $user -> id}}</td>
+					<td>{{ $user -> nombres}}</td>
+					<td>{{ $user -> apellidos}}</td>
+					<td>{{ $user -> telefono}}</td>
+					@if($user -> rol == 'tecnico')				
+						<td>Técnico</td>
+					@elseif ($user -> rol == 'vendedor')
+						<td>Vendedor</td>
+					@elseif ($user -> rol == 'administrador')
+						<td>Administrador</td>	
+					@endif			
+					@if($user -> estado == '1')					
+						<td>Activo</td>
 						@else
-						{{ HTML::link( 'user/activar/'.$user->id,'Activar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
-						@endif
-					@endif						
-				</td>				
-			</tr>
-			@endforeach
-		</tbody>
-	</table>
+						<td>Inactivo</td>
+					@endif
+					<td>
+						<?php $suc = Sucursal::findOrFail($user->sucursal_id); ?>
+						{{ $suc->nombre}}
+					</td>									
+					<td> 
+						{{ HTML::link( 'user/detalle/'.$user->id,'Ver', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
+						{{ HTML::link( 'user/modificar/'.$user->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
+						@if($user->rol == 'administrador')
+						@else
+							@if($user -> estado == '1')
+							{{ HTML::link( 'user/inactivar/'.$user->id,'Inactivar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
+							@else
+							{{ HTML::link( 'user/activar/'.$user->id,'Activar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
+							@endif
+						@endif						
+					</td>				
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
+		<br/>
+		{{$users->links()}}
+	<br/><br><br><br><br>
 	@else
-		<span>No hay registros que mostrar</span>
-	@endif
+		<p>No hay registros para mostrar</p>
+	@endif	
 @stop
 {{--Sección secundario--}}
 @section('secundario')

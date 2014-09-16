@@ -15,7 +15,6 @@
 		{{ HTML::link('vendedor','',array('class'=>'ui-btn-left ui-corner-all','data-icon'=>'home','data-iconpos'=>'notext')); }}
 	@endif
 @stop
-@if($ordenes)
 	{{--Sección todo--}}
 	@section('todo')
 		<h2 align="center">Listado de órdenes de trabajo</h2>
@@ -54,77 +53,74 @@
 				@endif
 			</div>
 			<br>
-		</div>				
-		{{Form::open()}}
+		</div>	
+		@if($ordenes)			
+			{{Form::open()}}
+				<br>					
+				<input id="buscar" data-type="search" placeholder="Buscar orden de trabajo"/>
+			{{Form::close()}}
 			<br>
-					
-			<input id="buscar" data-type="search" placeholder="Buscar orden de trabajo"/>
-		{{Form::close()}}
-		<br>
-		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" data-filter="true" data-input="#buscar">
-			<thead>
-				<tr>
-					<th>Orden</th>
-					<th>Sucursal</th>
-					<th>Cliente</th>
-					<th>Tipo</th>
-					<th>Problema</th>
-					<th>Estado</th>
-					<th>Entregado</th>
-					<th>Acciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach($ordenes as $orden)
+			<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" data-filter="true" data-input="#buscar">
+				<thead>
 					<tr>
-						<td>{{$orden->id}}</td>						
-						<td>
-							<?php $suc = Sucursal::findOrFail($orden->Sucursal_id) ?>
-							{{$suc->nombre}}
-						</td>
-						<td>
-							<?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
-							 {{$cliente->nombres}}
-						</td>
-						<td>
-							<?php $equipo = Equipo::findOrFail($orden->equipo_id); ?>
-							{{$equipo->tipo}}
-						</td>
-						<td>{{$orden->problema}}</td>
-						<td>
-							@if($orden->estado == '0')
-								Sin revisar
-							@elseif($orden->estado == '1')
-								En reparación
-							@elseif($orden->estado == '2')
-								reparación terminada
-							@endif
-						</td>
-						<td>
-							@if($orden->entregado == '0')
-								No entregado
-							@else
-								Entregado
-							@endif
-						</td>
-						<td>
-							{{Form::open(array('url'=>'ordenTrabajo/mostrar', 'method' => 'GET'))}}
-								{{Form::hidden('NumOrden',$orden->id)}}
-								{{Form::submit('Ver')}}			
-							{{Form::close()}}
-						</td>
+						<th>Orden</th>
+						<th>Sucursal</th>
+						<th>Cliente</th>
+						<th>Tipo</th>
+						<th>Problema</th>
+						<th>Estado</th>
+						<th>Entregado</th>
+						<th>Acciones</th>
 					</tr>
-				@endforeach
-			</tbody>			 
-		</table>
-		<br>
-		{{ $ordenes->links() }}
-		<br><br>
+				</thead>
+				<tbody>
+					@foreach($ordenes as $orden)
+						<tr>
+							<td>{{$orden->id}}</td>						
+							<td>
+								<?php $suc = Sucursal::findOrFail($orden->Sucursal_id) ?>
+								{{$suc->nombre}}
+							</td>
+							<td>
+								<?php $cliente = Cliente::findOrFail($orden->cliente_id); ?>
+								 {{$cliente->nombres}}
+							</td>
+							<td>
+								<?php $equipo = Equipo::findOrFail($orden->equipo_id); ?>
+								{{$equipo->tipo}}
+							</td>
+							<td>{{$orden->problema}}</td>
+							<td>
+								@if($orden->estado == '0')
+									Sin revisar
+								@elseif($orden->estado == '1')
+									En reparación
+								@elseif($orden->estado == '2')
+									reparación terminada
+								@endif
+							</td>
+							<td>
+								@if($orden->entregado == '0')
+									No entregado
+								@else
+									Entregado
+								@endif
+							</td>
+							<td>
+								{{Form::open(array('url'=>'ordenTrabajo/mostrar', 'method' => 'GET'))}}
+									{{Form::hidden('NumOrden',$orden->id)}}
+									{{Form::submit('Ver')}}			
+								{{Form::close()}}
+							</td>
+						</tr>
+					@endforeach
+				</tbody>			 
+			</table>
+			<br>
+			{{ $ordenes->links() }}
+			<br/><br><br><br><br>
+		@else
+			<h3>no hay órdenes de trabajo que mostrar.</h3>
+		@endif
 	@stop
-	{{--Sección secundario--}}
-	@section('secundario')
-	@stop
-@else
-	<h3>no hay órdenes de trabajo que mostrar.</h3>
-@endif
 

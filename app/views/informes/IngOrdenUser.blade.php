@@ -61,7 +61,8 @@
 	 				@endforeach
 	 			</tbody>
 	 		</table><br/>	 		
-	 			{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'user'=>$user))->links()}}<br/><br/>
+	 			{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'user'=>$user))->links()}}
+	 			<br/><br><br><br><br>
 	 			<p><strong>Número de órdenes de trabajo: </strong>{{count($ordenes2)}}</p>		
  		@else
  			<br/>
@@ -72,6 +73,7 @@
  			{{HTML::link('ingresoUserPDF/'.$inicio.'/'.$final.'/'.$user,'Generar documento',array('target'=>'_blank','data-role'=>'button'))}}
  			{{HTML::link('informe','Regresar',array('data-role'=>'button'))}}
  		</div>
- 		 		
+ 	@else 
+ 		<p>Error al procesar el informe solicitado</p>
  	@endif
  @stop

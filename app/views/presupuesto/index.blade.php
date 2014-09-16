@@ -30,18 +30,11 @@
 		<div id="mensajeEditar" align="center">
 			<p>La información se editó con éxito</p>			
 		</div>
-	@elseif($status == 'okInactivo') 
-		<div id="mensajeEstado" align="center">
-			<p>Se inactivó la sucursal correctamente</p>
-		</div>
-	@elseif($status == 'okActivo') 
-		<div id="mensajeEstado" align="center">
-			<p>Se activó la sucursal correctamente</p>
-		</div>
 	@endif
 	<div data-role="controlgroup" data-type="horizontal">
 		{{HTML::link('presupuesto/nuevo','Nuevo',array('data-role'=>'button'))}}
 	</div>
+	@if($presupuestos)
 	<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center" >
 		<thead>
 			<tr>
@@ -52,7 +45,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach($presupuesto as $presup)
+			@foreach($presupuestos as $presup)
 				<tr>
 					<td>{{$presup->id}}</td>
 					<td>{{$presup->detalle}}</td>
@@ -64,11 +57,15 @@
 			@endforeach
 		</tbody>
 	</table><br/>	
-	{{$presupuesto->links()}}<br/><br/>
+	{{$presupuestos->links()}}
+	<br/><br><br><br><br>
 	<p><strong>NOTA:</strong><br/> 
 		La moneda por defectos es el dólar de Estados Unidos y el valor del IVA está fijado en 12%.<br/>
 		Los valores no incluyes el valor del IVA <br/>
 		Los valores descritos no cubren materiales, sólo mano de obra</p>
+	@else
+		<p>No hay registros que mostrar</p>
+	@endif
 @stop
 {{--Sección secundario--}}
 @section('secundario')

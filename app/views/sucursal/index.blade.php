@@ -36,54 +36,60 @@
 			<p>Se activó la sucursal correctamente</p>
 		</div>
 	@endif
-
-	<div data-role="controlgroup" data-type="horizontal">
-		{{ HTML::link('sucursal/nuevo', 'Nuevo',array('data-role'=>'button')); }}	
-	</div>
-	<table data-role="table" id="movie-table-custom" data-mode="reflow" class="movie-list ui-responsive">
-		<thead>
-				<tr>
-					<th>Nro</th>
-					<th>Nombre</th>
-					<th>Provincia</th>
-					<th>Ciudad</th>
-					<th>Dirección</th>
-					<th>Teléfono</th>
-					<th>Estado</th>					
-					<th>Acciones</th>					
-				</tr>
-			</thead>
-			<tbody>
-				@foreach($sucursal as $sucursal)
-				<tr>
-					<td>{{$sucursal->id}}</td>										
-					<td>{{ $sucursal->nombre}}</td>
-					<td>{{ $sucursal->provincia}}</td>
-					<td>{{ $sucursal->ciudad}}</td>
-					<td>{{ $sucursal->direccion}}</td>
-					<td>{{ $sucursal->telefono}}</td>					
-					@if($sucursal->estado == '1')					
-						<td>Activo</td>
-					@else
-						<td>Inactivo</td>
-					@endif
-					<td> 
-						{{ HTML::link( 'sucursal/ver/'.$sucursal->id,'Ver', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
-						{{ HTML::link( 'sucursal/modificar/'.$sucursal->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
-						@if($sucursal->nombre == 'Matriz')
+	@if($sucursales)
+		<div data-role="controlgroup" data-type="horizontal">
+			{{ HTML::link('sucursal/nuevo', 'Nuevo',array('data-role'=>'button')); }}	
+		</div>
+		<table data-role="table" id="movie-table-custom" data-mode="reflow" class="movie-list ui-responsive">
+			<thead>
+					<tr>
+						<th>Nro</th>
+						<th>Nombre</th>
+						<th>Provincia</th>
+						<th>Ciudad</th>
+						<th>Dirección</th>
+						<th>Teléfono</th>
+						<th>Estado</th>					
+						<th>Acciones</th>					
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($sucursales as $sucursal)
+					<tr>
+						<td>{{$sucursal->id}}</td>										
+						<td>{{ $sucursal->nombre}}</td>
+						<td>{{ $sucursal->provincia}}</td>
+						<td>{{ $sucursal->ciudad}}</td>
+						<td>{{ $sucursal->direccion}}</td>
+						<td>{{ $sucursal->telefono}}</td>					
+						@if($sucursal->estado == '1')					
+							<td>Activo</td>
 						@else
-							@if($sucursal -> estado == '1')
-							{{ HTML::link( 'sucursal/inactivar/'.$sucursal->id,'Inactivar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
-							@else
-							{{ HTML::link( 'sucursal/activar/'.$sucursal->id,'Activar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
-							@endif
+							<td>Inactivo</td>
 						@endif
-						
-					</td>					
-				</tr>
-				@endforeach
-			</tbody>	
-	</table>	
+						<td> 
+							{{ HTML::link( 'sucursal/ver/'.$sucursal->id,'Ver', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
+							{{ HTML::link( 'sucursal/modificar/'.$sucursal->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
+							@if($sucursal->nombre == 'Matriz')
+							@else
+								@if($sucursal -> estado == '1')
+								{{ HTML::link( 'sucursal/inactivar/'.$sucursal->id,'Inactivar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
+								@else
+								{{ HTML::link( 'sucursal/activar/'.$sucursal->id,'Activar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
+								@endif
+							@endif
+							
+						</td>					
+					</tr>
+					@endforeach
+				</tbody>	
+		</table>
+		<br/>
+			{{$sucursales->links()}}
+		<br/><br><br><br><br>
+	@else
+		<p>No hay registros para mostrar</p>
+	@endif	
 @stop
 {{--Sección secundario--}}
 @section('secundario')

@@ -1,6 +1,4 @@
 @extends('layout.base')
-@include('includes.styles')
-
 {{--Sección header--}}
 @section('titulo')
 	<title>Ordenes de trabajo</title>
@@ -16,9 +14,9 @@
 @stop
 {{--Sección principal--}}
 @section('principal')
+	<h2>Órdenes de trabajo por cliente</h2>
+	<p><strong>Cliente: </strong> {{ $cliente -> nombres}}</p>
 	@if($cliente)
-		<h2>Órdenes de trabajo por cliente</h2>
-		<p><strong>Cliente: </strong> {{ $cliente -> nombres}}</p>
 		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" align="center" >
 			<thead>
 				<tr>
@@ -55,6 +53,8 @@
 				@endforeach			
 			</tbody>
 		</table>		
+	@else
+		<p>El cliente solicitado no cuenta con órdenes de trabajo</p>
 	@endif
 @stop
 

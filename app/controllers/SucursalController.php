@@ -25,8 +25,9 @@ class SucursalController extends BaseController
 	**/
 	public function getIndex()
 	{
-		$sucursal = DB::table('sucursales')->get();
-		return View::make('sucursal.index')->with('sucursal',$sucursal);
+		$sucursal = DB::table('sucursales')
+		->orderBy('id','asc')->paginate(15);
+		return View::make('sucursal.index')->with('sucursales',$sucursal);
 	}
 
 	/**

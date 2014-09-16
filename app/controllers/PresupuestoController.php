@@ -25,8 +25,9 @@ class PresupuestoController extends BaseController
 	**/
 	public function getIndex()
 	{
-		$prep = DB::table('presupuestos')->orderBy('id','asc')->paginate(15);
-		return View::make('presupuesto.index')->with('presupuesto',$prep);
+		$prep = DB::table('presupuestos')
+		->orderBy('id','asc')->paginate(15);
+		return View::make('presupuesto.index')->with('presupuestos',$prep);
 	}
 
 	/**

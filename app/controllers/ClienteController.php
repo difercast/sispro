@@ -5,7 +5,8 @@
 * @author Diego Castillo.
 *
 */
-class ClienteController extends BaseController{
+class ClienteController extends BaseController
+{
 	public $restful = true;
 	//Constructor de la clase
 	public function __construct()

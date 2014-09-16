@@ -69,9 +69,9 @@ class OrdenController extends BaseController
 	 * @return Response
 	 **/
 	public function anyPorcliente()
-	{
-		$cliente = Cliente::findOrFail(Input::get('cliente'));
-		$lista = $cliente->ordenes()->get();			
+	{		
+		$cliente = Cliente::find(Input::get('cliente'));
+		$lista = $cliente->ordenes()->get();		
 		return View::make('orden.ordenesCliente')->with(array('orden'=>$lista,'cliente'=>$cliente));
 	}
 
@@ -126,7 +126,7 @@ class OrdenController extends BaseController
 	{
 		$pres = Presupuesto::all();
 		$numOrden = Input::get('orden');
-		if(Input::get('orden') == '2' && (Input::get('detalle') == '' || Input::get('informe') == '')){
+		if(Input::get('estado') == '2' && (Input::get('detalle') == '' || Input::get('informe') == '')){
 			return Redirect::to('tecnico')->with('status','errorGestion');
 		}else{													
 			$orden = Orden::find($numOrden);

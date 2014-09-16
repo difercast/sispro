@@ -139,7 +139,3 @@
         <p>La orden de trabajo solicitada no se encuentra disponible</p> 
     @endif
 @stop
-{{--Secundario--}}
-@section('secundario')
-	
-@stop

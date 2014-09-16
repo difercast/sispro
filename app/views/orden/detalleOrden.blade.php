@@ -238,13 +238,13 @@
 					{{Form::label('estado','Estado de la reparación')}}
 					<fieldset data-role="controlgroup">					    
 					    <input type="radio" name="estado" id="check0" value="0" checked="checked">
-					    <label for="0">No revisado</label>
+					    <label for="check0">No revisado</label>
 					    <input type="radio" name="estado" id="check1" value="1">
-					    <label for="1">En reparación</label>
+					    <label for="check1">En reparación</label>
 					    <input type="radio" name="estado" id="check2" value="2">
-					    <label for="2">Reparación terminada</label>
+					    <label for="check2">Reparación terminada</label>
 					</fieldset>
-					@elseif($orden->estado == '1')
+				@elseif($orden->estado == '1')
 						{{Form::label('detalle','Detalle de la reparación')}}
 						{{Form::textarea('detalle',$orden->detalle,array('id'=>'detalle'))}}
 						{{Form::label('informe','Informe al cliente')}}
@@ -252,11 +252,11 @@
 						{{Form::label('estado','Estado de la reparación')}}
 						<fieldset data-role="controlgroup">						    
 						        <input type="radio"  id="check0" value="0" disabled="disable">
-						        <label for="0">No revisado</label>
+						        <label for="check0">No revisado</label>
 						        <input type="radio" name="estado" id="check1" value="1" checked="checked">
-						        <label for="1">En reparación</label>
+						        <label for="check1">En reparación</label>
 						        <input type="radio" name="estado" id="check2" value="2">
-						        <label for="2">Reparación terminada</label>
+						        <label for="check2">Reparación terminada</label>
 						</fieldset>
 					@elseif($orden->estado == '2')
 						{{Form::label('detalle','Detalle de la reparación')}}
@@ -266,11 +266,11 @@
 						{{Form::label('estado','Estado de la reparación')}}
 						<fieldset data-role="controlgroup">
 						        <input type="radio" id="check0" value="0" disabled="disable">
-						        <label for="0">No revisado</label>
+						        <label for="check0">No revisado</label>
 						        <input type="radio" id="check1" value="1" disabled="disable">
-						        <label for="1">En reparación</label>
+						        <label for="check1">En reparación</label>
 						        <input type="radio" name="estado" id="check2" value="2" checked="checked">
-						        <label for="2">Reparación terminada</label>
+						        <label for="check2">Reparación terminada</label>
 						</fieldset>					
 				@endif
 				{{Form::hidden('orden',$orden->id,array('id'=>'orden'))}}

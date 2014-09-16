@@ -55,7 +55,8 @@
 	 			</tbody>
 	 		</table><br/>
 	 		<div align="center">
-	 			{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'tecnico'=>$tecnico))->links()}}<br/><br/>
+	 			{{$ordenes->appends(array('fechaInicio'=>$inicio,'fechaFinal'=>$final,'tecnico'=>$tecnico))->links()}}
+	 			<br/><br><br><br><br>
 	 		</div>
 	 		<p><strong>Número de órdenes:</strong> {{count($ordenes2)}}<br/><br/>
 			<strong>Total presupuestado:</strong> ${{ $totalGeneral}} </p>	 		 		
@@ -69,6 +70,7 @@
  			'data-role'=>'button'))}}
  			{{HTML::link('informe','Regresar',array('data-role'=>'button'))}}
  		</div>
- 		 		
+ 	@else 
+ 		<p>Error al procesar el informe solicitado</p>	 		
  	@endif
  @stop

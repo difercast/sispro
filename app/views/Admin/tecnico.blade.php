@@ -78,7 +78,7 @@
 						<tbody>
 							@foreach($cliente as $cliente)
 							<tr>
-								<td>{{ Form::radio('cliente',$cliente->id)}}</td>
+								<td>{{Form::radio('cliente',$cliente->id)}}</td>
 								<td>{{$cliente->nombres}}</td>
 								<td>{{$cliente->cedula}}</td>
 							</tr>

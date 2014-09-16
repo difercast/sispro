@@ -21,9 +21,11 @@
 				<li data-icon="false">{{HTML::link('consultaOrden/'.$orden->id,'Orden Nro '.$orden->id)}} </li>
 			@endforeach			
 		</ul>
+	@else
+		<p>No existan órdenes de trabajo activas</p>
 	@endif
 @stop
-
+{{--Sección secundario--}}
 @section('secundario')
 	<h2>Cliente:</h2>
 	<p><strong>Nombres: </strong> {{$cliente->nombres}}</p>
