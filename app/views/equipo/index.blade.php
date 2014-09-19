@@ -75,7 +75,7 @@
 			<li data-icon="false">{{ HTML::link('sucursal', 'Sucursales'); }}</li>
 			<li data-icon="false">{{ HTML::link('user', 'Usuarios'); }}</li>			
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
-			<li data-icon="false" class="fondo">Clientes</li>
+			<li data-icon="false" class="fondo">Equipos</li>
 			<li data-icon="false">{{ HTML::link('presupuesto', 'Presupuestos'); }}</li>		
 			<li data-icon="false">{{ HTML::link('informe', 'Informes'); }}</li>					
 			<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>	
