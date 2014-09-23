@@ -149,8 +149,9 @@
 		<div data-role="controlgroup" data-type="horizontal" align="center">			
 			{{ Form::submit('Guardar')}}
 			@if(isset($user))			
-				{{HTMl::link('user/cambiar/'.$user->id,'Cambiar contraseña',array('data-role'=>'button'))}}
-			@endif
+				{{HTMl::link('user/cambiar/'.$user->id,'Cambiar contraseña',array('data-role'=>'button'))}}				
+			@endif			
+				{{HTMl::link('user','Regresar',array('data-role'=>'button', 'data-mini'=>'true'))}}			
 		</div>
 	{{Form::close()}}
 @stop

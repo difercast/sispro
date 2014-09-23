@@ -89,7 +89,7 @@
 		<div data-role="popup" id="popupNumOrden">
 			<div style="padding:10px 20px;">
 				<p>por favor, ingrese el número de orden de trabajo</p>
-				{{Form::open(array('url'=>'ordenTrabajo/mostrar', 'method' => 'GET'))}}
+				{{Form::open(array('url'=>'ordenTrabajo/mostrar', 'method' => 'GET','id'=>'buscarOrden'))}}
 					{{Form::text('NumOrden')}}
 					{{Form::submit('Buscar')}}			
 				{{Form::close()}}
@@ -99,6 +99,8 @@
 	{{--Secripts--}}
 	@section('scripts')
 		{{ HTML::script('js/mensajes.js'); }}
+		{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
+		{{HTML::script('js/validadores/camposBuscarOrden.js');}}
 	@stop
 @else
 	{{Redirect::to('/')}}

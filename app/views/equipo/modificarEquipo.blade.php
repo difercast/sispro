@@ -34,7 +34,8 @@
 			</div>
 			{{ Form::hidden('id',$equipo->id)}}
 			<div data-role="controlgroup" data-type="horizontal" align="center">
-				{{Form::submit('Modificar')}}				
+				{{Form::submit('Editar')}}
+				{{HTML::link('equipo','Regresar',array('data-role'=>'button'))}}				
 			</div>			
 		{{ Form::close()}}	
 @stop

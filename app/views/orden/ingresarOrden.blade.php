@@ -20,7 +20,7 @@
 @stop
 {{--Sección principal--}}
 @section('principal')
-	<h1 align="center">Ingresar una nueva orden de trabajo</h1>
+	<h1 align="center">Ingresar orden de trabajo</h1>
 	<span style="color: red;">* Elementos requeridos</span><br>	
 	{{--Formulario de ingreso de orden de trabajo--}}
 	{{Form::open(array('url'=>'ordenTrabajo/ingresar','id'=>'formIngresarOrden'))}}
@@ -115,7 +115,8 @@
 			</div>
 		{{--Botones de ingreso--}}
 		<div data-role= "controlgroup" data-type="horizontal" align="center" data-mini="true">
-			{{ Form::submit('Ingresar')}}
+			{{ Form::submit('Ingresar')}}			
+			{{ HTML::link($accion,'Regresar', array('data-role'=>'button','data-mini'=>'true')); }}						
 		</div>		
 		{{ Form::hidden('user_id',Auth::user()->id)}}
 	{{Form::close()}}

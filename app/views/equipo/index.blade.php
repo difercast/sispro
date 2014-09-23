@@ -87,7 +87,7 @@
 			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado/1', 'Lista órdenes de trabajo'); }}</li>
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false" class="fondo">Equipos</li>		
-			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
+			<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>
 		</ul>
 	@elseif(Auth::user()->rol == 'vendedor')
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
@@ -96,7 +96,7 @@
 			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado/1', 'Lista órdenes de trabajo'); }}</li>
 			<li data-icon="false">{{ HTML::link('cliente', 'Clientes'); }}</li>
 			<li data-icon="false" class="fondo">Equipos</li>		
-			<li data-icon="false">{{ HTML::link('logout', 'Salir'); }}</li>
+			<li data-icon="false">{{ HTML::link('logout', 'Cerrar sesión'); }}</li>
 		</ul>
 	@endif
 @stop

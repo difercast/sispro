@@ -4,7 +4,7 @@
 		$accion = "Editar";
 		$form = array('url'=>'presupuesto/editar','id'=>'formPresupuesto');
 	else:
-		$accion = "Ingresar";
+		$accion = "Nuevo";
 		$form = array('url'=>'presupuesto/ingresar','id'=>'formPresupuesto');
 	endif;
 ?>
@@ -53,7 +53,7 @@
 	</div> <br/>
 	<div data-role="controlgroup" data-type="horizontal" align="center">
 		{{Form::submit('Guardar')}}
-		{{HTML::link('presupuesto','Cancelar',array('data-role'=>'button'))}}
+		{{HTML::link('presupuesto','Regresar',array('data-role'=>'button'))}}
 	</div>
 @stop
 @section('scripts')
