@@ -632,6 +632,11 @@ html head + body .ui-body-a.ui-focus {
 	border-radius: 50%;
 	width: 20%;
 }
+.imgPrincipal img{
+	width: 500px;
+	height: 250px;
+	border-radius: 5%;
+}
 .btnBuscar{
 	background-color: #135072 !important;	
 	border-left: 2.5px solid #135072;	

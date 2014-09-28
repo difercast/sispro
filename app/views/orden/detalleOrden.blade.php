@@ -20,6 +20,17 @@
 	@stop
 	{{--Sección principal--}}
 	@section('principal')
+		{{--Mensajes de errores--}}
+		<?php $status = Session::get('status') ?>
+		@if($status == 'okGestion')
+			<div id='okGestion' class='okGestion'>
+				<p>Los cambios se han registrado correctamente</p>
+			</div>
+		@elseif($status == 'errorGestion')
+			<div class="errorGestion" id="errorGestion">
+				<p>Error al registrar los cambios en la orden de trabajo</p>
+			</div>
+		@endif
 		<h3 align="center">Orden de trabajo N° {{$orden->id}}</h3>		
 		{{--Opción de la orden de trabajo--}}
 		@if($orden->getSucursal($orden->id) == Auth::user()->sucursal_id)
@@ -199,6 +210,13 @@
 					{{Form::text('serie',' No entregado',array('data-mini'=>'true','readonly'=>'true'))}}
 				@endif
 			</div>
+			<div data-role="controlgroup" data-type="horizontal" align="center">
+				@if(Auth::user()->rol == 'tecnico')				
+					{{HTML::link('tecnico','Regresar',array('data-role'=>'button','data-mini'=>'true'))}}
+				@elseif(Auth::user()->rol == "vendedor")
+					{{HTML::link('vendedor','Regresar',array('data-role'=>'button','data-mini'=>'true'))}}
+				@endif
+			</div>
 		{{Form::close()}}	
 	@stop
 	{{--Sección secundario--}}
@@ -281,7 +299,7 @@
 		{{--Panel presupuesto--}}
 		<div data-role="panel" id="detallePresupuesto" data-display="overlay">
 			<h3>Detalle del presupesto</h3>
-			{{Form::open(array('url' => 'ordenTrabajo/presupuesto'))}}
+			{{Form::open(array('url' => 'ordenTrabajo/presupuestar'))}}
 				<input id="filterTable-input" data-type="search">
 				<table data-role="table" data-mode="reflow" data-filter="true" data-input="#filterTable-input" class="movie-list ui-responsive" align="center">
 					<thead>

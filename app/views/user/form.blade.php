@@ -5,7 +5,7 @@
 		$form = array('url'=>'user/editar','id'=>'formUser');
 	else:		
 		$accion = "Nuevo";
-		$form = array('url'=>'user/ingresar','id'=>'formUser');
+		$form = array('url'=>'user/nuevo','id'=>'formUser');
 	endif;		
 ?>
 {{--Sección título--}}

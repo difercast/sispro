@@ -81,7 +81,7 @@
 						{{ $suc->nombre}}
 					</td>									
 					<td> 
-						{{ HTML::link( 'user/detalle/'.$user->id,'Ver', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
+						{{ HTML::link( 'user/ver/'.$user->id,'Ver', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
 						{{ HTML::link( 'user/modificar/'.$user->id,'Editar', array('data-role'=>'button','data-mini'=>'true','data-inline'=>'true')) }}
 						@if($user->rol == 'administrador')
 						@else

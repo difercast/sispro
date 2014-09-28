@@ -40,7 +40,7 @@ class OrdenController extends BaseController
 
 	/** 
 	 * Presenta un diálogo donde el usuario buscará una orden
-	 * por sú número de ingreso 
+	 * por su número de ingreso 
 	 * @param 
 	 * @return Response
 	 **/
@@ -107,18 +107,30 @@ class OrdenController extends BaseController
 					'equipo'=>$equipo,'presupuesto'=>$pres,'sucursal'=>$sucursal));
 			}
 		}else{
-			$pres = Presupuesto::all();
-			$numOrden = Input::get('NumOrden');
-			$orden = Orden::findOrFail($numOrden);
-			$cliente = Cliente::find($orden->cliente_id);
-			$equipo = Equipo::find($orden->equipo_id);
-			$user = User::find($orden->user_id);
-			$user = $user->nombres;
-			$tecnico = User::find($orden->tecnico);
-			$suc = Sucursal::findOrFail($orden->Sucursal_id);
-			$sucursal = $suc->nombre;			
-			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo,
-			 'presupuesto'=>$pres,'sucursal'=>$sucursal));
+			$rules = array(
+				'NumOrden'=> array('required','numeric'));
+			$validador = Validator::make(Input::all(),$rules);
+			if($validador->passes()){
+				$pres = Presupuesto::all();
+				$numOrden = Input::get('NumOrden');
+				$orden = Orden::findOrFail($numOrden);
+				$cliente = Cliente::find($orden->cliente_id);
+				$equipo = Equipo::find($orden->equipo_id);
+				$user = User::find($orden->user_id);
+				$user = $user->nombres;
+				$tecnico = User::find($orden->tecnico);
+				$suc = Sucursal::findOrFail($orden->Sucursal_id);
+				$sucursal = $suc->nombre;			
+				return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo,
+				 'presupuesto'=>$pres,'sucursal'=>$sucursal));
+			}else{
+				if(Auth::user()->rol == 'tecnico'){
+					return Redirect::to('tecnico')->with('status','errorBuscar');
+				}elseif(Auth::user()->rol == 'vendedor'){
+					return Redirect::to('vendedor')->with('status','errorBuscar');
+				}
+			}
+			
 		}
 	}
 
@@ -145,7 +157,7 @@ class OrdenController extends BaseController
 			$suc = Sucursal::findOrFail($orden->Sucursal_id);
 			$sucursal = $suc->nombre;			
 			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,
-					'equipo'=>$equipo,'presupuesto'=>$pres,'sucursal'=>$sucursal));
+					'equipo'=>$equipo,'presupuesto'=>$pres,'sucursal'=>$sucursal,));
 		}
 	}
 
@@ -221,7 +233,7 @@ class OrdenController extends BaseController
 	*	@param int $estado
 	*	@return Response
 	**/
-	public function getListado($estado)
+	public function getListar($estado)
 	{
 		if($estado == 1){
 			$ordenes = Orden::orderBy('id','desc')->paginate(15);
@@ -247,7 +259,7 @@ class OrdenController extends BaseController
 	*	@param 
 	*	@return Response
 	**/
-	public function postPresupuesto()
+	public function postPresupuestar()
 	{				
 		$orden = Orden::findOrFail(Input::get('orden'));
 		$valores = $_POST['presupuesto'];
@@ -286,14 +298,13 @@ class OrdenController extends BaseController
 			$orden->vendedor_id = Input::get('vendedor');
 			$orden->save();
 			$cliente = Cliente::findOrFail($orden->cliente_id);
-		$equipo = Equipo::findOrFail($orden->equipo_id);
-		$user = User::findOrFail($orden->user_id);
-		$usuario = $user->nombres;
-		$tecnico = User::findOrFail($orden->tecnico);
-		$suc = Sucursal::findOrFail($orden->Sucursal_id);
-		$sucursal = $suc->nombre;
-		return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$usuario,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres,'sucursal'=>$sucursal));
-
+			$equipo = Equipo::findOrFail($orden->equipo_id);
+			$user = User::findOrFail($orden->user_id);
+			$usuario = $user->nombres;
+			$tecnico = User::findOrFail($orden->tecnico);
+			$suc = Sucursal::findOrFail($orden->Sucursal_id);
+			$sucursal = $suc->nombre;
+			return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$usuario,'cliente'=>$cliente,'equipo'=>$equipo,'presupuesto'=>$pres,'sucursal'=>$sucursal));
 		}
 	}
 

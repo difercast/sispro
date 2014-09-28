@@ -13,7 +13,6 @@ class SucursalController extends BaseController
 	{
 		$this -> beforeFilter('auth');
 		$this -> beforeFilter('autenticacion');
-
 	}
 	public $restful = true;
 
@@ -59,7 +58,7 @@ class SucursalController extends BaseController
 	* @param 
 	* @return Response
 	**/	
-	public function postIngresar()
+	public function postNuevo()
 	{
 		$numero = self::numSuc();		
 		$empresa = Empresa::findOrFail(1);

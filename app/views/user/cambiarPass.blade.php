@@ -26,7 +26,7 @@
 		<h3>Por favor, ingrese la nueva contraseña.</h3>
 		<span style="color: red;">* elementos requeridos</span>
 		<br><br>
-		{{ Form::open(array('url'=>'user/cambiar','id'=>'formCambiarPass'))}}
+		{{ Form::open(array('url'=>'user/cambiarpass','id'=>'formCambiarPass'))}}
 			<div data-role="fieldcontain">
 				{{Form::label('password','* Contraseña:')}}
 				{{ Form::password('password','',array('id'=>'password','class'=>'required')) }}

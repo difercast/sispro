@@ -49,7 +49,7 @@ class UserController extends BaseController
 	* @param
 	* @return Response
 	**/
-	public function postIngresar()
+	public function postNuevo()
 	{
 		$user = new User;
 		$reglas = array(
@@ -111,7 +111,6 @@ class UserController extends BaseController
 		return View::make('user.form')->with(array('user'=>$user,'sucursal'=>$select));
 	}
 
-
 	/**
 	* Editar la información de un usuario
 	* 
@@ -168,7 +167,7 @@ class UserController extends BaseController
 	* @param
 	* @return Response
 	**/
-	public function postCambiar()
+	public function postCambiarpass()
 	{
 		$user = User::findOrFail(Input::get('user'));
 		$reglas = array(
@@ -217,7 +216,7 @@ class UserController extends BaseController
 	* @param int id 
 	* @return Response
 	**/
-	public function getDetalle($id)
+	public function getVer($id)
 	{
 		$user = User::findOrFail($id);
 		$suc = Sucursal::findOrFail($user->sucursal_id);

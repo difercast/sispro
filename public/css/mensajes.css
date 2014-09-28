@@ -81,6 +81,26 @@
     font-family: Verdana, Arial, Sans-Serif;
     color: #f7f8f7;
 }
+#okGestion {
+    text-align:center;
+    height:25px;
+    width:100%;
+    background-color:#53aae4;
+    border-radius:5px;   
+    vertical-align: middle;
+    font-family: Verdana, Arial, Sans-Serif;
+    color: #f7f8f7;
+}
+#errorGestion{
+    text-align:center;
+    height:25px;
+    width:100%;
+    background-color:#ff035f;
+    border-radius:5px;    
+    vertical-align: middle;
+    font-family: Verdana, Arial, Sans-Serif;
+    color: #f7f8f7;
+}
 
 
 /*Listas anidadas o Collapsibles dentro de listas */

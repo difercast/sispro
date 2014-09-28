@@ -13,8 +13,9 @@
 	@stop
 	{{--Sección primario--}}
 	@section('primario')		
-		<h1>Sisprocompu</h1>
-		<span>Bienvenido al sistema de gestión de reparaciones de equipos informáticos, para emprezar por favor elija una opción</span>
+		<?php $suc=Sucursal::findOrFail(Auth::user()->sucursal_id) ?>
+		<h1 align="center">Sisprocompu - {{$suc->nombre}}</h1>						
+		<h3 align='center'>Sistema de gestión de reparaciones de equipos informáticos</h3>
 		{{--Mensajes de errores--}}
 		<?php $status=Session::get('status') ?>
 		@if($status == "ordenCreada")
@@ -39,6 +40,10 @@
 				<p>Error al procesar la gestión de la orden de trabajo, revisa la información ingresada e inténtalo de nuevo
 				</p>
 			</div>
+		@elseif($status == "errorBuscar")
+			<div id="error"  align="center">
+				<p>Error al buscar la orden de trabajo, por favor verifique la información ingresada</p>
+			</div>
 		@endif					
 	@stop
 	{{--Sección secundario--}}	
@@ -46,7 +51,7 @@
 		<p>Bienvenido <strong>{{Auth::user()->nombres}}</strong></p>
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">		
 			<li data-icon="false">{{ HTML::link('ordenTrabajo', 'Ingresar orden de trabajo'); }}</li>
-			<li data-icon="false">{{ HTML::link('ordenTrabajo/listado/1', 'Lista órdenes de trabajo'); }}</li>		
+			<li data-icon="false">{{ HTML::link('ordenTrabajo/listar/1', 'Lista órdenes de trabajo'); }}</li>		
 			<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-inset="false">
 	    		<h2>Buscar orden</h2>
 	    		<ul data-role="listview" data-corners="false" >				

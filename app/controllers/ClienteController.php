@@ -55,7 +55,7 @@ class ClienteController extends BaseController
 	* @param int id
 	* @return Response
 	**/
-	public function getEquipos($id)
+	public function getVerequipos($id)
 	{
 		$cliente = Cliente::findOrFail($id);
 		$equipos = $cliente->equipos()

@@ -5,7 +5,7 @@
 		$form = array('url'=>'sucursal/editar','id'=>'formSucursal');
 	else:		
 		$accion = "Nueva";
-		$form = array('url'=>'sucursal/ingresar','id'=>'formSucursal');
+		$form = array('url'=>'sucursal/nuevo','id'=>'formSucursal');
 	endif;	
 ?>
 @section('titulo')

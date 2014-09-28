@@ -9,8 +9,9 @@
 	@stop
 	{{--Sección primario--}}
 	@section('primario')
-		<h1>Sisprocompu</h1>
-		<p>Bienvenido al sistema de administración y control de servicios de mantenimiento técnico, para empezar por favor eliga una opción</p>
+		<?php $suc=Sucursal::findOrFail(Auth::user()->sucursal_id) ?>
+		<h1 align="center">Sisprocompu - {{$suc->nombre}}</h1>						
+		<h3 align='center'>Sistema de gestión de reparaciones de equipos informáticos</h3>
 	@stop
 	{{--Sección secundario--}}
 	@section('secundario')

@@ -23,5 +23,11 @@ $(document).on('pageinit',function() {
     $('#mensajeOrdenCreada').click(function() {
        $("#mensajeOrdenCreada").hide();
     });
+    $('#okGestion').click(function() {
+       $("#okGestion").hide();
+    });
+    $('#errorGestion').click(function() {
+       $("#errorGestion").hide();
+    });
 });
 
