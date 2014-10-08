@@ -10,8 +10,8 @@
 	{{--Sección primario--}}
 	@section('primario')
 		<?php $suc=Sucursal::findOrFail(Auth::user()->sucursal_id) ?>
-		<h1 align="center">Sisprocompu - {{$suc->nombre}}</h1>						
-		<h3 align='center'>Sistema de gestión de reparaciones de equipos informáticos</h3>
+		<h2 align="center">Sisprocompu - {{$suc->nombre}}</h2>
+		
 	@stop
 	{{--Sección secundario--}}
 	@section('secundario')

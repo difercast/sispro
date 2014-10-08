@@ -12,6 +12,7 @@
 	{{HTML::style('css/listas.css')}}
 	{{HTML::style('css/jqm-datebox-1.4.2.css');}}
 	{{HTML::style('css/paginacion.css')}}
+	
 	@yield('head')
 	{{HTML::style('css/sispro/jquery.mobile.icons.min.css');}}		
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
@@ -20,7 +21,7 @@
 	</style>
 </head>
 <body>
-	<div data-role="page" id="pag">
+	<div data-role="page" id="pag" data-ajax="false">
 		<div data-role="header">
 			<div class="titular">
 					<h1 class="titulo">Sistema de administración y control de servicios de mantenimiento técnico</h1>
@@ -41,13 +42,20 @@
 				@yield('todo')
 			</div>
 		</div>		
-		@yield('paneles')						
-		@yield('scripts')		
+		@yield('paneles')									
 	</div>		
 </body>
 </html>
+
 {{HTML::script('js/jquery.js');}}
+<script type="text/javascript">
+$(document).bind("mobileinit", function () {
+    $.mobile.ajaxEnabled = false;
+});
+</script>
+@yield('scripts')
 {{HTML::script('js/jquery.mobile-1.4.2.js')}}
+@yield('datebox')
 
 
 	

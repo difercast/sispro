@@ -117,7 +117,7 @@ Route::get('ordenTerminadaTecnicoPDF/{inicio}/{final}/{tecnico}',function($inici
 //Imprimir informe de órdenes de trabajo entregadas por un vendedor
 Route::get('ordenEntregadaPDF/{inicio}/{final}/{vendedor}',function($inicio,$final,$vendedor){
 	if(isset($inicio) && isset($final) && isset($vendedor)){
-		$ordenes = Orden::whereBetween('fecha_entregado',array($fechaInicio,$fechaFinal))
+		$ordenes = Orden::whereBetween('fecha_entregado',array($inicio,$final))
 		->whereRaw('entregado = ? and vendedor_id = ?', array('1',$vendedor))
 		->orderBy('id','desc')->get();			
 		$vend = User::findOrFail($vendedor);		
@@ -301,7 +301,71 @@ Route::post('procesaCliente',function()
 	return $clientes;
 });
 
+/*
+|--------------------------------------------------------------------------
+| Mensaje de error 404
+|--------------------------------------------------------------------------
+|
+| Al ingresar a una página que no se encuetra disponible se muestra una pantalla
+| con un mensaje de error 404
+|
+*/
+App::missing(function($exception)
+{
+	return Response::view('Errores.error404');
+});
+/*
+|--------------------------------------------------------------------------
+| Rellenar campos en tablas
+|--------------------------------------------------------------------------
+|
+| Al ingresar a estas rutas, se llenarán los campos de empresa, sucursal y user(Admin)
+| en la base de datos
+|
+*/
+Route::get('/seedEmpresa',function()
+{
+	$empresa = new Empresa;
+	$empresa->ruc = '1104537228';
+	$empresa->actividad = '001';
+	$empresa->razon_social = 'Walter Alvarado';
+	$empresa->razon_comercial = 'Sisprocompu';
+	$empresa->save();
 
+});
+
+Route::get('/seedSucursal',function()
+{
+	$sucursal = new Sucursal;
+	$sucursal->provincia = 'Loja';
+	$sucursal->ciudad = 'Loja';
+	$sucursal->direccion = 'Sucre 05-25 entre Colón e Imbabura';
+	$sucursal->telefono = '2585136';
+	$sucursal->celular = '';
+	$sucursal->email = 'alw0702@gmail.com';
+	$sucursal->empresa_id = '1';
+	$sucursal->estado = '1';
+	$sucursal->nombre = 'Matriz';
+	$sucursal->save();
+});
+
+Route::get('/seddUser',function()
+{
+	$user = new User;
+	$user->nombres = 'Walter Patricio';
+	$user->apellidos = 'Alavarado';
+	$user->direccion = 'Sucre 05-25 entre Colón e Imbabura';
+	$user->email = 'alw0702@gmail.com';
+	$user->telefono = '2585136';
+	$user->celular = '';
+	$user->cedula = '0702568130';
+	$user->username = 'admin';
+	$user->password = Hash::make('admin123');
+	$user->rol = 'administrador';
+	$user->sucursal_id = '1';
+	$user->save();
+
+});
 
 
 

@@ -127,10 +127,10 @@
 		<h2 align="center">Buscar cliente</h2>
 		@if($todosClientes)
 		{{Form::open()}}
-			<input id="buscarCliente" data-type="search" placeholder="Buscar equipo">
+			<input id="buscar" data-type="search" placeholder="Buscar cliente"/>
 		{{Form::close()}}
-		{{Form::open(array('id'=>'formBuscar'))}}
-			<table data-role="table" data-mode="reflow" data-filter="true" data-input="#buscarCliente" class="movie-list ui-responsive">
+		{{Form::open(array('id'=>'formBuscar'))}}		
+			<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" data-filter="true" data-input="#buscar">
 				<thead>
 					<tr>
 						<th>OK</th>
@@ -146,9 +146,9 @@
 						<td>{{$cliente->cedula}}</td>
 					</tr>
 					@endforeach
-				</tbody>
+				</tbody>				
 			</table>
-			{{Form::button('Buscar',array('id'=>'enviar'))}}
+			{{Form::button('Buscar',array('id'=>'enviar'))}}		
 		{{Form::close()}}
 		@endif
 	</div>

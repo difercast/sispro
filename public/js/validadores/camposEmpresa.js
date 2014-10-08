@@ -1,4 +1,5 @@
-$( document ).on( "pageinit", function( event ) {
+$(document).ready(function(event){
+//$( document ).on( "pageinit", function( event ) {
     console.log('exito');
      $.validator.addMethod('letters', function(val, element, param){
 		return val.match(new RegExp("." + param + "$"));
