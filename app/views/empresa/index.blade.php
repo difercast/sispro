@@ -73,6 +73,8 @@
 	{{ HTML::script('js/mensajes.js'); }}
 @stop
 
+@section('')
+
 
 
 
