@@ -363,6 +363,7 @@ Route::get('/seddUser',function()
 	$user->password = Hash::make('admin123');
 	$user->rol = 'administrador';
 	$user->sucursal_id = '1';
+	$user->estado = '1';
 	$user->save();
 
 });

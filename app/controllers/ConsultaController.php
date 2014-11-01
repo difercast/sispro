@@ -12,30 +12,16 @@ class ConsultaController extends BaseController
 	/**
 	* Genera una respuesta Json con las órdenes activar del cliente ingresado
 	* 
-	* @param
+	* @param int id
 	* @return Response
 	**/
-	public function getOrdenes($ci)
-	{
-		if($cliente = Cliente::where('cedula','=',$ci)->get()){
-			$cli = $cliente->first();
-		$ordenes = Orden::where('cliente_id','=',$cli->id)
-		->where('entregado','=','0')
-		->orderBy('id','desc')->get();
-		return Response::json($ordenes);	
-		}
-		//$cliente = Cliente::where('cedula','=',$ci)->get();
-		
-	}
-
-
 	public function getConsulta()
 	{
-		#$cedula = Request::get('ci');
-		$cedula = '1104537228';
+		$cedula = Request::get('ci');		
 		$error = true;
 		$numOrdenes = array();
 		$user = new User;
+		$cliente;
 		if($user->validarCI($cedula)){			
 			$clientes = Cliente::where('cedula','=',$cedula)->get();
 			if(!is_null($clientes)){
@@ -47,10 +33,14 @@ class ConsultaController extends BaseController
 				foreach ($ordenes as $orden) {
 					array_push($numOrdenes, $orden->id);
 				}				
-			}			
-		}		
-		return Response::json(array('ordenes'=>$numOrdenes,'error'=>$error));
-		#return Response::json(array('error'=>'true'));
+			}else{
+				return Response::json(array('errores'=>$error),200)->setCallback( Input::get('callback') );	
+			}
+		return Response::json(array('cliente'=>$cliente->toArray(),'ordenes'=>$numOrdenes,'errores'=>$error),200)->setCallback( Input::get('callback') );	
+		}else{
+			return Response::json(array('errores'=>$error),200)->setCallback( Input::get('callback') );
+		}
+			
 	}
 
 	/**
@@ -60,9 +50,46 @@ class ConsultaController extends BaseController
 	* @return Response
 	**/
 	public function getOrden()
-	{
-		$ordenTrabajo = Orden::all();
-		return Response::json($ordenTrabajo);
+	{	
+		$numOrden = Request::get('orden');
+		$error = true;
+		$estado;
+		$detalle;
+		$informe;
+		$presupuesto;
+		$valor;
+		$ordenTrabajo = Orden::find($numOrden);
+		$cliente = Cliente::find($ordenTrabajo->cliente_id);
+		$equipo = Equipo::find($ordenTrabajo->equipo_id);
+		$suc = Sucursal::find($ordenTrabajo->Sucursal_id);
+		if(!is_null($ordenTrabajo)){
+			$error = false;
+			if($ordenTrabajo->estado == '0'){
+				$estado = 'Sin revisar';
+				$detalle = ' Equipo aún no revisado';
+				$informe = 'Equipo no reparado, hasta el momento';
+			}elseif($ordenTrabajo->estado == '1'){
+				$estado = 'En reparación';
+				$detalle = $ordenTrabajo->detalle;
+				$informe = $ordenTrabajo->informe;
+			}elseif ($ordenTrabajo->estado == '2') {
+				$estado = 'reparación terminada';
+				$detalle = $ordenTrabajo->detalle;
+				$informe = $ordenTrabajo->informe;
+			}
+			if($ordenTrabajo->presupuestado == '0'){
+				$presupuesto = 'Sin presupuestar';
+				$valor = '$0.00';
+			}else{
+				$presupuesto = 'Orden de trabajo presupuestada';
+				$valor = '$'.$ordenTrabajo->total;
+			}
+			return Response::json(array('errores'=>$error,'orden'=>$ordenTrabajo->toArray(),'cliente'=>$cliente->toArray(),
+				'equipo'=>$equipo->toArray(),'sucursal'=>$suc->toArray(),'estado'=>$estado,
+			'detalle'=>$detalle,'informe'=>$informe, 'presupuesto'=>$presupuesto,'valor'=>$valor),200)->setCallback(Input::get('callback'));
+		}else{
+			return Response::json(array('errores'=>$error),200)->setCallback(Input::get('callback'));
+		}
 
 	}
 }

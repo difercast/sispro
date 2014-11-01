@@ -24,8 +24,11 @@
 		"symfony/css-selector": "2.4.2",
 		"symfony/process": "2.4.2",
 		"symfony/routing": "2.4.2",
-		"symfony/traslation": "2.4.2",
-		"symfony/security-core": "2.4.2"
+		
+		"symfony/security-core": "2.4.2",
+		"laravel/framework":"4.1.*",
+		"thujohn/pdf": "dev-master",
+		"codeception/codeception": "2.0.*"
 	},
 	"autoload": {
 		"classmap": [
