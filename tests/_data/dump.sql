@@ -269,3 +269,11 @@ INSERT INTO `users`(`id`, `nombres`, `apellidos`, `direccion`, `email`, `telefon
  `cedula`, `username`, `password`, `rol`, `created_at`, `updated_at`, `estado`, `sucursal_id`, `remember_token`) 
 VALUES ('1','Walter','Alvarado','Balcón','df@hotmail.com','','0979365042','1104537228','admin',
   '$2y$10$f0wo8Vz56fKN3CjUYn7C.eRO9F/L7hVj3ZxrPSKpimOc88RdSxsqW','administrador','','','1','1','');
+
+INSERT INTO `sucursales`(`id`, `provincia`, `ciudad`, `direccion`, `telefono`, `celular`, `email`, `created_at`, `updated_at`, `empresa_id`, `estado`, `nombre`) 
+VALUES ('2','Loja','Loja','Balcón Lojano','585136','0979365042','difercast@hotmail.com','','','1','0','Sucursal 1');
+
+INSERT INTO `users`(`id`, `nombres`, `apellidos`, `direccion`, `email`, `telefono`, `celular`,
+ `cedula`, `username`, `password`, `rol`, `created_at`, `updated_at`, `estado`, `sucursal_id`, `remember_token`) 
+VALUES ('2','diego','Castillo','Balcón','df@hotmail.com','','0979365042','1104537228','difercast',
+  '1104537228','tecnico','','','1','1','');

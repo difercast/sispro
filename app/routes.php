@@ -250,18 +250,48 @@ Route::group(array('prefix'=>'informe'),function()
 |--------------------------------------------------------------------------
 |
 | Consulta de estado de servicios de mantenimiento técnico 
-| por parte de los clientes
+| por parte de los clientes dentro del sistema
 |
 */
 //Lista de órdenes de trábajo por cliente
 Route::get('listaOrdenes',function(){
-	$cedula = Input::get('cedula');
+	/*
+	$cedula = Input::get('cedula');	
 	$clientes = Cliente::where('cedula','=',$cedula)->get();
-	$cliente = $clientes[0];
-	$ordenes = Orden::where('cliente_id','=',$cliente->id)
-	->where('entregado','=','0')
-	->orderBy('id','desc')->get();		
-	return View::make('consulta.lista')->with(array('ordenes'=>$ordenes,'cliente'=>$cliente));
+	$cliente = $cliente = $clientes;;
+	if(count($clientes) > 0){		
+		#$cliente = array_shift($clientes);
+		if(is_null($cliente)){
+			return View::make('consulta.lista')->with(array('estado'=>'error','cliente'=>$cliente,'ordenes'=>''));
+		}else{
+			$ordenes = Orden::where('cliente_id','=',$cliente->id)
+			->where('entregado','=','0')
+			->orderBy('id','desc')->get();
+			if(count($ordenes) > 0){
+				return View::make('consulta.lista')->with(array('ordenes'=>$ordenes,'cliente'=>$cliente, 'estado'=>'ok'));	
+			}else{
+				return View::make('consulta.lista')->with(array('estado'=>'error','cliente'=>$cliente,'ordenes'=>$ordenes));
+			}
+		}
+	}else{
+		return View::make('consulta.lista')->with(array('estado'=>'error','cliente'=>$cliente,'ordenes'=>''));*/
+	$cedula = Input::get('cedula');
+	$cliente = Cliente::where('cedula','=',$cedula)->first();
+	if(!is_null($cliente)){
+		$ordenes = Orden::where('cliente_id','=',$cliente->id)
+		->where('entregado','=','0')
+		->orderBy('id','desc')->get();
+		if(!is_null($ordenes)){
+			return View::make('consulta.lista')->with(array('ordenes'=>$ordenes,'cliente'=>$cliente, 'estado'=>'ok'));	
+		}else{
+			return View::make('consulta.lista')->with(array('estado'=>'error','cliente'=>$cliente,'ordenes'=>$ordenes));
+		}
+	}else{
+		return View::make('consulta.lista')->with(array('estado'=>'error','cliente'=>$cliente,'ordenes'=>''));
+	}
+	
+	
+	
 });
 //Detalle de la órden de trabajo seleccionada
 Route::get('consultaOrden/{orden}',function($orden){

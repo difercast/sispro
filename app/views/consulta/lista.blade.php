@@ -13,7 +13,7 @@
 @stop
 {{--Sección principal--}}
 @section('primario')
-	@if($ordenes)		
+	@if($ordenes && $estado == 'ok')		
 		<p>La siguiente lista presenta las órdenes de trabajo activas...</p>
 		<ul data-role="listview" class="ui-listview-outer" data-inset="true">
 			<li data-role="list-divider">Lista de órdenes de trabajo activas</li>
@@ -22,16 +22,18 @@
 			@endforeach			
 		</ul>
 	@else
-		<p>No existan órdenes de trabajo activas</p>
+		<p>No existan órdenes de trabajo activas para el cliente seleccionado. O el cliente ingresado no existe</p>
 	@endif
 @stop
 {{--Sección secundario--}}
 @section('secundario')
-	<h2>Cliente:</h2>
-	<p><strong>Nombres: </strong> {{$cliente->nombres}}</p>
-	<p><strong>Dirección: </strong> {{$cliente->direccion}}</p>
-	<p><strong>Cédula: </strong>{{$cliente->cedula}}</p>
-	<p><strong>Teléfono: </strong>{{$cliente->telefono}}</p>	
+	@if($ordenes && $estado == 'ok')		
+		<h2>Cliente:</h2>
+		<p><strong>Nombres: </strong> {{$cliente->nombres}}</p>
+		<p><strong>Dirección: </strong> {{$cliente->direccion}}</p>
+		<p><strong>Cédula: </strong>{{$cliente->cedula}}</p>
+		<p><strong>Teléfono: </strong>{{$cliente->telefono}}</p>		
+	@endif	
 @stop
 @section('scripts')
 <!-- scripts -->

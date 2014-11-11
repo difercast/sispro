@@ -160,5 +160,5 @@
 	{{HTML::script('js/validadores/jquery-validation-1.12.0/dist/jquery.validate.js');}}
 	{{HTML::script('js/validadores/camposSucursal.js');}}
 @stop
-
+@section('')
 
