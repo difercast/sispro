@@ -8,13 +8,13 @@
 
 class SucursalController extends BaseController
 {
+	public $restful = true;
 	//Constructor
 	public function __construct()
 	{
 		$this -> beforeFilter('auth');
 		$this -> beforeFilter('autenticacion');
-	}
-	public $restful = true;
+	}	
 
 	/**
 	* Mostrar la vista de sucursales
@@ -30,7 +30,7 @@ class SucursalController extends BaseController
 	}
 
 	/**
-	* Muestra el formulario de ingreso de datos de la sucursal
+	* Muestra el formulario de ingreso de datos de una nueva sucursal
 	* 
 	* @param
 	* @return Response
@@ -41,7 +41,7 @@ class SucursalController extends BaseController
 	}
 
 	/**
-	* Determina el número de sucursales ingresados
+	* Determina el número de sucursales ingresadas al sistema
 	* @param 
 	* @return int
 	**/
@@ -53,7 +53,7 @@ class SucursalController extends BaseController
 	}
 
 	/**
-	* Función para ingresar los datos de la sucursal a la base de datos
+	* Ingresar los datos de la sucursal a la base de datos
 	* 
 	* @param 
 	* @return Response
@@ -173,7 +173,7 @@ class SucursalController extends BaseController
 	}
 	
 	/**
-	* Enviar datos de la sucursal
+	* Enviar datos de la sucursal a una vista
 	* 
 	* @param int id 
 	* @return Response

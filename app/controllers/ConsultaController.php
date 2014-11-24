@@ -12,7 +12,7 @@ class ConsultaController extends BaseController
 	/**
 	* Genera una respuesta Json con las órdenes activar del cliente ingresado
 	* 
-	* @param int id
+	* @param 
 	* @return Response
 	**/
 	public function getConsulta()
@@ -39,12 +39,11 @@ class ConsultaController extends BaseController
 		return Response::json(array('cliente'=>$cliente->toArray(),'ordenes'=>$numOrdenes,'errores'=>$error),200)->setCallback( Input::get('callback') );	
 		}else{
 			return Response::json(array('errores'=>$error),200)->setCallback( Input::get('callback') );
-		}
-			
+		}		
 	}
 
 	/**
-	* genera una respuesta Json con el detalle de la orden de trabajo seleccionada
+	* Genera una respuesta Json con el detalle de la orden de trabajo seleccionada
 	* 
 	* @param
 	* @return Response
@@ -90,6 +89,5 @@ class ConsultaController extends BaseController
 		}else{
 			return Response::json(array('errores'=>$error),200)->setCallback(Input::get('callback'));
 		}
-
 	}
 }

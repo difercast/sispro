@@ -99,7 +99,7 @@ class UserController extends BaseController
 	/**
 	* Muestra formulario con los datos del usuario a editar
 	* 
-	* @param int id del usuario
+	* @param int $id
 	* @return Response
 	**/
 	public function getModificar($id)

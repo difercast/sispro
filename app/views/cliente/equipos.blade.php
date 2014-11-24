@@ -16,7 +16,7 @@
 	@if($cliente && $equipos)
 		<h2>Equipos de: {{$cliente->nombres}}</h2>
 		{{Form::open()}}
-			<input id="filterTable-input" data-type="search" placeholder="Buscar cliente"/>
+			<input id="filterTable-input" data-type="search" placeholder="Buscar equipo"/>
 		{{Form::close()}}
 		<table data-role="table" data-mode="reflow" class="movie-list ui-responsive" data-filter="true" data-input="#filterTable-input">
 			<thead>

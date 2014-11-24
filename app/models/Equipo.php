@@ -17,7 +17,8 @@ class Equipo extends Eloquent {
 	* @param
 	* @return Response
 	**/
-	public function ordenes(){
+	public function ordenes()
+	{
 		return $this->hasMany('Orden');
 	}
 

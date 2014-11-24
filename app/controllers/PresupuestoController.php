@@ -81,7 +81,7 @@ class PresupuestoController extends BaseController
 	/**
 	* Modifica los datos de un presupuesto específico
 	* 
-	* @param int id
+	* @param 
 	* @return Response
 	**/
 	public function postEditar()

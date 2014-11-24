@@ -10,6 +10,7 @@
 define ("IVA" , 1.12);	
 class OrdenController extends BaseController
 {
+	public $restful = true;
 
 	//Contructor de la clase
 	public function __construct()
@@ -82,6 +83,7 @@ class OrdenController extends BaseController
 	 **/
 	public function getMostrar()
 	{
+		/*
 		if(Input::get('tipo') == 'gestion'){
 			$pres = Presupuesto::all();
 			$numOrden = Input::get('orden');
@@ -131,9 +133,48 @@ class OrdenController extends BaseController
 				}
 			}
 			
+		}*/
+		$rules = array(
+			'NumOrden'=> array('required','numeric'));
+		$validador = Validator::make(Input::all(),$rules);
+		if($validador->passes()){
+			$pres = Presupuesto::all();
+			$numOrden = Input::get('NumOrden');
+			$totalOrdenes = Orden::all();
+			if($numOrden <= count($totalOrdenes)){
+				$orden = Orden::findOrFail($numOrden);
+				$cliente = Cliente::find($orden->cliente_id);
+				$equipo = Equipo::find($orden->equipo_id);
+				$user = User::find($orden->user_id);
+				$user = $user->nombres;
+				$tecnico = User::find($orden->tecnico);
+				$suc = Sucursal::findOrFail($orden->Sucursal_id);
+				$sucursal = $suc->nombre;			
+				return View::make('orden.detalleOrden')->with(array('orden'=>$orden,'user'=>$user,'cliente'=>$cliente,'equipo'=>$equipo,
+				 'presupuesto'=>$pres,'sucursal'=>$sucursal));
+			}else{
+				if(Auth::user()->rol == 'tecnico'){
+					return Redirect::to('tecnico')->with('status','errorBuscar');
+				}elseif(Auth::user()->rol == 'vendedor'){
+					return Redirect::to('vendedor')->with('status','errorBuscar');
+				}
+			}			
+		}else{
+			if(Auth::user()->rol == 'tecnico'){
+				return Redirect::to('tecnico')->with('status','errorBuscar');
+			}elseif(Auth::user()->rol == 'vendedor'){
+				return Redirect::to('vendedor')->with('status','errorBuscar');
+			}
 		}
 	}
 
+	/**
+	*Gestión de una orden de trabajo
+	*
+	*@param
+	*@return Response
+	*
+	**/
 	public function postGestion()
 	{
 		$pres = Presupuesto::all();
@@ -315,7 +356,6 @@ class OrdenController extends BaseController
     **/
     public static function procesaCliente($estado,$nombres,$cedula,$direccion,$telefono,$celular,$email,$observaciones)
     {
-    
 	    if($estado == '0'){
 	      $cliente = new Cliente;
 	      $cliente -> nombres = $nombres;
@@ -341,7 +381,7 @@ class OrdenController extends BaseController
     }
 
   /** 
-   * Ingresar o modificar equipoingresado con una orden de trabajo
+   * Ingresar o modificar equipo ingresado con una orden de trabajo
    *  @param 
    *  @return Response
    **/
@@ -370,7 +410,7 @@ class OrdenController extends BaseController
   /** 
    * Verificar si un equipo ya está ingresado en la empresa a reparación
    * y no lo han retirado 
-   * @param int serie
+   * @param string serie
    *  @return boolean
    **/
    public static function verificarEquipo($serie)

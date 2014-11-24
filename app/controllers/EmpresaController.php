@@ -19,7 +19,7 @@ class EmpresaController extends BaseController
 	}
 	
 	/**
-	* Mostrar una lista de empresas
+	* Mostrar una lista de empresas en la vista Empresa
 	* 
 	* @param
 	* @return Response
@@ -43,7 +43,7 @@ class EmpresaController extends BaseController
 	}
 	
 	/**
-	*Modificar la información de la empresa
+	*Edita la información de la empresa
 	* 
 	* @param
 	* @return Response

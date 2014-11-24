@@ -95,10 +95,10 @@ Route::filter('roles',funtion($ruta,$peticion,$roles,$redirect)
 
 /*
 |--------------------------------------------------------------------------
-| Filtro de protección de ingreso
+| Filtro de autentificación
 |--------------------------------------------------------------------------
 |
-| El filtro de verificación de ingreso, realiza la validación de que un usuario pueda 
+| Los filtros de autenticación, realiza la validación de que un usuario pueda 
 | ingresar a una página si está autorizado, si tiene los privilegios 
 | requeridos y si es un usuario activo.
 */
@@ -108,9 +108,7 @@ Route::filter('autenticacion', function()
 	$idSuc = Auth::user()->sucursal_id;
     $sucursal = Sucursal::find($idSuc);
     $estadoSuc = $sucursal->estado;
-
-	if(Auth::user()->rol != 'administrador' || Auth::user()->estado != '1' || $estadoSuc != '1')
-	{
+	if(Auth::user()->rol != 'administrador' || Auth::user()->estado != '1' || $estadoSuc != '1'){
 		return Redirect::guest('/');
 	}
 });
@@ -120,9 +118,7 @@ Route::filter('authTecnico', function()
 	$idSuc = Auth::user()->sucursal_id;
     $sucursal = Sucursal::find($idSuc);
     $estadoSuc = $sucursal->estado;
-
-	if(Auth::user()->rol != 'tecnico' || Auth::user()->estado != '1' || $estadoSuc != '1')
-	{
+	if(Auth::user()->rol != 'tecnico' || Auth::user()->estado != '1' || $estadoSuc != '1'){
 		return Redirect::guest('/');
 	}
 });
@@ -132,9 +128,7 @@ Route::filter('authVendedor', function()
 	$idSuc = Auth::user()->sucursal_id;
     $sucursal = Sucursal::find($idSuc);
     $estadoSuc = $sucursal->estado;
-
-	if(Auth::user()->rol != 'vendedor' || Auth::user()->estado != '1' || $estadoSuc != '1')
-	{
+	if(Auth::user()->rol != 'vendedor' || Auth::user()->estado != '1' || $estadoSuc != '1'){
 		return Redirect::guest('/');
 	}
 });
@@ -144,9 +138,7 @@ Route::filter('authAny', function()
 	$idSuc = Auth::user()->sucursal_id;
     $sucursal = Sucursal::find($idSuc);
     $estadoSuc = $sucursal->estado;
-
-	if(Auth::user()->estado != '1' || $estadoSuc != '1')
-	{
+	if(Auth::user()->estado != '1' || $estadoSuc != '1'){
 		return Redirect::guest('/');
 	}
 });

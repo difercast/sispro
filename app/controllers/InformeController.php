@@ -147,7 +147,7 @@ class InformeController extends BaseController
 
 	/** 
 	* Informe de órdenes de trabajo terminadas por un técnico
-	* y estregadas al usuario
+	* y entregadas al usuario
 	*
 	* @param
 	* @return Response
@@ -215,7 +215,7 @@ class InformeController extends BaseController
 	}
 
 	/** 
-	* validar que el rango de fechas sea correcto
+	* Validar que el rango de fechas sea correcto
 	*
 	* @param date $inicio, date $final
 	* @return Response

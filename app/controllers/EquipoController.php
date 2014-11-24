@@ -19,7 +19,7 @@ class EquipoController extends BaseController
 	}
 
 	/**
-	* Mostrar la vista equipos
+	* Muestra los datos de los equipos en la vista equipos
 	* 
 	* @param
 	* @return Response
@@ -31,7 +31,7 @@ class EquipoController extends BaseController
 	}
 
 	/**
-	* Presenta el formulario de edición de datos del equipo
+	* Presenta el formulario de edición de datos del equipo seleccionado
 	* 
 	* @param int $id
 	* @return Response
@@ -43,7 +43,7 @@ class EquipoController extends BaseController
 	}
 
 	/**
-	* Modifica los datos del equipo
+	* Modifica los datos del equipo seleccionado
 	* 
 	* @param 
 	* @return Response

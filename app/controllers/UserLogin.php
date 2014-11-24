@@ -21,36 +21,21 @@ class UserLogin extends BaseController
             'username' => Input::get('username'),
             'password' => Input::get('password')
         );
-       
-        // Validamos los datos del usuario.
-        if(Auth::attempt($userdata))
-        {
+        if(Auth::attempt($userdata)){
             $idSuc = Auth::user()->sucursal_id;
             $sucursal = Sucursal::find($idSuc);
             $estadoSuc = $sucursal->estado;
-
-        	if(Auth::user()->rol == "administrador" && Auth::user()->estado == "1" && $estadoSuc == '1')
-        	{
-        		return Redirect::route('administrador');
-              	           
-        	}
-           	elseif (Auth::user()->rol == "tecnico" && Auth::user()->estado == "1" && $estadoSuc == '1') 
-            {
+        	if(Auth::user()->rol == "administrador" && Auth::user()->estado == "1" && $estadoSuc == '1'){
+        		return Redirect::route('administrador');              	           
+        	}elseif (Auth::user()->rol == "tecnico" && Auth::user()->estado == "1" && $estadoSuc == '1'){
                $clientes = Cliente::all();
                return Redirect::route('tecnico');
-            }
-            elseif (Auth::user()->rol == "vendedor" && Auth::user()->estado == "1" && $estadoSuc == '1') 
-            {
+            }elseif (Auth::user()->rol == "vendedor" && Auth::user()->estado == "1" && $estadoSuc == '1') {
                return Redirect::route('vendedor');
-            }
-            else
-            {
+            }else{
                 return  Redirect::route('index')->with('error',true);    
             }           
-        }
-        else
-        {
-        	// En caso de que la autenticación haya fallado manda un mensaje al formulario de login y también regresamos los valores enviados con withInput().
+        }else{        	
         	return  Redirect::route('index')->with('login_errors',true);
         }    
 	}

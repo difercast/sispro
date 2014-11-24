@@ -61,7 +61,7 @@
 	<br/><br><br><br><br>
 	<p><strong>NOTA:</strong><br/> 
 		La moneda por defectos es el dólar de Estados Unidos y el valor del IVA está fijado en 12%.<br/>
-		Los valores no incluyes el valor del IVA <br/>
+		Los valores de los presupuestos no incluyen IVA <br/>
 		Los valores descritos no cubren materiales, sólo mano de obra</p>
 	@else
 		<p>No hay registros que mostrar</p>

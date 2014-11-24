@@ -21,7 +21,7 @@ Route::get('/',array('as'=>'index', function()
 | inicio y cierre de sesión
 |--------------------------------------------------------------------------
 |
-| Rutas de inicio y cierre de sesión deusuarios y clientes para ingresar
+| Rutas de inicio y cierre de sesión deusuarios y clientes para el ingreso
 | al sistema
 |
 */
@@ -169,23 +169,28 @@ Route::get('ordenEntregadaSucPDF/{inicio}/{final}/{sucursal}',function($inicio,$
 
 /*
 |--------------------------------------------------------------------------
-| Index de usuarios
+| Ingreso al panel de administración de usuarios
 |--------------------------------------------------------------------------
 |
 | Rutas de las pantallas de inicio de los usuarios
 | según su rol en el sistema
 |
 */
+//Administrador
 Route::get('admin', array('before' => 'auth','as'=>'administrador', function()
 {
 	return View::make('Admin.admin');
 }));
+
+//Técnico
 Route::get('tecnico', array('before' => 'auth','as'=>'tecnico', function()
 {
 	$cliente = Cliente::all();
 	$select = array(0 => 'Seleccione...')+$cliente->lists('nombres','id');
 	return View::make('Admin.tecnico')->with('cliente',$cliente);
 }));
+
+//Vendedor
 Route::get('vendedor', array('before' => 'auth','as'=>'vendedor', function()
 {
 	$cliente = Cliente::all();
@@ -195,7 +200,7 @@ Route::get('vendedor', array('before' => 'auth','as'=>'vendedor', function()
 
 /*
 |--------------------------------------------------------------------------
-| Rutas con controladores RestFull
+| Rutas para controladores RestFull
 |--------------------------------------------------------------------------
 |
 | Rutas con controladores Resfull con las principales funciones
@@ -213,7 +218,7 @@ Route::controller('consultaApp','ConsultaController');
 
 /*
 |--------------------------------------------------------------------------
-| Rutas para informes
+| Rutas para selección de informes estadísticos
 |--------------------------------------------------------------------------
 |
 | Rutas para gestión de los informes a los cuales el administrador 
@@ -246,7 +251,7 @@ Route::group(array('prefix'=>'informe'),function()
 
 /*
 |--------------------------------------------------------------------------
-| Consulta de estado de órden de trabajo
+| Consulta de estado de una órden de trabajo
 |--------------------------------------------------------------------------
 |
 | Consulta de estado de servicios de mantenimiento técnico 
@@ -255,26 +260,6 @@ Route::group(array('prefix'=>'informe'),function()
 */
 //Lista de órdenes de trábajo por cliente
 Route::get('listaOrdenes',function(){
-	/*
-	$cedula = Input::get('cedula');	
-	$clientes = Cliente::where('cedula','=',$cedula)->get();
-	$cliente = $cliente = $clientes;;
-	if(count($clientes) > 0){		
-		#$cliente = array_shift($clientes);
-		if(is_null($cliente)){
-			return View::make('consulta.lista')->with(array('estado'=>'error','cliente'=>$cliente,'ordenes'=>''));
-		}else{
-			$ordenes = Orden::where('cliente_id','=',$cliente->id)
-			->where('entregado','=','0')
-			->orderBy('id','desc')->get();
-			if(count($ordenes) > 0){
-				return View::make('consulta.lista')->with(array('ordenes'=>$ordenes,'cliente'=>$cliente, 'estado'=>'ok'));	
-			}else{
-				return View::make('consulta.lista')->with(array('estado'=>'error','cliente'=>$cliente,'ordenes'=>$ordenes));
-			}
-		}
-	}else{
-		return View::make('consulta.lista')->with(array('estado'=>'error','cliente'=>$cliente,'ordenes'=>''));*/
 	$cedula = Input::get('cedula');
 	$cliente = Cliente::where('cedula','=',$cedula)->first();
 	if(!is_null($cliente)){
@@ -289,10 +274,8 @@ Route::get('listaOrdenes',function(){
 	}else{
 		return View::make('consulta.lista')->with(array('estado'=>'error','cliente'=>$cliente,'ordenes'=>''));
 	}
-	
-	
-	
 });
+
 //Detalle de la órden de trabajo seleccionada
 Route::get('consultaOrden/{orden}',function($orden){
 	if(isset($orden)){
